@@ -38,7 +38,7 @@ class Xero::DonationsService < Xero::BaseService
     attributes[:designation_account_id] = designation_account_codes[line_item.account_code]
     attributes[:created_at] = bank_transaction.date
     attributes[:donor_account_id] = bank_transaction.contact.id
-    attributes[:currency] = bank_transaction.currency
+    attributes[:currency] = bank_transaction.currency_code
     attributes[:amount] = line_item.line_amount
     attributes
   rescue Xeroizer::OAuth::RateLimitExceeded
