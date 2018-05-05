@@ -1,0 +1,37 @@
+[APPLICATION]
+MinimumVersion=3.1.0
+RecommendedVersion=3.2.5
+
+[ORGANIZATION]
+RedirectQueryIni=
+Code=AKLEV-NZ
+Name=Auckland Evangelical Church
+Abbreviation=Auckland Ev
+AccountHelpUrl=mailto:contact@aucklandev.co.nz
+RequestProfileUrl=mailto:contact@aucklandev.co.nz
+OrgHelpUrl=mailto:contact@aucklandev.co.nz
+OrgHelpUrlDescription=Click here to report this issue!
+MinimumWebGiftDate=1/1/2014
+MinPidLength=
+DefaultCurrencyCode=NZD
+GLAccountCategoriesToConsolidate=
+
+[PROFILES]
+Url=<%= api_v1_designation_profiles_url %>
+Post=user_email=$ACCOUNT$&user_token=$PASSWORD$
+
+[DESIGNATIONS]
+Url=<%= api_v1_designation_accounts_url %>
+Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$
+
+[DONATIONS]
+Url=<%= api_v1_donations_url %>
+Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&date_from=$DATEFROM$&date_to=$DATETO$
+
+[ADDRESSES]
+Url=<%= api_v1_donor_accounts_url %>
+Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&date_from=$DATEFROM$
+
+[ADDRESSES_BY_PERSONIDS]
+Url=<%= api_v1_donor_accounts_url %>
+Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&donor_account_ids=$PERSONIDS$

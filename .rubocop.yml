@@ -1,0 +1,25 @@
+AllCops:
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+  Exclude:
+    - 'bin/*'
+    - 'db/seeds.rb'
+    - 'db/schema.rb'
+    - 'vendor/bundle/**/*'
+    - 'Guardfile'
+Rails:
+  Enabled: true
+Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 120
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - config/environments/**/*
+    - config/routes.rb
+Metrics/MethodLength:
+  Enabled: true
+  Exclude:
+    - db/migrate/**/*
