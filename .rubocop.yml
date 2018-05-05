@@ -12,6 +12,8 @@ Rails:
   Enabled: true
 Documentation:
   Enabled: false
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
 Metrics/LineLength:
   Max: 120
 Metrics/BlockLength:

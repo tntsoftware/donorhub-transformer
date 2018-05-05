@@ -7,14 +7,14 @@ CSV.generate do |csv|
     csv << [donation.donor_account_id,
             donation.donor_account.name,
             donation.created_at.strftime('%m/%d/%Y'),
-            donation.line_amount,
+            donation.amount,
             donation.id,
             donation.designation_account_id,
             '',
             '',
             '',
-            '',
-            '',
+            donation.amount,
+            donation.currency,
             '']
   end
 end

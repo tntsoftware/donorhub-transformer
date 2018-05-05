@@ -1,6 +1,6 @@
 ActiveAdmin.register DesignationAccount do
   actions :index, :show, :edit, :update
-  permit_params :sync_donations
+  permit_params :active
 
   scope :active, default: true
   scope :inactive
@@ -10,18 +10,18 @@ ActiveAdmin.register DesignationAccount do
     selectable_column
     id_column
     column :name
-    column :sync_donations
+    column :active
     column :created_at
     actions
   end
 
   filter :name
-  filter :sync_donations
+  filter :active
   filter :created_at
 
   form do |f|
     f.inputs 'Designation Account Details' do
-      f.input :sync_donations
+      f.input :active
     end
     f.actions
   end
