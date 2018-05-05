@@ -34,7 +34,7 @@ class Xero::DonationsService < Xero::BaseService
   end
 
   def donation_attributes(line_item, bank_transaction, attributes = {})
-    attributes[:id] = line_item.id
+    attributes[:id] = line_item.line_item_id
     attributes[:designation_account_id] = designation_account_codes[line_item.account_code]
     attributes[:created_at] = bank_transaction.date
     attributes[:donor_account_id] = bank_transaction.contact.id
