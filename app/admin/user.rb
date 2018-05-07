@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
   actions :all, except: %i[new create]
-  permit_params :name, :email, :role
+  permit_params :name, :email, :admin
 
   index do
     selectable_column
@@ -9,7 +9,7 @@ ActiveAdmin.register User do
     column :email
     column :current_sign_in_at
     column :sign_in_count
-    column :role
+    column :admin
     column :created_at
     actions
   end
@@ -23,7 +23,7 @@ ActiveAdmin.register User do
     f.inputs 'User Details' do
       f.input :name
       f.input :email
-      f.input :role
+      f.input :admin
     end
     f.actions
   end

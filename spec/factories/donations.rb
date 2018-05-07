@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :donation do
     designation_account nil
     description 'MyString'

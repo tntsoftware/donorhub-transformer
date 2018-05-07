@@ -35,4 +35,10 @@ class Api::V1Controller < ApiController
   def current_designation_profile_or_member
     current_designation_profile || current_member
   end
+
+  def current_member
+    Member.find_by!(email: params[:user_email], access_token: params[:user_token])
+  rescue ActiveRecord::NotFound
+    render plain: 'authentication error', status: :unauthorized
+  end
 end

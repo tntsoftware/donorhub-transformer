@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :donor_account do
     name 'MyString'
     is_supplier false

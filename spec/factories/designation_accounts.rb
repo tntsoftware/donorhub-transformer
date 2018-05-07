@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :designation_account do
     account_id 'MyString'
     code 'MyString'
