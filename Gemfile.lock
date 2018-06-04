@@ -147,7 +147,6 @@ GEM
     has_scope (0.7.1)
       actionpack (>= 4.1, < 5.2)
       activesupport (>= 4.1, < 5.2)
-    hub (1.12.4)
     i18n (0.8.6)
     inherited_resources (1.7.2)
       actionpack (>= 3.2, < 5.2.x)
@@ -367,7 +366,6 @@ DEPENDENCIES
   guard-bundler
   guard-rails
   guard-rspec
-  hub
   jquery-rails
   launchy
   pg
