@@ -33,7 +33,6 @@ end
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'binding_of_caller'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
