@@ -15,6 +15,8 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'versionist'
 gem 'xeroizer'
+gem 'pundit', "~> 1.1.0"
+
 group :development do
   gem 'better_errors'
   gem 'foreman'
@@ -28,6 +30,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem "annotate"
 end
+
 group :development, :test do
   gem 'awesome_print'
   gem 'binding_of_caller'
@@ -40,7 +43,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop'
 end
+
 group :test do
+  gem 'capybara', '~> 3.2.0'
   gem 'database_cleaner'
   gem 'launchy'
 end
