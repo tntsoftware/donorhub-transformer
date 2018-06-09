@@ -15,7 +15,7 @@ ActiveAdmin.register DesignationProfile do
   filter :created_at
 
   form do |f|
-    f.inputs 'Designation Account Details' do
+    f.inputs "Designation Account Details" do
       f.input :designation_account, collection: DesignationAccount.active
       f.input :member
     end

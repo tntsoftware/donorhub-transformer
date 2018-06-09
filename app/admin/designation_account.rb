@@ -20,7 +20,7 @@ ActiveAdmin.register DesignationAccount do
   filter :created_at
 
   form do |f|
-    f.inputs 'Designation Account Details' do
+    f.inputs "Designation Account Details" do
       f.input :active
     end
     f.actions

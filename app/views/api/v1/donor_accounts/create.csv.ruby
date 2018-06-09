@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 CSV.generate do |csv|
   headers = %w[PEOPLE_ID ACCT_NAME]
   csv << headers

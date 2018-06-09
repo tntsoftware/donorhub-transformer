@@ -15,7 +15,7 @@
 #  index_members_on_email_and_access_token  (email,access_token) UNIQUE
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Member, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"

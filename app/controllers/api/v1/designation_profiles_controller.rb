@@ -6,7 +6,6 @@ require_dependency "api/v1_controller"
 module Api
   module V1
     class DesignationProfilesController < V1Controller
-
       def create
         load_designation_profiles
       end
@@ -14,7 +13,7 @@ module Api
       protected
 
       def load_designation_profiles
-        @designation_profiles ||= designation_profile_scope.all
+        @designation_profiles = designation_profile_scope.all
       end
 
       def designation_profile_scope

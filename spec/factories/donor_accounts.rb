@@ -11,7 +11,7 @@
 
 FactoryBot.define do
   factory :donor_account do
-    name 'MyString'
+    name "MyString"
     is_supplier false
     is_customer false
   end

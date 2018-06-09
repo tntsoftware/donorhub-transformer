@@ -13,7 +13,7 @@ module Api
       protected
 
       def load_donations
-        @donations ||= donation_scope.by_date_range(params[:date_from], params[:date_to])
+        @donations = donation_scope.by_date_range(params[:date_from], params[:date_to])
       end
 
       def donation_scope

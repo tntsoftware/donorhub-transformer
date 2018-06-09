@@ -13,7 +13,7 @@ module Api
       protected
 
       def load_designation_accounts
-        @designation_accounts ||= designation_account_scope.all
+        @designation_accounts = designation_account_scope.all
       end
 
       def designation_account_scope

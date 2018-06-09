@@ -22,7 +22,7 @@
 #  fk_rails_...  (donor_account_id => donor_accounts.id) ON DELETE => cascade
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Donation, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
