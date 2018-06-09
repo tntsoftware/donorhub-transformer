@@ -29,6 +29,7 @@ group :development do
   gem 'rb-inotify', require: false
   gem 'spring-commands-rspec'
   gem "annotate"
+  gem "rubocop", "~> 0.57.1"
 end
 
 group :development, :test do
@@ -40,7 +41,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'rspec-rails'
-  gem 'rubocop'
 end
 
 group :test do
