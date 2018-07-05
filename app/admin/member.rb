@@ -15,7 +15,7 @@ ActiveAdmin.register Member do
   filter :created_at
 
   form do |f|
-    f.inputs 'Member Details' do
+    f.inputs "Member Details" do
       f.input :name
       f.input :email
     end

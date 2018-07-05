@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: donor_accounts
+#
+#  id         :uuid             not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  remote_id  :string
+#
+
 class DonorAccount < ApplicationRecord
   has_many :donations, dependent: :destroy
   scope :by_date_range, lambda { |date_from, date_to|
