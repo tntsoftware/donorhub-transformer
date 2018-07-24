@@ -17,7 +17,7 @@ module Api
       end
 
       def designation_profile_scope
-        current_user.designation_profiles
+        current_member.designation_profiles
       end
     end
   end
