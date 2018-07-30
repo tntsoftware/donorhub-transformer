@@ -18,20 +18,8 @@ Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.
 Getting Started
 ---------------
 
-Documentation and Support
--------------------------
-
-Issues
--------------
-
-Similar Projects
-----------------
-
-Contributing
-------------
 
 Credits
 -------
-
-License
--------
+- Tataihono Nikora
+- Nathaniel Watts
