@@ -46,7 +46,7 @@ module Api
     end
 
     def current_member
-      Member.find_by!(email: params[:user_email], access_token: params[:user_token])
+      @current_member ||= Member.find_by!(email: params[:user_email], access_token: params[:user_token])
     rescue ActiveRecord::NotFound
       render plain: "authentication error", status: :unauthorized
     end

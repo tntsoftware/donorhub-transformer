@@ -8,6 +8,7 @@ module Api
     class DesignationAccountsController < V1Controller
       def create
         load_designation_accounts
+        send_data @designation_accounts.as_csv
       end
 
       protected

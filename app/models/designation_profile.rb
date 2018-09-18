@@ -27,4 +27,24 @@ class DesignationProfile < ApplicationRecord
   def name
     "#{designation_account.name} | #{member.name}"
   end
+
+  def self.as_csv
+    CSV.generate do |csv|
+      headers = %w(
+        PROFILE_CODE
+        PROFILE_DESCRIPTION
+        PROFILE_ACCOUNT_REPORT_URL
+      )
+
+      csv << headers
+
+      all.each do |designation_profile|
+        csv << [
+          designation_profile.id,                       # PROFILE_CODE
+          designation_profile.designation_account.name, # PROFILE_DESCRIPTION
+          "",                                           # PROFILE_ACCOUNT_REPORT_URL
+        ]
+      end
+    end
+  end
 end

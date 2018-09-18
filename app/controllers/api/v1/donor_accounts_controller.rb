@@ -9,6 +9,7 @@ module Api
       def create
         load_donor_accounts
         filter_donor_accounts
+        send_data @donor_accounts.as_csv
       end
 
       protected

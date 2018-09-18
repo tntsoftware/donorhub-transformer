@@ -8,6 +8,7 @@ module Api
     class DonationsController < V1Controller
       def create
         load_donations
+        send_data @donations.as_csv
       end
 
       protected
@@ -17,7 +18,7 @@ module Api
       end
 
       def donation_scope
-        current_designation_profile_or_member.donations.distinct
+        current_designation_profile_or_member.donations.includes(:donor_account).distinct
       end
     end
   end
