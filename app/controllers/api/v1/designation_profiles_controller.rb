@@ -8,7 +8,7 @@ module Api
     class DesignationProfilesController < V1Controller
       def create
         load_designation_profiles
-        send_data @designation_accounts.as_csv
+        send_data @designation_profiles.as_csv
       end
 
       protected
