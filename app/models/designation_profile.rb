@@ -23,6 +23,7 @@
 class DesignationProfile < ApplicationRecord
   belongs_to :designation_account
   belongs_to :member
+  has_many :donor_accounts, through: :designation_account
 
   def name
     "#{designation_account.name} | #{member.name}"
