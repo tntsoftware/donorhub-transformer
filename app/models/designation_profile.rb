@@ -24,6 +24,7 @@ class DesignationProfile < ApplicationRecord
   belongs_to :designation_account
   belongs_to :member
   has_many :donor_accounts, through: :designation_account
+  has_many :donations, through: :designation_account
 
   def name
     "#{designation_account.name} | #{member.name}"
@@ -41,9 +42,9 @@ class DesignationProfile < ApplicationRecord
 
       all.each do |designation_profile|
         csv << [
-          designation_profile.id,                       # PROFILE_CODE
-          designation_profile.designation_account.name, # PROFILE_DESCRIPTION
-          "",                                           # PROFILE_ACCOUNT_REPORT_URL
+          designation_profile.id,   # PROFILE_CODE
+          designation_profile.name, # PROFILE_DESCRIPTION
+          "",                       # PROFILE_ACCOUNT_REPORT_URL
         ]
       end
     end
