@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root to: "visitors#index"
 
@@ -14,19 +14,6 @@ Rails.application.routes.draw do
       resources :donations, only: :create
       resources :donor_accounts, only: :create
       resource :query, only: :show
-    end
-  end
-
-  scope module: :dashboard do
-    resources :designation_profiles do
-      scope module: :designation_profiles do
-        resources :designation_accounts, only: [] do
-          scope module: :designation_accounts do
-            resources :donations, only: [:index] do
-            end
-          end
-        end
-      end
     end
   end
 end
