@@ -22,6 +22,11 @@ class Member < ApplicationRecord
   has_many :donor_accounts, through: :donations
   validates :name, :email, :access_token, presence: true
   before_validation :create_access_token, on: :create
+  after_commit :send_inform_email, on: :create
+
+  def send_inform_email
+    MemberMailer.inform(self).deliver_now
+  end
 
   protected
 

@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  append_view_path Rails.root.join("app", "views", "mailers")
+  default from: ENV["ORG_CONTACT_EMAIL"]
   layout "mailer"
 end

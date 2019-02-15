@@ -21,4 +21,13 @@ ActiveAdmin.register Member do
     end
     f.actions
   end
+
+  member_action :send_email, method: :put do
+    resource.send_inform_email
+    redirect_to admin_member_path(resource), notice: "Email sent successfully!"
+  end
+
+  action_item :send_email, only: :show do
+    link_to "Send Email to Member", send_email_admin_member_path(member), method: :put
+  end
 end

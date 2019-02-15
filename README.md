@@ -10,14 +10,17 @@ Ruby on Rails
 
 This application requires:
 
-- Ruby 2.3.4
-- Rails 5.1.4
+- Ruby (version in .ruby-version)
+- Rails (version in Gemfile)
 
 Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
 
-Getting Started
+Running in Production
 ---------------
 
+1. Create new app on Heroku and deploy this repo
+2. Add SendGrid plugin to Heroku app
+3. Add environment variables in .env.example
 
 Credits
 -------

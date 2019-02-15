@@ -7,9 +7,9 @@ RedirectQueryIni=
 Code=<%= ENV['ORG_CODE'] %>
 Name=<%= ENV['ORG_NAME'] %>
 Abbreviation=<%= ENV['ORG_CODE'] %>
-AccountHelpUrl=mailto:contact@aucklandev.co.nz
-RequestProfileUrl=mailto:contact@aucklandev.co.nz
-OrgHelpUrl=mailto:contact@aucklandev.co.nz
+AccountHelpUrl=mailto:<%= ENV['ORG_CONTACT_EMAIL'] %>
+RequestProfileUrl=mailto:<%= ENV['ORG_CONTACT_EMAIL'] %>
+OrgHelpUrl=mailto:<%= ENV['ORG_CONTACT_EMAIL'] %>
 OrgHelpUrlDescription=Click here to report this issue!
 MinimumWebGiftDate=1/1/2014
 MinPidLength=
