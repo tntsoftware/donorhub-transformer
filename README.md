@@ -16,11 +16,20 @@ This application requires:
 Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
 
 Running in Production
----------------
+---------------------
 
 1. Create new app on Heroku and deploy this repo
 2. Add SendGrid plugin to Heroku app
 3. Add environment variables in .env.example
+
+Xero Setup
+----------
+
+1. Create a private app on [Xero](https://developer.xero.com/myapps/) with a Public Key Certificate
+2. Add `XERO_OAUTH_CONSUMER_KEY`, `XERO_OAUTH_CONSUMER_SECRET` environment variables from Xero App OAuth 1.0a Credentials to Heroku
+3. Add `XERO_PRIVATE_KEY` from the Public Key Certificate generated in step 1 to Heroku
+4. Run `rails xero:sync_all` once on Heroku
+5. Add Heroku Scheduler daily task `rails xero:sync`
 
 Credits
 -------
