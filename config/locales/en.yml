@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  active_admin:
+    devise:
+      password_confirmation:
+        title: 'Password Confirmation'

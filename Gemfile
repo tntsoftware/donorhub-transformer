@@ -5,7 +5,7 @@ ruby "2.5.1"
 gem "rails", "~> 5.1.4"
 
 # The administration framework for Ruby on Rails.
-gem "activeadmin", "~> 1.0.0"
+gem "activeadmin", "~> 1.4.3"
 # Bootstrap 4 Ruby Gem for Rails / Sprockets and Compass.
 gem "bootstrap", "~> 4.0.0"
 # Flexible authentication solution for Rails with Warden
@@ -44,6 +44,8 @@ group :development do
   gem "guard-rails", "~> 0.8.1"
   # Guard::RSpec automatically run your specs (much like autotest)
   gem "guard-rspec", "~> 4.7.3"
+  # Preview email in the default browser instead of sending it
+  gem "letter_opener", "~> 1.4.1"
   # Generates Rails application layout files for various front-end frameworks.
   gem "rails_layout", "~> 1.0.41"
   # [deprecated] Gem which uses native windows methods for watching changes of file system

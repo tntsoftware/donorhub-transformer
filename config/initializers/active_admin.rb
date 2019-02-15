@@ -1,4 +1,3 @@
-# rubocop:disable LineLength
 ActiveAdmin.setup do |config|
   # == Site Title
   #
