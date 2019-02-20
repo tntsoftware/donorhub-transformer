@@ -6,7 +6,7 @@ ActiveAdmin.register Donation do
   end
 
   filter :designation_account, collection: DesignationAccount.where(active: true)
-  filter :donation_account
+  filter :donor_account
 
   index do
     id_column
