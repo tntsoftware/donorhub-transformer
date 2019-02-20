@@ -20,7 +20,8 @@ Running in Production
 
 1. Create new app on Heroku and deploy this repo
 2. Add SendGrid plugin to Heroku app
-3. Add environment variables in .env.example
+3. Add environment variables in .env
+4. Get MPDX Developer to run `OrganizationFromQueryUrlWorker.perform_async('org_name', 'https://herokuappurl.com/api/v1/query')`
 
 Xero Setup
 ----------
