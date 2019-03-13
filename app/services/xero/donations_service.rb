@@ -12,7 +12,11 @@ module Xero
           donation_ids << donation.id
         end
       end
-      Donation.where("updated_at >= ?", @modified_since).where.not(id: donation_ids).delete_all
+      if all
+        Donation.where.not(id: donation_ids).delete_all
+      else
+        Donation.where("updated_at >= ?", @modified_since).where.not(id: donation_ids).delete_all
+      end
     end
 
     private
@@ -29,11 +33,18 @@ module Xero
     end
 
     def call_bank_transaction_api(page)
-      client.BankTransaction.all(
-        modified_since: @modified_since,
-        where: 'Type=="RECEIVE" and Status=="AUTHORISED"',
-        page: page,
-      )
+      if all
+        client.BankTransaction.all(
+          where: 'Type=="RECEIVE" and Status=="AUTHORISED"',
+          page: page,
+        )
+      else
+        client.BankTransaction.all(
+          modified_since: @modified_since,
+          where: 'Type=="RECEIVE" and Status=="AUTHORISED"',
+          page: page,
+        )
+      end
     rescue Xeroizer::OAuth::RateLimitExceeded
       sleep 60
       retry

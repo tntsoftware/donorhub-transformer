@@ -1,10 +1,11 @@
 module Xero
   class BaseService
-    attr_accessor :modified_since
+    attr_accessor :modified_since, :all
 
-    def self.load(modified_since = Time.zone.now.beginning_of_month - 2.months)
+    def self.load(modified_since = Time.zone.now.beginning_of_month - 2.months, all:)
       service = new
       service.modified_since = modified_since
+      service.all = all
       service.load
     end
 

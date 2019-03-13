@@ -12,7 +12,7 @@ module Xero
     private
 
     def account_scope
-      client.Account.all(modified_since: @modified_since)
+      all ? client.Account.all : client.Account.all(modified_since: @modified_since)
     rescue Xeroizer::OAuth::RateLimitExceeded
       sleep 60
       retry
@@ -22,7 +22,6 @@ module Xero
       attributes[:id] = account.id
       attributes[:name] = account.name
       attributes[:remote_id] = account.code
-      attributes[:updated_at] = account.updated_date_utc
       attributes
     rescue Xeroizer::OAuth::RateLimitExceeded
       sleep 60

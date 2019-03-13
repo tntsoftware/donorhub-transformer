@@ -5,6 +5,6 @@ namespace :xero do
   end
   desc "Sync All From Xero"
   task sync_all: :environment do
-    XeroService.load(1.year.ago)
+    XeroService.load(all: true)
   end
 end
