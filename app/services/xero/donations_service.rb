@@ -2,29 +2,30 @@ module Xero
   class DonationsService < BaseService
     def load
       donation_ids = []
-      bank_transaction_scope.each do |bank_transaction|
-        bank_transaction.line_items.each do |line_item|
-          next unless designation_account_codes.key?(line_item.account_code)
-          attributes = donation_attributes(line_item, bank_transaction)
-          donation = Donation.find_or_initialize_by(id: line_item.line_item_id)
-          donation.attributes = attributes
-          donation.save!
-          donation_ids << donation.id
+      DesignationAccount.where(active: true).pluck(:remote_id).each do |account_code|
+        bank_transaction_scope(account_code: account_code).each do |bank_transaction|
+          bank_transaction.line_items.each do |line_item|
+            attributes = donation_attributes(line_item, bank_transaction)
+            donation = Donation.find_or_initialize_by(id: line_item.line_item_id)
+            donation.attributes = attributes
+            donation.save!
+            donation_ids << donation.id
+          end
         end
       end
       if all
         Donation.where.not(id: donation_ids).delete_all
       else
-        Donation.where("updated_at >= ?", @modified_since).where.not(id: donation_ids).delete_all
+        Donation.where("updated_at >= ?", modified_since).where.not(id: donation_ids).delete_all
       end
     end
 
     private
 
-    def bank_transaction_scope(page = 1)
+    def bank_transaction_scope(page: 1, account_code:)
       Enumerator.new do |enumerable|
         loop do
-          data = call_bank_transaction_api(page)
+          data = call_bank_transaction_api(page, account_code)
           data.each { |element| enumerable.yield element }
           break if data.empty?
           page += 1
@@ -32,16 +33,16 @@ module Xero
       end
     end
 
-    def call_bank_transaction_api(page)
+    def call_bank_transaction_api(page, account_code)
       if all
         client.BankTransaction.all(
-          where: 'Type=="RECEIVE" and Status=="AUTHORISED"',
+          where: "Type==\"RECEIVE\" and Status==\"AUTHORISED\" and LineItems[0].AccountCode==\"#{account_code}\"",
           page: page,
         )
       else
         client.BankTransaction.all(
-          modified_since: @modified_since,
-          where: 'Type=="RECEIVE" and Status=="AUTHORISED"',
+          modified_since: modified_since,
+          where: "Type==\"RECEIVE\" and Status==\"AUTHORISED\" and LineItems[0].AccountCode==\"#{account_code}\"",
           page: page,
         )
       end

@@ -12,7 +12,7 @@ module Xero
     private
 
     def contact_scope
-      all ? client.Contact.all : client.Contact.all(modified_since: @modified_since)
+      all ? client.Contact.all : client.Contact.all(modified_since: modified_since)
     rescue Xeroizer::OAuth::RateLimitExceeded
       sleep 60
       retry
