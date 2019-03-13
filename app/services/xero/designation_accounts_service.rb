@@ -22,6 +22,7 @@ module Xero
       attributes[:id] = account.id
       attributes[:name] = account.name
       attributes[:remote_id] = account.code
+      attributes[:updated_at] = account.updated_date_utc
       attributes
     rescue Xeroizer::OAuth::RateLimitExceeded
       sleep 60

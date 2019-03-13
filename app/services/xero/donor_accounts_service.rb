@@ -21,6 +21,7 @@ module Xero
     def donor_account_attributes(contact, attributes = {})
       attributes[:id] = contact.id
       attributes[:name] = contact.name
+      attributes[:updated_at] = contact.updated_date_utc
       attributes
     end
   end
