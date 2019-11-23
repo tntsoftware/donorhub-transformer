@@ -8,7 +8,7 @@ module Xero
           next if row.cells.empty?
 
           designation_account = DesignationAccount.find_by(id: row.cells.first.attributes["account"], active: true)
-          designation_account&.update(balance: row.cells[1].value)
+          designation_account&.update(balance: -row.cells[1].value)
         end
       end
       true
