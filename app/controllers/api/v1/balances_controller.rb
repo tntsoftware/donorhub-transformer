@@ -5,10 +5,10 @@ require_dependency "api/v1_controller"
 
 module Api
   module V1
-    class DesignationAccountsController < V1Controller
+    class BalancesController < V1Controller
       def create
         load_designation_accounts
-        send_data @designation_accounts.as_csv
+        send_data @designation_accounts.balances_as_csv(current_designation_profile_or_member)
       end
 
       protected

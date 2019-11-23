@@ -3,5 +3,6 @@ class XeroService
     Xero::DonorAccountsService.load(modified_since, all: all)
     Xero::DesignationAccountsService.load(modified_since, all: all)
     Xero::DonationsService.load(modified_since, all: all)
+    Xero::BalanceSheetService.load(modified_since, all: all)
   end
 end

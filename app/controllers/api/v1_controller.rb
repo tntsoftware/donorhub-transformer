@@ -3,6 +3,7 @@ require_dependency "api_controller"
 
 module Api
   class V1Controller < ApiController
+    before_action :current_member
     before_action :process_params
     respond_to :csv
 
@@ -47,7 +48,7 @@ module Api
 
     def current_member
       @current_member ||= Member.find_by!(email: params[:user_email], access_token: params[:user_token])
-    rescue ActiveRecord::NotFound
+    rescue ActiveRecord::RecordNotFound
       render plain: "authentication error", status: :unauthorized
     end
   end

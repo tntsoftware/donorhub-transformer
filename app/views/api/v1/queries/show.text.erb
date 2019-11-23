@@ -35,3 +35,7 @@ Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$
 [ADDRESSES_BY_PERSONIDS]
 Url=<%= api_v1_donor_accounts_url %>
 Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&donor_account_ids=$PERSONIDS$
+
+[ACCOUNT_BALANCE]
+Url=<%= api_v1_balances_url %>
+Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$
