@@ -9,7 +9,7 @@ gem "activeadmin", "~> 1.4.3"
 # Bootstrap 4 Ruby Gem for Rails / Sprockets and Compass.
 gem "bootstrap", "~> 4.1.0"
 # Flexible authentication solution for Rails with Warden
-gem "devise", "~> 4.4.0"
+gem "devise", "~> 4.7.1"
 # The font-awesome font bundled as an asset for the rails asset pipeline
 gem "font-awesome-rails", "~> 4.7.0.2"
 # This gem provides jQuery and the jQuery-ujs driver for your Rails 4+ application.
