@@ -7,7 +7,7 @@ gem "rails", "~> 5.1.4"
 # The administration framework for Ruby on Rails.
 gem "activeadmin", "~> 1.4.3"
 # Bootstrap 4 Ruby Gem for Rails / Sprockets and Compass.
-gem "bootstrap", "~> 4.1.0"
+gem "bootstrap", "~> 4.3.1"
 # Flexible authentication solution for Rails with Warden
 gem "devise", "~> 4.4.0"
 # The font-awesome font bundled as an asset for the rails asset pipeline
