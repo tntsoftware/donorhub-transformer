@@ -263,6 +263,7 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rollbar (2.23.2)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -388,6 +389,7 @@ DEPENDENCIES
   rb-fchange (~> 0.0.6)
   rb-fsevent (~> 0.10.2)
   rb-inotify (~> 0.9.10)
+  rollbar
   rspec-rails (~> 3.6.1)
   rubocop (~> 0.57.1)
   sass-rails (~> 5.0)

@@ -20,6 +20,8 @@ gem "pg", "~> 0.21.0"
 gem "puma", "~> 3.7"
 # Minimal authorization through OO design and pure Ruby classes
 gem "pundit", "~> 1.1.0"
+# Error logging
+gem "rollbar"
 # Ruby on Rails stylesheet engine for Sass
 gem "sass-rails", "~> 5.0"
 # Turbolinks makes navigating your web application faster
