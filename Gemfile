@@ -17,7 +17,7 @@ gem "jquery-rails", "~> 4.3.1"
 # Pg is the Ruby interface to the PostgreSQL RDBMS.
 gem "pg", "~> 0.21.0"
 # A Ruby/Rack web server built for concurrency
-gem "puma", "~> 3.7"
+gem "puma", "~> 3.12"
 # Minimal authorization through OO design and pure Ruby classes
 gem "pundit", "~> 1.1.0"
 # Error logging
