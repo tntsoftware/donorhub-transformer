@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: members
@@ -17,7 +19,7 @@
 
 FactoryBot.define do
   factory :member do
-    email "MyString"
-    access_token "MyString"
+    email { 'MyString' }
+    access_token { 'MyString' }
   end
 end

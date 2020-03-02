@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDesignationProfiles < ActiveRecord::Migration[5.1]
   def change
     create_table :designation_profiles, id: :uuid do |t|

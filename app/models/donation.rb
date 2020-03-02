@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: donations
@@ -33,7 +35,7 @@ class Donation < ApplicationRecord
 
   def self.as_csv
     CSV.generate do |csv|
-      headers = %w(
+      headers = %w[
         PEOPLE_ID
         ACCT_NAME
         DISPLAY_DATE
@@ -46,7 +48,7 @@ class Donation < ApplicationRecord
         TENDERED_AMOUNT
         TENDERED_CURRENCY
         ADJUSTMENT_TYPE
-      )
+      ]
 
       csv << headers
 
@@ -54,16 +56,16 @@ class Donation < ApplicationRecord
         csv << [
           donation.donor_account_id,                # PEOPLE_ID
           donation.donor_account.name,              # ACCT_NAME
-          donation.created_at.strftime("%m/%d/%Y"), # DISPLAY_DATE
+          donation.created_at.strftime('%m/%d/%Y'), # DISPLAY_DATE
           donation.amount,                          # AMOUNT
           donation.id,                              # DONATION_ID
           donation.designation_account_id,          # DESIGNATION
-          "",                                       # MOTIVATION
-          "",                                       # PAYMENT_METHOD
-          "",                                       # MEMO
+          '',                                       # MOTIVATION
+          '',                                       # PAYMENT_METHOD
+          '',                                       # MEMO
           donation.amount,                          # TENDERED_AMOUNT
           donation.currency,                        # TENDERED_CURRENCY
-          "",                                       # ADJUSTMENT_TYPE
+          '' # ADJUSTMENT_TYPE
         ]
       end
     end

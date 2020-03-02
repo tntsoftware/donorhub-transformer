@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: designation_profiles
@@ -22,6 +24,6 @@
 
 FactoryBot.define do
   factory :designation_profile do
-    description "MyString"
+    description { 'MyString' }
   end
 end

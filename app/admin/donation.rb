@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Donation do
   controller do
     def scoped_collection
@@ -5,7 +7,7 @@ ActiveAdmin.register Donation do
     end
   end
 
-  filter :designation_account, collection: DesignationAccount.where(active: true)
+  filter :designation_account, collection: -> { DesignationAccount.where(active: true) }
   filter :donor_account
 
   index do
