@@ -26,11 +26,11 @@ class Member < ApplicationRecord
   before_create :create_access_token
   after_commit :send_inform_email, on: :create
 
-  protected
-
   def send_inform_email
     MemberMailer.inform(self).deliver_now
   end
+
+  protected
 
   def create_access_token
     self.access_token = SecureRandom.base58(24)
