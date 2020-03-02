@@ -20,5 +20,24 @@
 require 'rails_helper'
 
 RSpec.describe Member, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { is_expected.to have_many(:designation_profiles).dependent(:destroy) }
+  it { is_expected.to have_many(:designation_accounts).through(:designation_profiles) }
+  it { is_expected.to have_many(:donations).through(:designation_accounts) }
+  it { is_expected.to have_many(:donor_accounts).through(:donations) }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:email) }
+
+  describe '#create_access_token' do
+    subject(:member) { create(:member) }
+
+    it 'create access_token' do
+      expect(member.access_token).not_to be_nil
+    end
+  end
+
+  describe '#send_inform_email' do
+    it 'sends an email' do
+      expect { create(:member) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+  end
 end

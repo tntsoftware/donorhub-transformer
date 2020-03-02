@@ -14,5 +14,44 @@
 require 'rails_helper'
 
 RSpec.describe DonorAccount, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { is_expected.to have_many(:donations).dependent(:destroy) }
+
+  describe '.by_date_range' do
+    let!(:old_donor_account) { create(:donor_account, created_at: 2.years.ago) }
+    let!(:recent_donor_account) { create(:donor_account, created_at: 1.month.ago) }
+    let!(:new_donor_account) { create(:donor_account) }
+
+    it 'returns all donor_accounts by default' do
+      expect(described_class.by_date_range(nil, nil)).to match_array(
+        [old_donor_account, recent_donor_account, new_donor_account]
+      )
+    end
+
+    it 'returns new donor_account' do
+      expect(described_class.by_date_range(1.week.ago, nil)).to match_array([new_donor_account])
+    end
+
+    it 'returns recent donor_account' do
+      expect(described_class.by_date_range(2.months.ago, 1.week.ago)).to match_array([recent_donor_account])
+    end
+
+    it 'returns old donor_account' do
+      expect(described_class.by_date_range(nil, 2.months.ago)).to match_array([old_donor_account])
+    end
+  end
+
+  describe '.as_csv' do
+    let!(:donor_account) { create(:donor_account, name: Faker::Name.name) }
+    let!(:donor_account_as_csv) do
+      {
+        'PEOPLE_ID' => donor_account.id,
+        'ACCT_NAME' => donor_account.name,
+      }
+    end
+
+    it 'returns donor_accounts in CSV format' do
+      rows = CSV.parse(described_class.as_csv, headers: true)
+      expect(rows[0].to_h).to eq(donor_account_as_csv)
+    end
+  end
 end

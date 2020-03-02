@@ -2,6 +2,7 @@
 
 RSpec.configure do |config|
   config.before(:suite) do
+    FactoryBot.lint unless config.files_to_run.one?
     DatabaseCleaner.clean_with(:truncation)
   end
 

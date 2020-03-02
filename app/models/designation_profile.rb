@@ -46,7 +46,7 @@ class DesignationProfile < ApplicationRecord
         csv << [
           designation_profile.id,   # PROFILE_CODE
           designation_profile.name, # PROFILE_DESCRIPTION
-          '' # PROFILE_ACCOUNT_REPORT_URL
+          ''                        # PROFILE_ACCOUNT_REPORT_URL
         ]
       end
     end

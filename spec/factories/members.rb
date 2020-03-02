@@ -19,7 +19,7 @@
 
 FactoryBot.define do
   factory :member do
-    email { 'MyString' }
-    access_token { 'MyString' }
+    name { Faker::Name.name }
+    email { Faker::Internet.email }
   end
 end

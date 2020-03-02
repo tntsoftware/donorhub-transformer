@@ -28,12 +28,8 @@
 
 FactoryBot.define do
   factory :user do
-    name { 'Test User' }
-    email { 'test@example.com' }
-    password { 'please123' }
-
-    trait :admin do
-      role { 'admin' }
-    end
+    name { Faker::Name.name }
+    email { Faker::Internet.unique.email }
+    password { SecureRandom.uuid }
   end
 end

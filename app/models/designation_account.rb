@@ -34,7 +34,7 @@ class DesignationAccount < ApplicationRecord
         csv << [
           designation_account.id,   # DESIG_ID
           designation_account.name, # DESIG_NAME
-          '' # ORG_PATH
+          ''                        # ORG_PATH
         ]
       end
     end
@@ -61,7 +61,7 @@ class DesignationAccount < ApplicationRecord
         designation_accounts.map(&:balance).join(','), # BALANCE
         designation_profile.id,                        # PROFILE_CODE
         designation_profile.name,                      # PROFILE_DESCRIPTION
-        '' # FUND_ACCOUNT_REPORT_URL
+        ''                                             # FUND_ACCOUNT_REPORT_URL
       ]
     end
   end

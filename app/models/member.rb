@@ -22,15 +22,15 @@ class Member < ApplicationRecord
   has_many :designation_accounts, through: :designation_profiles
   has_many :donations, through: :designation_accounts
   has_many :donor_accounts, through: :donations
-  validates :name, :email, :access_token, presence: true
-  before_validation :create_access_token, on: :create
+  validates :name, :email, presence: true
+  before_create :create_access_token
   after_commit :send_inform_email, on: :create
+
+  protected
 
   def send_inform_email
     MemberMailer.inform(self).deliver_now
   end
-
-  protected
 
   def create_access_token
     self.access_token = SecureRandom.base58(24)

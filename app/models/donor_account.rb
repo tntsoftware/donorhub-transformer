@@ -30,7 +30,7 @@ class DonorAccount < ApplicationRecord
 
       all.each do |donor_account|
         csv << [
-          donor_account.id, # PEOPLE_ID
+          donor_account.id,  # PEOPLE_ID
           donor_account.name # ACCT_NAME
         ]
       end

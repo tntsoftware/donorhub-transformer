@@ -27,11 +27,11 @@
 #
 
 describe User do
-  subject(:user) { described_class.new(email: 'user@example.com') }
+  subject(:user) { create(:user, email: 'user@example.com') }
 
-  it { is_expected.to respond_to(:email) }
-
-  it '#email returns a string' do
-    expect(user.email).to match 'user@example.com'
+  describe '#email' do
+    it 'returns a string' do
+      expect(user.email).to match 'user@example.com'
+    end
   end
 end
