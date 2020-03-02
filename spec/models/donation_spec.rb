@@ -41,15 +41,15 @@ RSpec.describe Donation, type: :model do
     end
 
     it 'returns new donation' do
-      expect(described_class.by_date_range(1.week.ago, nil)).to match_array([new_donation])
+      expect(described_class.by_date_range(1.week.ago, nil)).to eq([new_donation])
     end
 
     it 'returns recent donation' do
-      expect(described_class.by_date_range(2.months.ago, 1.week.ago)).to match_array([recent_donation])
+      expect(described_class.by_date_range(2.months.ago, 1.week.ago)).to eq([recent_donation])
     end
 
     it 'returns old donation' do
-      expect(described_class.by_date_range(nil, 2.months.ago)).to match_array([old_donation])
+      expect(described_class.by_date_range(nil, 2.months.ago)).to eq([old_donation])
     end
   end
 

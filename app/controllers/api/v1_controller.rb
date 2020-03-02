@@ -24,7 +24,7 @@ class Api::V1Controller < ApiController
   end
 
   def process_donor_account_ids
-    params[:donor_account_ids] = params[:donor_ids].split(',') if params[:donor_account_ids].present?
+    params[:donor_account_ids] = params[:donor_account_ids].split(',') if params[:donor_account_ids].present?
   end
 
   def current_designation_profile

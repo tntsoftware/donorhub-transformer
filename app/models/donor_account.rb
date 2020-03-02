@@ -14,9 +14,10 @@
 class DonorAccount < ApplicationRecord
   has_many :donations, dependent: :destroy
   scope :by_date_range, lambda { |date_from, date_to|
-    date_from = Time.zone.at(0) if date_from.blank?
-    date_to = Time.zone.now if date_to.blank?
-    where(created_at: date_from..date_to)
+    scope = all
+    scope = scope.where('donor_accounts.updated_at >= ?', date_from.beginning_of_day) unless date_from.blank?
+    scope = scope.where('donor_accounts.updated_at <= ?', date_to.end_of_day) unless date_to.blank?
+    scope
   }
 
   def self.as_csv

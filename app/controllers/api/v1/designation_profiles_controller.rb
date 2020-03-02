@@ -3,7 +3,7 @@
 # https://www.tntware.com/donorhub/groups/developers/wiki/how-can-my-fundraising-app-use-the-donorhub-api.aspx
 # PROFILES QUERY
 
-class Api::V1::DesignationProfilesController < V1Controller
+class Api::V1::DesignationProfilesController < Api::V1Controller
   def create
     load_designation_profiles
     send_data @designation_profiles.as_csv

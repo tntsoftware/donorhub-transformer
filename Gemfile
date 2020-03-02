@@ -6,6 +6,7 @@ ruby '2.7.0'
 
 gem 'activeadmin'
 gem 'bootstrap'
+gem 'coffee-rails'
 gem 'devise'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
@@ -25,6 +26,7 @@ group :development do
   gem 'better_errors'
   gem 'foreman'
   gem 'letter_opener'
+  gem 'listen'
   gem 'rails_layout'
   gem 'rb-fchange', require: false
   gem 'rb-fsevent', require: false
@@ -41,12 +43,13 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-rescue'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~>4.0.0.beta4'
 end
 
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers'
 end

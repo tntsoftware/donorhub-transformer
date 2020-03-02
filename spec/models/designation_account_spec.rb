@@ -26,7 +26,7 @@ RSpec.describe DesignationAccount, type: :model do
     let(:designation_account) { create(:designation_account, active: true) }
 
     it 'returns active designation_account' do
-      expect(described_class.active).to match_array([designation_account])
+      expect(described_class.active).to eq([designation_account])
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe DesignationAccount, type: :model do
     let(:designation_account) { create(:designation_account, active: false) }
 
     it 'returns inactive designation_account' do
-      expect(described_class.inactive).to match_array([designation_account])
+      expect(described_class.inactive).to eq([designation_account])
     end
   end
 
@@ -74,6 +74,24 @@ RSpec.describe DesignationAccount, type: :model do
     it 'returns balances in CSV format' do
       rows = CSV.parse(described_class.balances_as_csv(designation_profile), headers: true)
       expect(rows[0].to_h).to eq(balances_as_csv)
+    end
+
+    context 'when no designation_profile' do
+      let!(:balances_as_csv) do
+        {
+          'EMPLID' => "#{designation_account_1.id},#{designation_account_2.id}",
+          'ACCT_NAME' => "#{designation_account_1.name},#{designation_account_2.name}",
+          'BALANCE' => '10.0,20.0',
+          'PROFILE_CODE' => '',
+          'PROFILE_DESCRIPTION' => '',
+          'FUND_ACCOUNT_REPORT_URL' => ''
+        }
+      end
+
+      it 'returns balances in CSV format' do
+        rows = CSV.parse(described_class.balances_as_csv, headers: true)
+        expect(rows[0].to_h).to eq(balances_as_csv)
+      end
     end
   end
 end

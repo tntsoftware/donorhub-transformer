@@ -40,7 +40,7 @@ class DesignationAccount < ApplicationRecord
     end
   end
 
-  def self.balances_as_csv(designation_profile)
+  def self.balances_as_csv(designation_profile = nil)
     CSV.generate do |csv|
       headers = %w[
         EMPLID
@@ -59,8 +59,8 @@ class DesignationAccount < ApplicationRecord
         designation_accounts.map(&:id).join(','),      # EMPLID
         designation_accounts.map(&:name).join(','),    # ACCT_NAME
         designation_accounts.map(&:balance).join(','), # BALANCE
-        designation_profile.id,                        # PROFILE_CODE
-        designation_profile.name,                      # PROFILE_DESCRIPTION
+        designation_profile&.id || '',                 # PROFILE_CODE
+        designation_profile&.name || '',               # PROFILE_DESCRIPTION
         ''                                             # FUND_ACCOUNT_REPORT_URL
       ]
     end

@@ -3,10 +3,9 @@
 # https://www.tntware.com/donorhub/groups/developers/wiki/how-can-my-fundraising-app-use-the-donorhub-api.aspx
 # ADDRESSES QUERY
 
-class Api::V1::DonorAccountsController < V1Controller
+class Api::V1::DonorAccountsController < Api::V1Controller
   def create
     load_donor_accounts
-    filter_donor_accounts
     send_data @donor_accounts.as_csv
   end
 
@@ -14,15 +13,16 @@ class Api::V1::DonorAccountsController < V1Controller
 
   def load_donor_accounts
     @donor_accounts = donor_account_scope.by_date_range(params[:date_from], params[:date_to])
-  end
+    return if donor_account_ids.empty?
 
-  def filter_donor_accounts
-    return unless params[:donor_account_ids].empty?
-
-    @donor_accounts = donor_accounts.where(donor_account_id: params[:donor_account_ids])
+    @donor_accounts = @donor_accounts.where(id: donor_account_ids)
   end
 
   def donor_account_scope
     current_designation_profile_or_member.donor_accounts.distinct
+  end
+
+  def donor_account_ids
+    params[:donor_account_ids] || []
   end
 end

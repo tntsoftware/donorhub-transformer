@@ -3,7 +3,7 @@
 # https://www.tntware.com/donorhub/groups/developers/wiki/how-can-my-fundraising-app-use-the-donorhub-api.aspx
 # DONATIONS QUERY
 
-class Api::V1::DonationsController < V1Controller
+class Api::V1::DonationsController < Api::V1Controller
   def create
     load_donations
     send_data @donations.as_csv

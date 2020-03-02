@@ -17,8 +17,8 @@ RSpec.describe DonorAccount, type: :model do
   it { is_expected.to have_many(:donations).dependent(:destroy) }
 
   describe '.by_date_range' do
-    let!(:old_donor_account) { create(:donor_account, created_at: 2.years.ago) }
-    let!(:recent_donor_account) { create(:donor_account, created_at: 1.month.ago) }
+    let!(:old_donor_account) { create(:donor_account, updated_at: 2.years.ago) }
+    let!(:recent_donor_account) { create(:donor_account, updated_at: 1.month.ago) }
     let!(:new_donor_account) { create(:donor_account) }
 
     it 'returns all donor_accounts by default' do
@@ -28,15 +28,15 @@ RSpec.describe DonorAccount, type: :model do
     end
 
     it 'returns new donor_account' do
-      expect(described_class.by_date_range(1.week.ago, nil)).to match_array([new_donor_account])
+      expect(described_class.by_date_range(1.week.ago, nil)).to eq([new_donor_account])
     end
 
     it 'returns recent donor_account' do
-      expect(described_class.by_date_range(2.months.ago, 1.week.ago)).to match_array([recent_donor_account])
+      expect(described_class.by_date_range(2.months.ago, 1.week.ago)).to eq([recent_donor_account])
     end
 
     it 'returns old donor_account' do
-      expect(described_class.by_date_range(nil, 2.months.ago)).to match_array([old_donor_account])
+      expect(described_class.by_date_range(nil, 2.months.ago)).to eq([old_donor_account])
     end
   end
 
@@ -45,7 +45,7 @@ RSpec.describe DonorAccount, type: :model do
     let!(:donor_account_as_csv) do
       {
         'PEOPLE_ID' => donor_account.id,
-        'ACCT_NAME' => donor_account.name,
+        'ACCT_NAME' => donor_account.name
       }
     end
 
