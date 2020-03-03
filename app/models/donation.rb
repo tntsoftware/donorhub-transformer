@@ -33,6 +33,7 @@ class Donation < ApplicationRecord
     scope = scope.where('donations.created_at <= ?', date_to.end_of_day) unless date_to.blank?
     scope
   }
+  validate :donor_account_and_designation_account_have_same_organization
 
   def self.as_csv
     CSV.generate do |csv|
@@ -70,5 +71,14 @@ class Donation < ApplicationRecord
         ]
       end
     end
+  end
+
+  protected
+
+  def donor_account_and_designation_account_have_same_organization
+    return if designation_account&.organization_id == donor_account&.organization_id
+
+    errors.add(:designation_account_id, "can't be in different organization")
+    errors.add(:donor_account_id, "can't be in different organization")
   end
 end

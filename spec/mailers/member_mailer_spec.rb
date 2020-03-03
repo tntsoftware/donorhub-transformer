@@ -9,7 +9,7 @@ RSpec.describe MemberMailer, type: :mailer do
     subject!(:mail) { described_class.inform(member) }
 
     it 'renders the subject' do
-      expect(mail.subject).to eq "Sign into MPDX using your donation services credentials"
+      expect(mail.subject).to eq 'Sign into MPDX using your donation services credentials'
     end
 
     it 'renders the receiver email' do
@@ -17,7 +17,7 @@ RSpec.describe MemberMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq([ENV['ORG_CONTACT_EMAIL']])
+      expect(mail.from).to eq(['no-reply@donationcore.com'])
     end
   end
 end

@@ -60,7 +60,7 @@ RSpec.describe Donation, type: :model do
       {
         'PEOPLE_ID' => donor_account.id,
         'ACCT_NAME' => donor_account.name,
-        'DISPLAY_DATE' => Date.today.strftime('%m/%d/%Y'),
+        'DISPLAY_DATE' => Time.now.utc.to_date.strftime('%m/%d/%Y'),
         'AMOUNT' => '10.0',
         'DONATION_ID' => donation.id,
         'DESIGNATION' => donation.designation_account_id,
@@ -76,6 +76,24 @@ RSpec.describe Donation, type: :model do
     it 'returns donations in CSV format' do
       rows = CSV.parse(described_class.as_csv, headers: true)
       expect(rows[0].to_h).to eq(donation_as_csv)
+    end
+  end
+
+  describe '#member_and_designation_account_have_same_organization' do
+    subject(:donation) do
+      build(:donation, designation_account: designation_account, donor_account: donor_account)
+    end
+
+    let(:organization) { create(:organization) }
+    let(:designation_account) { create(:designation_account, organization: organization) }
+    let(:donor_account) { create(:donor_account, organization: organization) }
+
+    it { is_expected.to be_valid }
+
+    context 'when different organizations' do
+      let(:donor_account) { create(:donor_account) }
+
+      it { is_expected.not_to be_valid }
     end
   end
 end

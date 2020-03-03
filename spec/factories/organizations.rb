@@ -16,9 +16,6 @@
 #
 FactoryBot.define do
   factory :organization do
-    name { "MyString" }
-    subdomain { "MyString" }
-    code { "MyString" }
-    contact_email { "MyString" }
+    subdomain { Faker::Internet.domain_word }
   end
 end

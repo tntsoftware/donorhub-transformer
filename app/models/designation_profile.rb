@@ -27,10 +27,7 @@ class DesignationProfile < ApplicationRecord
   belongs_to :member
   has_many :donor_accounts, through: :designation_account
   has_many :donations, through: :designation_account
-
-  def name
-    "#{designation_account.name} | #{member.name}"
-  end
+  validate :member_and_designation_account_have_same_organization
 
   def self.as_csv
     CSV.generate do |csv|
@@ -50,5 +47,18 @@ class DesignationProfile < ApplicationRecord
         ]
       end
     end
+  end
+
+  def name
+    "#{designation_account.name} | #{member.name}"
+  end
+
+  protected
+
+  def member_and_designation_account_have_same_organization
+    return if designation_account&.organization_id == member&.organization_id
+
+    errors.add(:designation_account_id, "can't be in different organization")
+    errors.add(:member_id, "can't be in different organization")
   end
 end

@@ -19,6 +19,7 @@
 
 FactoryBot.define do
   factory :member do
+    organization
     name { Faker::Name.name }
     email { Faker::Internet.email }
   end

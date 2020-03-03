@@ -14,6 +14,7 @@
 require 'rails_helper'
 
 RSpec.describe DonorAccount, type: :model do
+  it { is_expected.to belong_to(:organization) }
   it { is_expected.to have_many(:donations).dependent(:destroy) }
 
   describe '.by_date_range' do

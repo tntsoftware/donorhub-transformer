@@ -20,6 +20,7 @@
 require 'rails_helper'
 
 RSpec.describe Member, type: :model do
+  it { is_expected.to belong_to(:organization) }
   it { is_expected.to have_many(:designation_profiles).dependent(:destroy) }
   it { is_expected.to have_many(:designation_accounts).through(:designation_profiles) }
   it { is_expected.to have_many(:donations).through(:designation_accounts) }

@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::DonationsController, type: :controller do
-  let(:member) { create(:member) }
+  let(:organization) { create(:organization) }
+  let(:member) { create(:member, organization: organization) }
+
+  before { request.host = "#{organization.subdomain}.example.com" }
 
   describe '#create' do
     it 'does not assign @donations' do
@@ -17,11 +20,22 @@ RSpec.describe Api::V1::DonationsController, type: :controller do
     end
 
     context 'when member' do
-      let!(:designation_account_1) { create(:designation_account) }
-      let!(:old_donation) { create(:donation, designation_account: designation_account_1, created_at: 2.years.ago) }
-      let!(:designation_account_2) { create(:designation_account) }
-      let!(:recent_donation) { create(:donation, designation_account: designation_account_2, created_at: 1.month.ago) }
-      let!(:new_donation) { create(:donation, designation_account: designation_account_2) }
+      let!(:donor_account) { create(:donor_account, organization: organization) }
+      let!(:designation_account_1) { create(:designation_account, organization: organization) }
+      let!(:old_donation) do
+        create(
+          :donation, designation_account: designation_account_1, donor_account: donor_account, created_at: 2.years.ago
+        )
+      end
+      let!(:designation_account_2) { create(:designation_account, organization: organization) }
+      let!(:recent_donation) do
+        create(
+          :donation, designation_account: designation_account_2, donor_account: donor_account, created_at: 1.month.ago
+        )
+      end
+      let!(:new_donation) do
+        create(:donation, designation_account: designation_account_2, donor_account: donor_account)
+      end
       let!(:designation_profile) do
         create(:designation_profile, designation_account: designation_account_1, member: member)
       end

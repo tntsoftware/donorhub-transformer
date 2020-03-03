@@ -13,5 +13,6 @@
 
 FactoryBot.define do
   factory :donor_account do
+    organization
   end
 end

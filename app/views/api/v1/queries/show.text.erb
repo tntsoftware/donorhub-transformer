@@ -4,14 +4,14 @@ RecommendedVersion=3.2.5
 
 [ORGANIZATION]
 RedirectQueryIni=
-Code=<%= ENV['ORG_CODE'] %>
-Name=<%= ENV['ORG_NAME'] %>
-Abbreviation=<%= ENV['ORG_CODE'] %>
-AccountHelpUrl=mailto:<%= ENV['ORG_CONTACT_EMAIL'] %>
-RequestProfileUrl=mailto:<%= ENV['ORG_CONTACT_EMAIL'] %>
-OrgHelpUrl=mailto:<%= ENV['ORG_CONTACT_EMAIL'] %>
+Code=<%= current_organization.code %>
+Name=<%= current_organization.name %>
+Abbreviation=<%= current_organization.code %>
+AccountHelpUrl=mailto:<%= current_organization.email %>
+RequestProfileUrl=mailto:<%= current_organization.email %>
+OrgHelpUrl=mailto:<%= current_organization.email %>
 OrgHelpUrlDescription=Click here to report this issue!
-MinimumWebGiftDate=1/1/2014
+MinimumWebGiftDate=<%= current_organization.minimum_donation_date %>
 MinPidLength=
 DefaultCurrencyCode=NZD
 GLAccountCategoriesToConsolidate=

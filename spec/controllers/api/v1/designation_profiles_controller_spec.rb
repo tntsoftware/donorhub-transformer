@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::DesignationProfilesController, type: :controller do
-  let(:member) { create(:member) }
+  let(:organization) { create(:organization) }
+  let(:member) { create(:member, organization: organization) }
+
+  before { request.host = "#{organization.subdomain}.example.com" }
 
   describe '#create' do
     it 'does not assign @designation_profiles' do

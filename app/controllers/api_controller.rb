@@ -2,6 +2,6 @@
 
 class ApiController < ActionController::API
   def current_organization
-    Organization.find_by(subdomain: request.subdomain)
+    @current_organization ||= ::Organization.find_by!(subdomain: request.subdomain)
   end
 end

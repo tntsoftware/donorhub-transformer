@@ -15,5 +15,6 @@
 
 FactoryBot.define do
   factory :designation_account do
+    organization
   end
 end

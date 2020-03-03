@@ -26,7 +26,10 @@
 
 FactoryBot.define do
   factory :donation do
-    designation_account
     donor_account
+    before(:create) do |donation|
+      donation.designation_account ||=
+        create(:designation_account, organization: donation.donor_account.organization)
+    end
   end
 end

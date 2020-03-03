@@ -30,25 +30,13 @@ RSpec.describe DesignationProfile, type: :model do
   it { is_expected.to have_many(:donor_accounts).through(:designation_account) }
   it { is_expected.to have_many(:donations).through(:designation_account) }
 
-  describe '#name' do
-    subject(:designation_profile) do
-      create(:designation_profile, designation_account: designation_account, member: member)
-    end
-
-    let(:designation_account) { create(:designation_account, name: Faker::Name.name) }
-    let(:member) { create(:member, name: Faker::Name.name) }
-
-    it 'returns name of designation_account and member' do
-      expect(designation_profile.name).to eq "#{designation_account.name} | #{member.name}"
-    end
-  end
-
   describe '.as_csv' do
     let(:designation_profile) do
       create(:designation_profile, designation_account: designation_account, member: member)
     end
-    let(:designation_account) { create(:designation_account, name: Faker::Name.name) }
-    let(:member) { create(:member, name: Faker::Name.name) }
+    let(:organization) { create(:organization) }
+    let(:designation_account) { create(:designation_account, name: Faker::Name.name, organization: organization) }
+    let(:member) { create(:member, name: Faker::Name.name, organization: organization) }
     let!(:designation_profile_as_csv) do
       {
         'PROFILE_CODE' => designation_profile.id,
@@ -60,6 +48,38 @@ RSpec.describe DesignationProfile, type: :model do
     it 'returns donations in CSV format' do
       rows = CSV.parse(described_class.as_csv, headers: true)
       expect(rows[0].to_h).to eq(designation_profile_as_csv)
+    end
+  end
+
+  describe '#name' do
+    subject(:designation_profile) do
+      create(:designation_profile, designation_account: designation_account, member: member)
+    end
+
+    let(:organization) { create(:organization) }
+    let(:designation_account) { create(:designation_account, name: Faker::Name.name, organization: organization) }
+    let(:member) { create(:member, name: Faker::Name.name, organization: organization) }
+
+    it 'returns name of designation_account and member' do
+      expect(designation_profile.name).to eq "#{designation_account.name} | #{member.name}"
+    end
+  end
+
+  describe '#member_and_designation_account_have_same_organization' do
+    subject(:designation_profile) do
+      build(:designation_profile, designation_account: designation_account, member: member)
+    end
+
+    let(:organization) { create(:organization) }
+    let(:designation_account) { create(:designation_account, organization: organization) }
+    let(:member) { create(:member, organization: organization) }
+
+    it { is_expected.to be_valid }
+
+    context 'when different organizations' do
+      let(:member) { create(:member) }
+
+      it { is_expected.not_to be_valid }
     end
   end
 end

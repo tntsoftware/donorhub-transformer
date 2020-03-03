@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::QueriesController, type: :controller do
+  let(:organization) { create(:organization) }
+
+  before { request.host = "#{organization.subdomain}.example.com" }
+
   render_views
 
   describe '#show' do
@@ -14,40 +18,40 @@ RSpec.describe Api::V1::QueriesController, type: :controller do
 
         [ORGANIZATION]
         RedirectQueryIni=
-        Code=#{ENV['ORG_CODE']}
-        Name=#{ENV['ORG_NAME']}
-        Abbreviation=#{ENV['ORG_CODE']}
-        AccountHelpUrl=mailto:#{ENV['ORG_CONTACT_EMAIL']}
-        RequestProfileUrl=mailto:#{ENV['ORG_CONTACT_EMAIL']}
-        OrgHelpUrl=mailto:#{ENV['ORG_CONTACT_EMAIL']}
+        Code=#{organization.code}
+        Name=#{organization.name}
+        Abbreviation=#{organization.code}
+        AccountHelpUrl=mailto:#{organization.email}
+        RequestProfileUrl=mailto:#{organization.email}
+        OrgHelpUrl=mailto:#{organization.email}
         OrgHelpUrlDescription=Click here to report this issue!
-        MinimumWebGiftDate=1/1/2014
+        MinimumWebGiftDate=#{organization.minimum_donation_date}
         MinPidLength=
         DefaultCurrencyCode=NZD
         GLAccountCategoriesToConsolidate=
 
         [PROFILES]
-        Url=http://test.host/api/v1/designation_profiles
+        Url=http://#{organization.subdomain}.example.com/api/v1/designation_profiles
         Post=user_email=$ACCOUNT$&user_token=$PASSWORD$
 
         [DESIGNATIONS]
-        Url=http://test.host/api/v1/designation_accounts
+        Url=http://#{organization.subdomain}.example.com/api/v1/designation_accounts
         Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$
 
         [DONATIONS]
-        Url=http://test.host/api/v1/donations
+        Url=http://#{organization.subdomain}.example.com/api/v1/donations
         Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&date_from=$DATEFROM$&date_to=$DATETO$
 
         [ADDRESSES]
-        Url=http://test.host/api/v1/donor_accounts
+        Url=http://#{organization.subdomain}.example.com/api/v1/donor_accounts
         Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&date_from=$DATEFROM$
 
         [ADDRESSES_BY_PERSONIDS]
-        Url=http://test.host/api/v1/donor_accounts
+        Url=http://#{organization.subdomain}.example.com/api/v1/donor_accounts
         Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&donor_account_ids=$PERSONIDS$
 
         [ACCOUNT_BALANCE]
-        Url=http://test.host/api/v1/balances
+        Url=http://#{organization.subdomain}.example.com/api/v1/balances
         Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$
       TXT
     end

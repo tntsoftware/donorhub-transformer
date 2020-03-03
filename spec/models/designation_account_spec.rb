@@ -16,6 +16,7 @@
 require 'rails_helper'
 
 RSpec.describe DesignationAccount, type: :model do
+  it { is_expected.to belong_to(:organization) }
   it { is_expected.to have_many(:designation_profiles).dependent(:destroy) }
   it { is_expected.to have_many(:donations).dependent(:destroy) }
   it { is_expected.to have_many(:donor_accounts).through(:donations) }
@@ -57,9 +58,17 @@ RSpec.describe DesignationAccount, type: :model do
   end
 
   describe '.balances_as_csv' do
-    let!(:designation_account_1) { create(:designation_account, name: Faker::Name.name, balance: 10) }
-    let!(:designation_account_2) { create(:designation_account, name: Faker::Name.name, balance: 20) }
-    let!(:designation_profile) { create(:designation_profile, designation_account: designation_account_1) }
+    let(:organization) { create(:organization) }
+    let(:member) { create(:member, organization: organization) }
+    let!(:designation_account_1) do
+      create(:designation_account, name: Faker::Name.name, balance: 10, organization: organization)
+    end
+    let!(:designation_account_2) do
+      create(:designation_account, name: Faker::Name.name, balance: 20, organization: organization)
+    end
+    let!(:designation_profile) do
+      create(:designation_profile, designation_account: designation_account_1, member: member)
+    end
     let!(:balances_as_csv) do
       {
         'EMPLID' => "#{designation_account_1.id},#{designation_account_2.id}",

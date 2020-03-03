@@ -24,7 +24,10 @@
 
 FactoryBot.define do
   factory :designation_profile do
-    designation_account
     member
+    before(:create) do |designation_profile|
+      designation_profile.designation_account ||=
+        create(:designation_account, organization: designation_profile.member.organization)
+    end
   end
 end
