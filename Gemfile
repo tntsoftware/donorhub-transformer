@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 ruby '2.7.0'
 
 gem 'activeadmin'
+gem 'attr_encrypted'
 gem 'bootstrap'
 gem 'coffee-rails'
 gem 'devise'
@@ -19,7 +20,7 @@ gem 'sass-rails'
 gem 'turbolinks'
 gem 'uglifier'
 gem 'versionist'
-gem 'xeroizer'
+gem 'xero-ruby'
 
 group :development do
   gem 'annotate'

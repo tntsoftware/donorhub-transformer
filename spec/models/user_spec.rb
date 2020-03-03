@@ -27,9 +27,9 @@
 #
 
 describe User do
-  it { is_expected.to belong_to(:organization) }
-
   subject(:user) { create(:user, email: 'user@example.com') }
+
+  it { is_expected.to belong_to(:organization) }
 
   describe '#email' do
     it 'returns a string' do

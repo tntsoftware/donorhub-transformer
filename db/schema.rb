@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_043738) do
+ActiveRecord::Schema.define(version: 2020_03_03_205016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -54,6 +54,22 @@ ActiveRecord::Schema.define(version: 2020_03_03_043738) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "organization_id", null: false
+  end
+
+  create_table "integrations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "organization_id", null: false
+    t.string "encrypted_access_token"
+    t.string "encrypted_access_token_iv"
+    t.string "encrypted_refresh_token"
+    t.string "encrypted_refresh_token_iv"
+    t.string "type", null: false
+    t.datetime "last_download_attempted_at"
+    t.datetime "last_downloaded_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["encrypted_access_token_iv"], name: "index_integrations_on_encrypted_access_token_iv", unique: true
+    t.index ["encrypted_refresh_token_iv"], name: "index_integrations_on_encrypted_refresh_token_iv", unique: true
+    t.index ["organization_id"], name: "index_integrations_on_organization_id"
   end
 
   create_table "members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -103,6 +119,7 @@ ActiveRecord::Schema.define(version: 2020_03_03_043738) do
   add_foreign_key "donations", "designation_accounts", on_delete: :cascade
   add_foreign_key "donations", "donor_accounts", on_delete: :cascade
   add_foreign_key "donor_accounts", "organizations", on_delete: :cascade
+  add_foreign_key "integrations", "organizations", on_delete: :cascade
   add_foreign_key "members", "organizations", on_delete: :cascade
   add_foreign_key "users", "organizations", on_delete: :cascade
 end
