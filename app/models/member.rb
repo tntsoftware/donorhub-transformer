@@ -18,6 +18,7 @@
 #
 
 class Member < ApplicationRecord
+  belongs_to :organization
   has_many :designation_profiles, dependent: :destroy
   has_many :designation_accounts, through: :designation_profiles
   has_many :donations, through: :designation_accounts

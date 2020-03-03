@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Xero::DonorAccountsService < BaseService
+class Xero::DonorAccountsService < Xero::BaseService
   def load
     contact_scope.each do |contact|
       attributes = donor_account_attributes(contact)

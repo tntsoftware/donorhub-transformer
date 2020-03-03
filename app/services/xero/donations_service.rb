@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Xero::DonationsService < BaseService
+class Xero::DonationsService < Xero::BaseService
   def load
     donation_ids = []
     DesignationAccount.where(active: true).pluck(:remote_id).each do |account_code|

@@ -5,8 +5,8 @@
 # Table name: designation_accounts
 #
 #  id         :uuid             not null, primary key
-#  active     :boolean          default(FALSE)
-#  balance    :decimal(, )      default(0.0)
+#  active     :boolean          default("false")
+#  balance    :decimal(, )      default("0")
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -14,6 +14,7 @@
 #
 
 class DesignationAccount < ApplicationRecord
+  belongs_to :organization
   has_many :designation_profiles, dependent: :destroy
   has_many :donations, dependent: :destroy
   has_many :donor_accounts, through: :donations

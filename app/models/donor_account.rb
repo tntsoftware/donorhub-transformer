@@ -12,6 +12,7 @@
 #
 
 class DonorAccount < ApplicationRecord
+  belongs_to :organization
   has_many :donations, dependent: :destroy
   scope :by_date_range, lambda { |date_from, date_to|
     scope = all

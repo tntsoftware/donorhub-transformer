@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Xero::BalanceSheetService < BaseService
+class Xero::BalanceSheetService < Xero::BaseService
   def load
     balance_sheet.sections.each do |section|
       next unless section.title == 'Current Assets'

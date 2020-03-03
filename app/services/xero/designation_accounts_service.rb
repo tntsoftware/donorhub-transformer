@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Xero::DesignationAccountsService < BaseService
+class Xero::DesignationAccountsService < Xero::BaseService
   def load
     account_scope.each do |account|
       attributes = designation_account_attributes(account)
