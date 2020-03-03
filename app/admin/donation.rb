@@ -2,9 +2,9 @@
 
 ActiveAdmin.register Donation do
   filter :designation_account,
-         collection: -> { current_organization.designation_accounts.where(active: true).order(:name) }
+         collection: -> { current_user.organization.designation_accounts.where(active: true).order(:name) }
   filter :donor_account,
-         collection: -> { current_organization.donor_accounts.order(:name) }
+         collection: -> { current_user.organization.donor_accounts.order(:name) }
 
   index do
     id_column

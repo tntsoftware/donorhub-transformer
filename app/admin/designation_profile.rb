@@ -12,13 +12,14 @@ ActiveAdmin.register DesignationProfile do
     actions
   end
 
-  filter :designation_account
-  filter :member
+  filter :designation_account, collection: -> { current_user.organization.designation_accounts.order(:name) }
+  filter :member, collection: -> { current_user.organization.members.order(:name) }
   filter :created_at
 
   form do |f|
     f.inputs 'Designation Account Details' do
-      f.input :designation_account, collection: -> { DesignationAccount.active }
+      f.input :designation_account,
+              collection: -> { current_user.organization.designation_accounts.order(:name).active }
       f.input :member
     end
     f.actions
