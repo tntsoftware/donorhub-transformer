@@ -32,4 +32,10 @@ ActiveAdmin.register Member do
   action_item :send_email, only: :show do
     link_to 'Send Email to Member', send_email_admin_member_path(member), method: :put
   end
+
+  controller do
+    def scoped_collection
+      end_of_association_chain.where(organization: current_organization)
+    end
+  end
 end

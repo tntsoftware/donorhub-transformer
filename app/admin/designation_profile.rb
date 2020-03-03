@@ -23,4 +23,11 @@ ActiveAdmin.register DesignationProfile do
     end
     f.actions
   end
+
+  controller do
+    def scoped_collection
+      end_of_association_chain.joins(:designation_account)
+                              .where(designation_accounts: { organization: current_organization })
+    end
+  end
 end

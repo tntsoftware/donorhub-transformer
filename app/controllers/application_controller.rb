@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[email name])
     devise_parameter_sanitizer.permit(:account_update, keys: %i[email name])
   end
+
+  def current_organization
+    ::Organization.find_by!(subdomain: request.subdomain)
+  end
 end
