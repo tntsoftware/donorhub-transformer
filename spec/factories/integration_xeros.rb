@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :integration do
+  factory :integration_xero, class: 'Integration::Xero' do
     organization
-    type { 'Integration::Xero' }
   end
 end

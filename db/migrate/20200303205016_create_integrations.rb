@@ -13,6 +13,7 @@ class CreateIntegrations < ActiveRecord::Migration[6.0]
       t.timestamp :expires_at
       t.timestamp :last_download_attempted_at
       t.timestamp :last_downloaded_at
+      t.timestamp :locked_at
 
       t.timestamps
     end

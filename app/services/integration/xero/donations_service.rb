@@ -2,6 +2,15 @@
 
 class Integration::Xero::DonationsService < Integration::Xero::BaseService
   def sync
+    donation_ids = pull_donations
+    donations = integration.organization.donations.where.not(id: donation_ids)
+    donations = donations.where('updated_at >= ?', last_downloaded_at) if last_downloaded_at
+    donations.delete_all
+  end
+
+  private
+
+  def pull_donations
     donation_ids = []
     DesignationAccount.where(active: true).pluck(:remote_id).each do |account_code|
       bank_transaction_scope(account_code: account_code).each do |bank_transaction|
@@ -14,12 +23,8 @@ class Integration::Xero::DonationsService < Integration::Xero::BaseService
         end
       end
     end
-    donations = integration.organization.donations.where.not(id: donation_ids)
-    donations = donations.where('updated_at >= ?', last_downloaded_at) if last_downloaded_at
-    donations.delete_all
+    donation_ids
   end
-
-  private
 
   def bank_transaction_scope(page: 1, account_code:)
     Enumerator.new do |enumerable|

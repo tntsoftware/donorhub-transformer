@@ -24,6 +24,9 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to have_many(:donor_accounts).dependent(:destroy) }
   it { is_expected.to have_many(:members).dependent(:destroy) }
   it { is_expected.to have_many(:users).dependent(:destroy) }
+  it { is_expected.to validate_presence_of(:subdomain) }
+  it { is_expected.to allow_value('my-sub-domain').for(:subdomain) }
+  it { is_expected.not_to allow_value('test--domain-').for(:subdomain) }
 
   describe '#minimum_donation_date' do
     subject(:organization) { create(:organization) }
@@ -47,6 +50,26 @@ RSpec.describe Organization, type: :model do
 
       it 'returns oldest donation date' do
         expect(organization.minimum_donation_date).to eq 1.year.ago.strftime('%m/%d/%Y')
+      end
+    end
+  end
+
+  describe '#update_subdomain' do
+    subject(:organization) { build(:organization, subdomain: subdomain) }
+
+    let(:subdomain) { 'test' }
+
+    it 'enqueues an add job' do
+      expect { organization.save }.to have_enqueued_job(Organization::SubdomainJob).with(subdomain, 'add')
+    end
+
+    context 'when updating subdomain' do
+      subject(:organization) { create(:organization, subdomain: subdomain) }
+
+      it 'enqueues a remove job' do
+        expect { organization.update(subdomain: 'no') }.to(
+          have_enqueued_job(Organization::SubdomainJob).with(subdomain, 'remove')
+        )
       end
     end
   end

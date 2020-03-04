@@ -63,8 +63,11 @@ ActiveRecord::Schema.define(version: 2020_03_03_205016) do
     t.string "encrypted_refresh_token"
     t.string "encrypted_refresh_token_iv"
     t.string "type", null: false
+    t.text "metadata"
+    t.datetime "expires_at"
     t.datetime "last_download_attempted_at"
     t.datetime "last_downloaded_at"
+    t.datetime "locked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["encrypted_access_token_iv"], name: "index_integrations_on_encrypted_access_token_iv", unique: true
