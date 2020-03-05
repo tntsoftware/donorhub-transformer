@@ -15,9 +15,9 @@ RSpec.describe Integration::SyncJob, type: :job do
     subject(:job) { described_class.new }
 
     it 'calls sync service' do
-      allow(Integration::SyncService).to receive(:sync).with(integration)
+      allow(Integration::PrimarySyncService).to receive(:sync).with(integration)
       job.perform(integration.id)
-      expect(Integration::SyncService).to have_receive(:sync)
+      expect(Integration::PrimarySyncService).to have_receive(:sync)
     end
 
     context 'when unknown integration_id' do

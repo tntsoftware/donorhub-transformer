@@ -12,24 +12,22 @@ class Integration::Xero::DonationsService < Integration::Xero::BaseService
 
   def pull_donations
     donation_ids = []
-    DesignationAccount.where(active: true).pluck(:remote_id).each do |account_code|
-      bank_transaction_scope(account_code: account_code).each do |bank_transaction|
-        bank_transaction.line_items.each do |line_item|
-          attributes = donation_attributes(line_item, bank_transaction)
-          donation = integration.organizations.donations.find_or_initialize_by(id: line_item.line_item_id)
-          donation.attributes = attributes
-          donation.save!
-          donation_ids << donation.id
-        end
+    bank_transactions.each do |bank_transaction|
+      bank_transaction.line_items.each do |line_item|
+        donation = integration.organization.donations.find_or_initialize_by(remote_id: line_item.line_item_id)
+        donation.attributes = donation_attributes(line_item, bank_transaction)
+        donation.save!
+        donation_ids << donation.remote_id
       end
     end
     donation_ids
   end
 
-  def bank_transaction_scope(page: 1, account_code:)
+  def bank_transactions
+    page = 1
     Enumerator.new do |enumerable|
       loop do
-        data = call_bank_transaction_api(page, account_code)
+        data = call_bank_transaction_api(page)
         data.each { |element| enumerable.yield element }
         break if data.empty?
 
@@ -38,39 +36,35 @@ class Integration::Xero::DonationsService < Integration::Xero::BaseService
     end
   end
 
-  def call_bank_transaction_api(page, account_code)
+  def call_bank_transaction_api(page)
     client.get_bank_transactions(
-      integration.tenant_id,
-      if_modified_since: last_downloaded_at,
-      where: "Type==\"RECEIVE\" and Status==\"AUTHORISED\" and LineItems[0].AccountCode==\"#{account_code}\"",
+      integration.primary_tenant_id,
+      if_modified_since: integration.last_downloaded_at,
+      where: 'Type=="RECEIVE" and Status=="AUTHORISED"',
       page: page
-    )
+    ).bank_transactions
   rescue XeroRuby::ApiError => e
-    if e.code == 429 # Too Many Requests
-      sleep 60
-      retry
-    end
+    should_retry(e) ? retry : raise
   end
 
   def donation_attributes(line_item, bank_transaction)
     {
-      id: line_item.line_item_id,
-      designation_account_id: designation_account_codes[line_item.account_code],
+      designation_account_id: designation_account_id_by_code(line_item.account_code),
       created_at: bank_transaction.date,
       updated_at: bank_transaction.updated_date_utc,
-      donor_account_id: bank_transaction.contact.id,
+      donor_account_id: donor_account_id_by_remote_id(bank_transaction.contact.contact_id),
       currency: bank_transaction.currency_code,
       amount: line_item.line_amount
     }
   end
 
-  def designation_account_codes
-    return @designation_account_codes if @designation_account_codes
+  def designation_account_id_by_code(code)
+    @designation_accounts ||= Hash[integration.organization.designation_accounts.pluck(:code, :id)]
+    @designation_accounts[code]
+  end
 
-    @designation_account_codes = {}
-    integration.organization.designation_accounts.where(active: true).each do |designation_account|
-      @designation_account_codes[designation_account.remote_id] = designation_account.id
-    end
-    @designation_account_codes
+  def donor_account_id_by_remote_id(remote_id)
+    @donor_accounts ||= Hash[integration.organization.donor_accounts.pluck(:remote_id, :id)]
+    @donor_accounts[remote_id]
   end
 end

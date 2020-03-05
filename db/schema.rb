@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_205016) do
+ActiveRecord::Schema.define(version: 2020_03_05_093233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_03_03_205016) do
     t.datetime "updated_at", null: false
     t.decimal "balance", default: "0.0"
     t.uuid "organization_id", null: false
+    t.string "code"
   end
 
   create_table "designation_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -70,6 +71,8 @@ ActiveRecord::Schema.define(version: 2020_03_03_205016) do
     t.datetime "locked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "auth_hash"
+    t.string "remote_id", null: false
     t.index ["encrypted_access_token_iv"], name: "index_integrations_on_encrypted_access_token_iv", unique: true
     t.index ["encrypted_refresh_token_iv"], name: "index_integrations_on_encrypted_refresh_token_iv", unique: true
     t.index ["organization_id"], name: "index_integrations_on_organization_id"

@@ -22,6 +22,7 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to have_many(:designation_accounts).dependent(:destroy) }
   it { is_expected.to have_many(:donations).through(:designation_accounts) }
   it { is_expected.to have_many(:donor_accounts).dependent(:destroy) }
+  it { is_expected.to have_many(:integrations).dependent(:destroy) }
   it { is_expected.to have_many(:members).dependent(:destroy) }
   it { is_expected.to have_many(:users).dependent(:destroy) }
   it { is_expected.to validate_presence_of(:subdomain) }

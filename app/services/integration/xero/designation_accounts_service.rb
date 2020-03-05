@@ -2,8 +2,8 @@
 
 class Integration::Xero::DesignationAccountsService < Integration::Xero::BaseService
   def sync
-    account_scope.each do |account|
-      record = inegration.organization.designation_accounts.find_or_initialize_by(id: account.id)
+    accounts.each do |account|
+      record = integration.organization.designation_accounts.find_or_initialize_by(remote_id: account.account_id)
       record.attributes = designation_account_attributes(account)
       record.save!
     end
@@ -11,16 +11,13 @@ class Integration::Xero::DesignationAccountsService < Integration::Xero::BaseSer
 
   private
 
-  def account_scope
-    client.get_accounts(integration.tenant_id, if_modified_since: integration.last_downloaded_at)
+  def accounts
+    client.get_accounts(integration.primary_tenant_id, if_modified_since: integration.last_downloaded_at).accounts
   rescue XeroRuby::ApiError => e
-    if e.code == 429 # Too Many Requests
-      sleep 60
-      retry
-    end
+    should_retry(e) ? retry : raise
   end
 
   def designation_account_attributes(account)
-    { id: account.id, name: account.name, remote_id: account.code }
+    { name: account.name, code: account.code }
   end
 end

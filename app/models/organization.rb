@@ -20,6 +20,7 @@ class Organization < ApplicationRecord
   has_many :designation_accounts, dependent: :destroy
   has_many :donations, through: :designation_accounts
   has_many :donor_accounts, dependent: :destroy
+  has_many :integrations, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :users, dependent: :destroy
   validates :subdomain, presence: true, format: { with: /\A([a-z][a-z\d]*(-[a-z\d]+)*|xn--[\-a-z\d]+)\z/i }

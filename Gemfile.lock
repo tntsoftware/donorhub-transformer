@@ -85,6 +85,8 @@ GEM
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
     bootstrap (4.4.1)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
@@ -111,6 +113,7 @@ GEM
     connection_pool (2.2.2)
     crass (1.0.6)
     database_cleaner (1.8.3)
+    debug_inspector (0.0.3)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -118,6 +121,8 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.5)
     dotenv-rails (2.7.5)
       dotenv (= 2.7.5)
@@ -136,6 +141,8 @@ GEM
       railties (>= 4.2.0)
     faker (2.10.2)
       i18n (>= 1.6, < 2)
+    faraday (1.0.0)
+      multipart-post (>= 1.2, < 3)
     ffi (1.12.2)
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
@@ -148,11 +155,15 @@ GEM
     has_scope (0.7.2)
       actionpack (>= 4.1)
       activesupport (>= 4.1)
+    hashie (4.1.0)
     heroics (0.0.25)
       erubis (~> 2.0)
       excon
       moneta
       multi_json (>= 1.9.2)
+    http-accept (1.7.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     inherited_resources (1.11.0)
@@ -167,6 +178,7 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.3.0)
+    jwt (2.2.1)
     kaminari (1.2.0)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.0)
@@ -194,15 +206,36 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (0.9.2)
+    mime-types (3.3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2019.1009)
     mimemagic (0.3.4)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
     moneta (1.0.0)
     multi_json (1.14.1)
+    multi_xml (0.6.0)
+    multipart-post (2.1.1)
+    netrc (0.11.0)
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    oauth2 (1.4.4)
+      faraday (>= 0.8, < 2.0)
+      jwt (>= 1.0, < 3.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
+    omniauth (1.9.1)
+      hashie (>= 3.4.6)
+      rack (>= 1.6.2, < 3)
+    omniauth-oauth2 (1.6.0)
+      oauth2 (~> 1.1)
+      omniauth (~> 1.9)
+    omniauth-xero-oauth2 (0.9.3)
+      omniauth (~> 1.3)
+      omniauth-oauth2 (~> 1.5)
     orm_adapter (0.5.0)
     parallel (1.19.1)
     parser (2.7.0.3)
@@ -283,6 +316,11 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.2.4)
     rollbar (2.24.0)
     rspec-core (3.9.1)
@@ -349,6 +387,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.6)
     unicode-display_width (1.6.1)
     versionist (2.0.1)
       activesupport (>= 3)
@@ -376,6 +417,7 @@ DEPENDENCIES
   attr_encrypted
   awesome_print
   better_errors
+  binding_of_caller
   bootstrap
   capybara
   coffee-rails
@@ -390,6 +432,8 @@ DEPENDENCIES
   launchy
   letter_opener
   listen
+  omniauth
+  omniauth-xero-oauth2
   pg
   platform-api
   pry-byebug
@@ -403,6 +447,7 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify
+  rest-client
   rollbar
   rspec-rails (~> 4.0.0.beta4)
   rubocop

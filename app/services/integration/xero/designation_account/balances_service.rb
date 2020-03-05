@@ -18,11 +18,8 @@ class Integration::Xero::DesignationAccount::BalancesService < Integration::Xero
   private
 
   def balance_sheet
-    client.get_report_balance_sheet(integration.tenant_id, date: Date.today.to_s)
+    client.get_report_balance_sheet(integration.primary_tenant_id, date: Date.today.to_s)
   rescue XeroRuby::ApiError => e
-    if e.code == 429 # Too Many Requests
-      sleep 60
-      retry
-    end
+    should_retry(e) ? retry : raise
   end
 end
