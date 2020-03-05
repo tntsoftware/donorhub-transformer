@@ -76,7 +76,9 @@ class Donation < ApplicationRecord
   protected
 
   def donor_account_and_designation_account_have_same_organization
-    return if designation_account&.organization_id == donor_account&.organization_id
+    return if designation_account_id.nil? ||
+              donor_account_id.nil? ||
+              designation_account.organization_id == donor_account.organization_id
 
     errors.add(:designation_account_id, "can't be in different organization")
     errors.add(:donor_account_id, "can't be in different organization")

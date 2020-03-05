@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_093233) do
+ActiveRecord::Schema.define(version: 2020_03_05_103321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 2020_03_05_093233) do
     t.decimal "balance", default: "0.0"
     t.uuid "organization_id", null: false
     t.string "code"
+    t.index ["organization_id", "remote_id"], name: "index_designation_accounts_on_organization_id_and_remote_id"
+    t.index ["organization_id"], name: "index_designation_accounts_on_organization_id"
   end
 
   create_table "designation_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -33,7 +35,9 @@ ActiveRecord::Schema.define(version: 2020_03_05_093233) do
     t.string "remote_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["designation_account_id", "remote_id"], name: "idx_dp_da_r"
     t.index ["designation_account_id"], name: "index_designation_profiles_on_designation_account_id"
+    t.index ["member_id", "remote_id"], name: "index_designation_profiles_on_member_id_and_remote_id"
     t.index ["member_id"], name: "index_designation_profiles_on_member_id"
   end
 
@@ -45,7 +49,9 @@ ActiveRecord::Schema.define(version: 2020_03_05_093233) do
     t.string "currency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["designation_account_id", "remote_id"], name: "index_donations_on_designation_account_id_and_remote_id"
     t.index ["designation_account_id"], name: "index_donations_on_designation_account_id"
+    t.index ["donor_account_id", "remote_id"], name: "index_donations_on_donor_account_id_and_remote_id"
     t.index ["donor_account_id"], name: "index_donations_on_donor_account_id"
   end
 
@@ -55,6 +61,8 @@ ActiveRecord::Schema.define(version: 2020_03_05_093233) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "organization_id", null: false
+    t.index ["organization_id", "remote_id"], name: "index_donor_accounts_on_organization_id_and_remote_id"
+    t.index ["organization_id"], name: "index_donor_accounts_on_organization_id"
   end
 
   create_table "integrations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -75,6 +83,7 @@ ActiveRecord::Schema.define(version: 2020_03_05_093233) do
     t.string "remote_id", null: false
     t.index ["encrypted_access_token_iv"], name: "index_integrations_on_encrypted_access_token_iv", unique: true
     t.index ["encrypted_refresh_token_iv"], name: "index_integrations_on_encrypted_refresh_token_iv", unique: true
+    t.index ["organization_id", "remote_id"], name: "index_integrations_on_organization_id_and_remote_id"
     t.index ["organization_id"], name: "index_integrations_on_organization_id"
   end
 
@@ -87,6 +96,8 @@ ActiveRecord::Schema.define(version: 2020_03_05_093233) do
     t.datetime "updated_at", null: false
     t.uuid "organization_id", null: false
     t.index ["email", "access_token"], name: "index_members_on_email_and_access_token", unique: true
+    t.index ["organization_id", "remote_id"], name: "index_members_on_organization_id_and_remote_id"
+    t.index ["organization_id"], name: "index_members_on_organization_id"
   end
 
   create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

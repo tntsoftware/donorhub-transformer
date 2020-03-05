@@ -4,7 +4,9 @@ class Integration::Xero::DonationsService < Integration::Xero::BaseService
   def sync
     donation_ids = pull_donations
     donations = integration.organization.donations.where.not(id: donation_ids)
-    donations = donations.where('updated_at >= ?', last_downloaded_at) if last_downloaded_at
+    if integration.last_downloaded_at
+      donations = donations.where('donations.updated_at >= ?', integration.last_downloaded_at)
+    end
     donations.delete_all
   end
 
@@ -16,8 +18,11 @@ class Integration::Xero::DonationsService < Integration::Xero::BaseService
       bank_transaction.line_items.each do |line_item|
         donation = integration.organization.donations.find_or_initialize_by(remote_id: line_item.line_item_id)
         donation.attributes = donation_attributes(line_item, bank_transaction)
+        next if donation.designation_account_id.nil? || donation.donor_account_id.nil?
+
         donation.save!
-        donation_ids << donation.remote_id
+
+        donation_ids << donation.id
       end
     end
     donation_ids
@@ -39,7 +44,7 @@ class Integration::Xero::DonationsService < Integration::Xero::BaseService
   def call_bank_transaction_api(page)
     client.get_bank_transactions(
       integration.primary_tenant_id,
-      if_modified_since: integration.last_downloaded_at,
+      if_modified_since: integration.last_downloaded_at&.to_date,
       where: 'Type=="RECEIVE" and Status=="AUTHORISED"',
       page: page
     ).bank_transactions
@@ -59,7 +64,7 @@ class Integration::Xero::DonationsService < Integration::Xero::BaseService
   end
 
   def designation_account_id_by_code(code)
-    @designation_accounts ||= Hash[integration.organization.designation_accounts.pluck(:code, :id)]
+    @designation_accounts ||= Hash[integration.organization.designation_accounts.active.pluck(:code, :id)]
     @designation_accounts[code]
   end
 

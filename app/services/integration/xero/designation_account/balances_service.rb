@@ -2,23 +2,27 @@
 
 class Integration::Xero::DesignationAccount::BalancesService < Integration::Xero::BaseService
   def sync
-    balance_sheet.sections.each do |section|
-      next unless section.title == 'Current Assets'
+    rows.each do |row|
+      next if row.attributes.nil?
 
-      section.rows.each do |row|
-        next if row.cells.empty?
-
-        designation_account =
-          integration.designation_accounts.find_by(id: row.cells.first.attributes['account'], active: true)
-        designation_account&.update(balance: -row.cells[1].value)
-      end
+      designation_account =
+        integration.organization.designation_accounts.find_by(remote_id: row.attributes[0].value)
+      designation_account&.update(balance: -row.value.to_f)
     end
   end
 
   private
 
+  def rows
+    balance_sheet.map(&:rows)
+                 .flatten
+                 .select { |row| row&.row_type == 'Row' }
+                 .map { |row| row.cells.last }
+                 .flatten
+  end
+
   def balance_sheet
-    client.get_report_balance_sheet(integration.primary_tenant_id, date: Date.today.to_s)
+    client.get_report_balance_sheet(integration.primary_tenant_id, date: Date.today.to_s).reports.first.rows
   rescue XeroRuby::ApiError => e
     should_retry(e) ? retry : raise
   end

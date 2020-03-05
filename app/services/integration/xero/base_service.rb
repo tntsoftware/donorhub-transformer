@@ -32,7 +32,7 @@ class Integration::Xero::BaseService
         integration.refresh!
         @client = nil
         @config = nil
-        false
+        true
       else
         false
       end

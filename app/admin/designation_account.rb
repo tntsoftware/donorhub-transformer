@@ -12,13 +12,13 @@ ActiveAdmin.register DesignationAccount do
     selectable_column
     id_column
     column :name
-    column :active
+    column(:balance) { |designation_account| number_to_currency designation_account.balance }
     column :created_at
+    column :updated_at
     actions
   end
 
   filter :name
-  filter :active
   filter :created_at
 
   form do |f|
