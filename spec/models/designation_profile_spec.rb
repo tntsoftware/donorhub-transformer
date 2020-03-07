@@ -87,8 +87,8 @@ RSpec.describe DesignationProfile, type: :model do
     context 'when designation_account and member are nil' do
       subject(:designation_profile) { build(:designation_profile, designation_account: nil, member: nil) }
 
-      it 'returns bar' do
-        expect(designation_profile.name).to eq ' | '
+      it 'returns nil' do
+        expect(designation_profile.name).to eq nil
       end
     end
   end

@@ -44,8 +44,9 @@ class User < ApplicationRecord
   validates_confirmation_of :password
   validates_length_of :password, within: 6..128, allow_blank: true
 
-  def self.find_for_authentication(warden_conditions)
-    organization = Organization.find_by(subdomain: warden_conditions[:subdomain])
-    where(email: warden_conditions[:email], organization: organization).first
+  def self.find_for_authentication(conditions)
+    joins(:organization).find_by(
+      email: conditions[:email], organizations: { subdomain: conditions[:subdomain] }
+    )
   end
 end

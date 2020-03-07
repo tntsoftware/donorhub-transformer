@@ -28,7 +28,7 @@ class Member < ApplicationRecord
   after_commit :send_inform_email, on: :create
 
   def send_inform_email
-    MemberMailer.inform(self).deliver_now
+    MemberMailer.inform(self).deliver_later
   end
 
   protected

@@ -31,10 +31,36 @@ describe User do
   subject(:user) { create(:user, email: 'user@example.com') }
 
   it { is_expected.to belong_to(:organization) }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_presence_of(:password) }
+  it { is_expected.to validate_confirmation_of(:password) }
+  it { is_expected.to validate_length_of(:password) }
 
   describe '#email' do
     it 'returns a string' do
       expect(user.email).to match 'user@example.com'
+    end
+  end
+
+  describe '.find_for_authentication' do
+    let(:conditions) { { email: Faker::Internet.email, subdomain: Faker::Internet.domain_word } }
+
+    it 'returns nil' do
+      expect(described_class.find_for_authentication(conditions)).to eq nil
+    end
+
+    context 'when user exists' do
+      subject!(:user) do
+        create(
+          :user,
+          email: conditions[:email],
+          organization: create(:organization, subdomain: conditions[:subdomain])
+        )
+      end
+
+      it 'returns user' do
+        expect(described_class.find_for_authentication(conditions)).to eq user
+      end
     end
   end
 end
