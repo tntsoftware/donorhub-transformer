@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_07_032953) do
+ActiveRecord::Schema.define(version: 2020_03_07_045616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_03_07_032953) do
     t.decimal "balance", default: "0.0"
     t.uuid "organization_id", null: false
     t.string "code"
+    t.datetime "remote_updated_at"
     t.index ["organization_id", "remote_id"], name: "index_designation_accounts_on_organization_id_and_remote_id"
     t.index ["organization_id"], name: "index_designation_accounts_on_organization_id"
   end
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(version: 2020_03_07_032953) do
     t.string "currency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "remote_updated_at"
     t.index ["designation_account_id", "remote_id"], name: "index_donations_on_designation_account_id_and_remote_id"
     t.index ["designation_account_id"], name: "index_donations_on_designation_account_id"
     t.index ["donor_account_id", "remote_id"], name: "index_donations_on_donor_account_id_and_remote_id"
@@ -61,6 +63,8 @@ ActiveRecord::Schema.define(version: 2020_03_07_032953) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "organization_id", null: false
+    t.datetime "remote_updated_at"
+    t.string "code"
     t.index ["organization_id", "remote_id"], name: "index_donor_accounts_on_organization_id_and_remote_id"
     t.index ["organization_id"], name: "index_donor_accounts_on_organization_id"
   end

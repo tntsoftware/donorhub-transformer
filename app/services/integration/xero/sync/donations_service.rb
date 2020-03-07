@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class Integration::Xero::DonationsService < Integration::Xero::BaseService
+class Integration::Xero::Sync::DonationsService < Integration::Xero::Sync::BaseService
   def sync
     donation_ids = pull_donations
     donations = integration.organization.donations.where.not(id: donation_ids)
     if integration.last_downloaded_at
-      donations = donations.where('donations.updated_at >= ?', integration.last_downloaded_at)
+      donations = donations.where('donations.remote_updated_at >= ?', integration.last_downloaded_at)
     end
     donations.delete_all
   end
@@ -56,7 +56,7 @@ class Integration::Xero::DonationsService < Integration::Xero::BaseService
     {
       designation_account_id: designation_account_id_by_code(line_item.account_code),
       created_at: bank_transaction.date,
-      updated_at: bank_transaction.updated_date_utc,
+      remote_updated_at: bank_transaction.updated_date_utc,
       donor_account_id: donor_account_id_by_remote_id(bank_transaction.contact.contact_id),
       currency: bank_transaction.currency_code,
       amount: line_item.line_amount

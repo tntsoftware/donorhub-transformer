@@ -11,5 +11,11 @@ FactoryBot.define do
         'updatedDateUtc' => Time.now.to_s
       }]
     end
+
+    trait :with_primary_tenant do
+      before(:create) do |integration|
+        integration.primary_tenant_id = integration.tenants.first['tenantId']
+      end
+    end
   end
 end

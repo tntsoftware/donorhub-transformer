@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Integration::Xero::BaseService, type: :service do
+describe Integration::Xero::Sync::BaseService, type: :service do
   let(:integration) { create(:integration_xero) }
 
   describe '.sync' do

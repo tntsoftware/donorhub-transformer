@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Integration::Xero::DesignationAccount::BalancesService < Integration::Xero::BaseService
+class Integration::Xero::Sync::DesignationAccount::BalancesService < Integration::Xero::Sync::BaseService
   def sync
     rows.each do |row|
       next if row.attributes.nil?

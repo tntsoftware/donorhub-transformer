@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Integration::Xero::BaseService
+class Integration::Xero::Sync::BaseService
   attr_accessor :integration
 
   def self.sync(integration)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Integration::Xero::DesignationAccountsService < Integration::Xero::BaseService
+class Integration::Xero::Sync::DesignationAccountsService < Integration::Xero::Sync::BaseService
   protected
 
   def scope
@@ -15,6 +15,11 @@ class Integration::Xero::DesignationAccountsService < Integration::Xero::BaseSer
   end
 
   def attributes(account)
-    { remote_id: account.account_id, name: account.name, code: account.code, updated_at: account.updated_date_utc }
+    {
+      remote_id: account.account_id,
+      name: account.name,
+      code: account.code,
+      remote_updated_at: account.updated_date_utc
+    }
   end
 end

@@ -1,0 +1,69 @@
+{
+  "Id": "67763e1f-849b-40e3-beca-36589bbb97a6",
+  "Status": "OK",
+  "ProviderName": "Donation Core",
+  "DateTimeUTC": "/Date(1583556259847)/",
+  "Contacts": [
+    {
+      "ContactID": "1ff6366d-6324-47e7-823d-dba0cd03dc8e",
+      "AccountNumber": "AA000001",
+      "ContactStatus": "ACTIVE",
+      "Name": "Ernesto Heathcote",
+      "FirstName": "Ernesto",
+      "LastName": "Heathcote",
+      "EmailAddress": "peg_stamm@hintz.com",
+      "BankAccountDetails": "01-0001-00000001-01",
+      "Addresses": [
+        {
+          "AddressType": "STREET",
+          "City": "",
+          "Region": "",
+          "PostalCode": "",
+          "Country": "",
+          "AttentionTo": ""
+        },
+        {
+          "AddressType": "POBOX",
+          "City": "",
+          "Region": "",
+          "PostalCode": "",
+          "Country": "",
+          "AttentionTo": ""
+        }
+      ],
+      "Phones": [
+        {
+          "PhoneType": "DDI",
+          "PhoneNumber": "",
+          "PhoneAreaCode": "",
+          "PhoneCountryCode": ""
+        },
+        {
+          "PhoneType": "DEFAULT",
+          "PhoneNumber": "",
+          "PhoneAreaCode": "",
+          "PhoneCountryCode": ""
+        },
+        {
+          "PhoneType": "FAX",
+          "PhoneNumber": "",
+          "PhoneAreaCode": "",
+          "PhoneCountryCode": ""
+        },
+        {
+          "PhoneType": "MOBILE",
+          "PhoneNumber": "",
+          "PhoneAreaCode": "",
+          "PhoneCountryCode": ""
+        }
+      ],
+      "UpdatedDateUTC": "/Date(1583396595327+0000)/",
+      "ContactGroups": [],
+      "IsSupplier": true,
+      "IsCustomer": true,
+      "ContactPersons": [],
+      "HasAttachments": false,
+      "HasValidationErrors": false
+    }
+  ]
+}

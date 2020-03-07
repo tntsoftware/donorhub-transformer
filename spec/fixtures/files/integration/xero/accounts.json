@@ -1,0 +1,26 @@
+{
+  "Id": "890b594f-9ba3-42c0-abb0-77700574d1c7",
+  "Status": "OK",
+  "ProviderName": "Donation Core",
+  "DateTimeUTC": "/Date(1583557791068)/",
+  "Accounts": [
+    {
+      "AccountID": "68d15431-f27d-4ec5-8cee-c1910cd3be6c",
+      "Code": "1000.AA",
+      "Name": "MTS 2020 AA Donations Receivable",
+      "Status": "ACTIVE",
+      "Type": "CURRENT",
+      "TaxType": "NONE",
+      "Description": "This account is for the donations that have been pledged towards enabling MTS Training for the MTS Pastor.",
+      "Class": "ASSET",
+      "EnablePaymentsToAccount": false,
+      "ShowInExpenseClaims": false,
+      "BankAccountType": "",
+      "ReportingCode": "ASS",
+      "ReportingCodeName": "Assets",
+      "HasAttachments": false,
+      "UpdatedDateUTC": "/Date(1482287231723+0000)/",
+      "AddToWatchlist": false
+    }
+  ]
+}
