@@ -78,6 +78,13 @@ describe Integration::Xero::Sync::DonationsService, type: :service do
         .to_return(status: 200, body: bank_transactions_empty, headers: {})
     end
 
+    it 'includes if_modified_since in request' do
+      donations_service.sync
+      expect(WebMock).to have_requested(:get, url(1)).with(
+        headers: { 'If-Modified-Since' => 2.years.ago.to_date }
+      )
+    end
+
     it 'create new donations' do
       expect { donations_service.sync }.to change { organization.donations.count }.from(1).to(2)
     end

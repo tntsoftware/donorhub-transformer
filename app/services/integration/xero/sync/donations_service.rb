@@ -40,7 +40,7 @@ class Integration::Xero::Sync::DonationsService < Integration::Xero::Sync::BaseS
   def call_bank_transaction_api(page)
     client.get_bank_transactions(
       integration.primary_tenant_id,
-      if_modified_since: integration.last_downloaded_at&.to_date,
+      if_modified_since: integration.last_downloaded_at&.to_date || 2.years.ago.to_date,
       where: 'Type=="RECEIVE" and Status=="AUTHORISED"',
       page: page
     ).bank_transactions

@@ -12,13 +12,15 @@ class Integration::Xero::Sync::BaseService
   end
 
   def sync
-    remote_collection_with_exception_handling.each do |remote_record|
-      attributes = attributes(remote_record)
-      scope.find_or_initialize_by(remote_id: attributes[:remote_id]).update!(attributes)
-    end
+    remote_collection_with_exception_handling.each(&method(:import_remote_record))
   end
 
   protected
+
+  def import_remote_record(remote_record)
+    attributes = attributes(remote_record)
+    scope.find_or_initialize_by(remote_id: attributes[:remote_id]).update!(attributes)
+  end
 
   def remote_collection_with_exception_handling
     remote_collection

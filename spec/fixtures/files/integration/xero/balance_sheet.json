@@ -1,0 +1,114 @@
+{
+  "Id": "35a92942-269f-4ac4-af8c-705cc07a5ea1",
+  "Status": "OK",
+  "ProviderName": "Donation Core",
+  "DateTimeUTC": "/Date(1583573832192)/",
+  "Reports": [
+    {
+      "ReportID": "BalanceSheet",
+      "ReportName": "Balance Sheet",
+      "ReportType": "BalanceSheet",
+      "ReportTitles": [
+        "Balance Sheet",
+        "My Organization",
+        "As at 31 March 2020"
+      ],
+      "ReportDate": "7 March 2020",
+      "UpdatedDateUTC": "/Date(1583573832192)/",
+      "Fields": [],
+      "Rows": [
+        {
+          "RowType": "Header",
+          "Cells": [
+            {
+              "Value": ""
+            },
+            {
+              "Value": "31 Mar 2020"
+            },
+            {
+              "Value": "31 Mar 2019"
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Net Assets"
+                },
+                {
+                  "Value": "100.01"
+                },
+                {
+                  "Value": "200.01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "Assets",
+          "Rows": []
+        },
+        {
+          "RowType": "Section",
+          "Title": "Bank",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Updated Fund Account",
+                  "Attributes": [
+                    {
+                      "Value": "8392357c-a8c8-42ab-8bdb-6a9ee2062364",
+                      "Id": "account"
+                    }
+                  ]
+                },
+                {
+                  "Value": "300.01",
+                  "Attributes": [
+                    {
+                      "Value": "8392357c-a8c8-42ab-8bdb-6a9ee2062364",
+                      "Id": "account"
+                    }
+                  ]
+                },
+                {
+                  "Value": "400.01",
+                  "Attributes": [
+                    {
+                      "Value": "8392357c-a8c8-42ab-8bdb-6a9ee2062364",
+                      "Id": "account"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "RowType": "SummaryRow",
+              "Cells": [
+                {
+                  "Value": "Total Equity"
+                },
+                {
+                  "Value": "10001.01"
+                },
+                {
+                  "Value": "20002.02"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
