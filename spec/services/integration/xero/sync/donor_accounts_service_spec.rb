@@ -86,5 +86,38 @@ describe Integration::Xero::Sync::DonorAccountsService, type: :service do
         expect(donor_account.reload.name).to eq 'Ernesto Heathcote'
       end
     end
+
+    context 'when invalid token' do
+      let(:token_expired) { data('integration/xero/token_expired') }
+
+      before do
+        allow(Integration::Xero::RefreshService).to receive(:refresh?).with(integration) {
+          integration.update(access_token: 'new_token')
+        }
+        stub_request(:get, 'https://api.xero.com/api.xro/2.0/Contacts')
+          .with(
+            headers: {
+              'Authorization' => "Bearer #{integration.access_token}",
+              'Xero-Tenant-Id' => integration.primary_tenant_id
+            }
+          )
+          .to_return(status: 401, body: token_expired, headers: {})
+        stub_request(:get, 'https://api.xero.com/api.xro/2.0/Contacts')
+          .with(
+            headers: {
+              'Authorization' => 'Bearer new_token',
+              'Xero-Tenant-Id' => integration.primary_tenant_id
+            }
+          )
+          .to_return(status: 200, body: contacts, headers: {})
+      end
+
+      it 'refreshes token' do
+        donor_accounts_service.sync
+        expect(WebMock).to have_requested(:get, 'https://api.xero.com/api.xro/2.0/Contacts').with(
+          headers: { 'Authorization' => 'Bearer new_token' }
+        )
+      end
+    end
   end
 end

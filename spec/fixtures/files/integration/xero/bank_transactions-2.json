@@ -1,0 +1,50 @@
+{
+  "Id": "9e29399a-71aa-4254-8c37-9971868d86a9",
+  "Status": "OK",
+  "ProviderName": "Donation Core",
+  "DateTimeUTC": "/Date(1583566627161)/",
+  "BankTransactions": [
+    {
+      "BankTransactionID": "7b6aa8e8-d696-48f2-a82b-f6e628a3695c",
+      "BankAccount": {
+        "AccountID": "4da84623-7ae8-4836-b7db-45203b92cbb6",
+        "Code": "001",
+        "Name": "Primary Account"
+      },
+      "Type": "RECEIVE",
+      "IsReconciled": true,
+      "HasAttachments": false,
+      "Contact": {
+        "ContactID": "a4ca6606-2fa2-4e15-9650-4b14755a26ad",
+        "Name": "Galen Green",
+        "Addresses": [],
+        "Phones": [],
+        "ContactGroups": [],
+        "ContactPersons": [],
+        "HasValidationErrors": false
+      },
+      "DateString": "2012-05-31T00:00:00",
+      "Date": "/Date(1338422400000+0000)/",
+      "Status": "AUTHORISED",
+      "LineAmountTypes": "Inclusive",
+      "LineItems": [
+        {
+          "Description": "",
+          "UnitAmount": 10.10,
+          "TaxType": "NONE",
+          "TaxAmount": 0.00,
+          "LineAmount": 10.10,
+          "AccountCode": "000.CCC",
+          "Tracking": [],
+          "Quantity": 1.0000,
+          "LineItemID": "5259b709-f758-4317-8ad0-d4a0f8e7e6a2"
+        }
+      ],
+      "SubTotal": 10.10,
+      "TotalTax": 0.00,
+      "Total": 10.10,
+      "UpdatedDateUTC": "/Date(1340156559163+0000)/",
+      "CurrencyCode": "NZD"
+    }
+  ]
+}

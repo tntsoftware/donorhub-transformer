@@ -78,12 +78,45 @@ describe Integration::Xero::Sync::DesignationAccountsService, type: :service do
       end
 
       it 'does not create new designation_account' do
-        expect { designation_accounts_service.sync }.not_to change { organization.designation_accounts.count }
+        expect { designation_accounts_service.sync }.not_to(change { organization.designation_accounts.count })
       end
 
       it 'sets name' do
         designation_accounts_service.sync
         expect(designation_account.reload.name).to eq 'MTS 2020 AA Donations Receivable'
+      end
+    end
+
+    context 'when invalid token' do
+      let(:token_expired) { data('integration/xero/token_expired') }
+
+      before do
+        allow(Integration::Xero::RefreshService).to receive(:refresh?).with(integration) {
+          integration.update(access_token: 'new_token')
+        }
+        stub_request(:get, 'https://api.xero.com/api.xro/2.0/Accounts')
+          .with(
+            headers: {
+              'Authorization' => "Bearer #{integration.access_token}",
+              'Xero-Tenant-Id' => integration.primary_tenant_id
+            }
+          )
+          .to_return(status: 401, body: token_expired, headers: {})
+        stub_request(:get, 'https://api.xero.com/api.xro/2.0/Accounts')
+          .with(
+            headers: {
+              'Authorization' => 'Bearer new_token',
+              'Xero-Tenant-Id' => integration.primary_tenant_id
+            }
+          )
+          .to_return(status: 200, body: accounts, headers: {})
+      end
+
+      it 'refreshes token' do
+        designation_accounts_service.sync
+        expect(WebMock).to have_requested(:get, 'https://api.xero.com/api.xro/2.0/Accounts').with(
+          headers: { 'Authorization' => 'Bearer new_token' }
+        )
       end
     end
   end

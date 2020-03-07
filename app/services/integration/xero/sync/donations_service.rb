@@ -2,8 +2,7 @@
 
 class Integration::Xero::Sync::DonationsService < Integration::Xero::Sync::BaseService
   def sync
-    donation_ids = pull_donations
-    donations = integration.organization.donations.where.not(id: donation_ids)
+    donations = integration.organization.donations.where.not(id: donation_ids.flatten)
     if integration.last_downloaded_at
       donations = donations.where('donations.remote_updated_at >= ?', integration.last_downloaded_at)
     end
@@ -12,20 +11,17 @@ class Integration::Xero::Sync::DonationsService < Integration::Xero::Sync::BaseS
 
   private
 
-  def pull_donations
-    donation_ids = []
-    bank_transactions.each do |bank_transaction|
-      bank_transaction.line_items.each do |line_item|
-        donation = integration.organization.donations.find_or_initialize_by(remote_id: line_item.line_item_id)
-        donation.attributes = donation_attributes(line_item, bank_transaction)
-        next if donation.designation_account_id.nil? || donation.donor_account_id.nil?
+  def donation_ids
+    bank_transactions.map do |bank_transaction|
+      bank_transaction.line_items.map do |line_item|
+        attributes = attributes(bank_transaction, line_item)
+        next unless attributes[:designation_account_id] && attributes[:donor_account_id]
 
-        donation.save!
-
-        donation_ids << donation.id
+        donation = integration.organization.donations.find_or_initialize_by(remote_id: attributes[:remote_id])
+        donation.update!(attributes)
+        donation.id
       end
     end
-    donation_ids
   end
 
   def bank_transactions
@@ -52,14 +48,15 @@ class Integration::Xero::Sync::DonationsService < Integration::Xero::Sync::BaseS
     should_retry(e) ? retry : raise
   end
 
-  def donation_attributes(line_item, bank_transaction)
+  def attributes(bank_transaction, line_item)
     {
+      remote_id: line_item.line_item_id,
       designation_account_id: designation_account_id_by_code(line_item.account_code),
-      created_at: bank_transaction.date,
-      remote_updated_at: bank_transaction.updated_date_utc,
       donor_account_id: donor_account_id_by_remote_id(bank_transaction.contact.contact_id),
-      currency: bank_transaction.currency_code,
-      amount: line_item.line_amount
+      remote_updated_at: bank_transaction.updated_date_utc,
+      created_at: bank_transaction.date,
+      amount: line_item.line_amount,
+      currency: bank_transaction.currency_code
     }
   end
 

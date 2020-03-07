@@ -1,0 +1,50 @@
+{
+  "Id": "5c1d5ca0-342b-4e87-8397-68681286a47e",
+  "Status": "OK",
+  "ProviderName": "Donation Core",
+  "DateTimeUTC": "/Date(1583566627161)/",
+  "BankTransactions": [
+    {
+      "BankTransactionID": "912b6d7a-6c1c-4d4f-9e29-b03a288ae0aa",
+      "BankAccount": {
+        "AccountID": "7cb20795-d378-4748-a20e-8179499ee7f0",
+        "Code": "001",
+        "Name": "Primary Account"
+      },
+      "Type": "RECEIVE",
+      "IsReconciled": true,
+      "HasAttachments": false,
+      "Contact": {
+        "ContactID": "e5797369-d308-4870-93b5-10c84fa9e381",
+        "Name": "Miss Tommie Streich",
+        "Addresses": [],
+        "Phones": [],
+        "ContactGroups": [],
+        "ContactPersons": [],
+        "HasValidationErrors": false
+      },
+      "DateString": "2012-05-31T00:00:00",
+      "Date": "/Date(1338422400000+0000)/",
+      "Status": "AUTHORISED",
+      "LineAmountTypes": "Inclusive",
+      "LineItems": [
+        {
+          "Description": "",
+          "UnitAmount": 20.20,
+          "TaxType": "NONE",
+          "TaxAmount": 0.00,
+          "LineAmount": 20.20,
+          "AccountCode": "000.AAA",
+          "Tracking": [],
+          "Quantity": 1.0000,
+          "LineItemID": "a21a1fb7-6dbe-44fd-9089-09cc12f4c3ca"
+        }
+      ],
+      "SubTotal": 20.20,
+      "TotalTax": 0.00,
+      "Total": 20.20,
+      "UpdatedDateUTC": "/Date(1340156559163+0000)/",
+      "CurrencyCode": "NZD"
+    }
+  ]
+}
