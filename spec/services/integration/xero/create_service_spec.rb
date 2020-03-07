@@ -57,7 +57,12 @@ describe Integration::Xero::CreateService, type: :service do
 
     context 'when integration already exists' do
       let!(:integration) do
-        create(:integration_xero, organization: organization, remote_id: 'd609b4f7-74af-413b-852f-7fb04f1f33ce')
+        create(
+          :integration_xero,
+          organization: organization,
+          remote_id: 'd609b4f7-74af-413b-852f-7fb04f1f33ce',
+          valid_credentials: false
+        )
       end
 
       it 'does not creates an integration' do
@@ -69,6 +74,11 @@ describe Integration::Xero::CreateService, type: :service do
         expect(integration.reload.access_token).to eq(
           '8f516a2ecb5071edeea1f9c1187fc2dc38938440c96a39f0d48d49aba2803c00'
         )
+      end
+
+      it 'updates valid_credentials' do
+        described_class.create(organization, auth_hash)
+        expect(integration.reload.valid_credentials).to eq true
       end
     end
   end

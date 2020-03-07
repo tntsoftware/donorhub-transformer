@@ -11,9 +11,20 @@ class Integration::Xero::BaseService
     self.integration = integration
   end
 
-  def sync; end
+  def sync
+    remote_collection_with_exception_handling.each do |remote_record|
+      attributes = attributes(remote_record)
+      scope.find_or_initialize_by(remote_id: attributes[:remote_id]).update!(attributes)
+    end
+  end
 
   protected
+
+  def remote_collection_with_exception_handling
+    remote_collection
+  rescue XeroRuby::ApiError => e
+    should_retry(e) ? retry : raise
+  end
 
   def client
     @client ||=

@@ -25,7 +25,8 @@ class Integration::Xero::CreateService
       expires_at: Time.at(auth_hash[:credentials][:expires_at]),
       auth_hash: auth_hash,
       primary_tenant_id: primary_tenant_id,
-      tenants: auth_hash[:extra][:xero_tenants]
+      tenants: auth_hash[:extra][:xero_tenants],
+      valid_credentials: true
     }
   end
 

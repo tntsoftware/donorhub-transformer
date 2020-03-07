@@ -22,25 +22,39 @@ class DesignationAccount < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
 
+  class << self
+    def balances_as_csv(designation_profile = nil)
+      CSV.generate do |csv|
+        hash = all_as_csv.merge(designation_profile_as_csv(designation_profile))
+        csv << hash.keys
+        csv << hash.values
+      end
+    end
+
+    private
+
+    def all_as_csv
+      {
+        'EMPLID' => all.map(&:remote_id).join(','),
+        'ACCT_NAME' => all.map(&:name).join(','),
+        'BALANCE' => all.map(&:balance).join(',')
+      }
+    end
+
+    def designation_profile_as_csv(designation_profile)
+      {
+        'PROFILE_CODE' => designation_profile&.remote_id || designation_profile&.id || '',
+        'PROFILE_DESCRIPTION' => designation_profile&.name || '',
+        'FUND_ACCOUNT_REPORT_URL' => ''
+      }
+    end
+  end
+
   def as_csv
     {
       'DESIG_ID' => remote_id,
       'DESIG_NAME' => name,
       'ORG_PATH' => ''
     }
-  end
-
-  def self.balances_as_csv(designation_profile = nil)
-    CSV.generate do |csv|
-      csv << %w[EMPLID ACCT_NAME BALANCE PROFILE_CODE PROFILE_DESCRIPTION FUND_ACCOUNT_REPORT_URL]
-      csv << [
-        all.map(&:remote_id).join(','),  # EMPLID
-        all.map(&:name).join(','),       # ACCT_NAME
-        all.map(&:balance).join(','),    # BALANCE
-        designation_profile&.remote_id || designation_profile&.id || '', # PROFILE_CODE
-        designation_profile&.name || '', # PROFILE_DESCRIPTION
-        ''                               # FUND_ACCOUNT_REPORT_URL
-      ]
-    end
   end
 end

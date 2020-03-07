@@ -3,6 +3,6 @@
 namespace :integration do
   desc 'Run all integration syncs'
   task sync: :environment do
-    ::Integration.find_each(&:sync)
+    ::Integration.where(valid_credentials: true).find_each(&:sync)
   end
 end
