@@ -1,0 +1,8 @@
+{
+   "id_token":"de346067207434233fedaadb49a4d049",
+   "access_token":"3edbf0b4e5b252561fcdb38d47c79c5e",
+   "expires_in":1800,
+   "token_type":"Bearer",
+   "refresh_token":"9107155088e4cb8c588d55c3e4b419a9",
+   "scope":"email profile openid accounting.reports.read accounting.settings.read accounting.transactions.read accounting.contacts.read offline_access"
+}

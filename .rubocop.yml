@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 require: rubocop-rspec
 AllCops:
   Exclude:
@@ -20,6 +18,8 @@ Naming/MemoizedInstanceVariableName:
   Enabled: false
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+  Exclude:
+    - config/application.rb
 Metrics/MethodLength:
   Exclude:
     - db/**/*
@@ -38,5 +38,7 @@ Style/HashTransformValues:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - app/admin/**/*
+    - config/**/*
 RSpec/NestedGroups:
   Max: 4

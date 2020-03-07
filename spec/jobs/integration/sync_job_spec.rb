@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Integration::SyncJob, type: :job do
   subject(:job) { described_class.perform_later(integration.id) }
 
-  let(:integration) { create(:integration) }
+  let(:integration) { create(:integration_xero) }
 
   it 'queues the job' do
     expect { job }.to have_enqueued_job(described_class).with(integration.id).on_queue('default')
@@ -17,7 +17,7 @@ RSpec.describe Integration::SyncJob, type: :job do
     it 'calls sync service' do
       allow(Integration::PrimarySyncService).to receive(:sync).with(integration)
       job.perform(integration.id)
-      expect(Integration::PrimarySyncService).to have_receive(:sync)
+      expect(Integration::PrimarySyncService).to have_received(:sync)
     end
 
     context 'when unknown integration_id' do

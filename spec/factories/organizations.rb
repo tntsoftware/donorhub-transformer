@@ -18,6 +18,6 @@
 #
 FactoryBot.define do
   factory :organization do
-    subdomain { Faker::Internet.domain_word }
+    subdomain { Faker::Internet.unique.domain_word }
   end
 end

@@ -42,10 +42,10 @@ RSpec.describe DonorAccount, type: :model do
   end
 
   describe '.as_csv' do
-    let!(:donor_account) { create(:donor_account, name: Faker::Name.name) }
+    let!(:donor_account) { create(:donor_account, name: Faker::Name.name, remote_id: SecureRandom.uuid) }
     let!(:donor_account_as_csv) do
       {
-        'PEOPLE_ID' => donor_account.id,
+        'PEOPLE_ID' => donor_account.remote_id,
         'ACCT_NAME' => donor_account.name
       }
     end

@@ -25,6 +25,7 @@
 #
 
 class Donation < ApplicationRecord
+  include AsCsvConcern
   belongs_to :designation_account
   belongs_to :donor_account
   scope :by_date_range, lambda { |date_from, date_to|
@@ -35,42 +36,13 @@ class Donation < ApplicationRecord
   }
   validate :donor_account_and_designation_account_have_same_organization
 
-  def self.as_csv
-    CSV.generate do |csv|
-      headers = %w[
-        PEOPLE_ID
-        ACCT_NAME
-        DISPLAY_DATE
-        AMOUNT
-        DONATION_ID
-        DESIGNATION
-        MOTIVATION
-        PAYMENT_METHOD
-        MEMO
-        TENDERED_AMOUNT
-        TENDERED_CURRENCY
-        ADJUSTMENT_TYPE
-      ]
-
-      csv << headers
-
-      all.each do |donation|
-        csv << [
-          donation.donor_account_id,                # PEOPLE_ID
-          donation.donor_account.name,              # ACCT_NAME
-          donation.created_at.strftime('%m/%d/%Y'), # DISPLAY_DATE
-          donation.amount,                          # AMOUNT
-          donation.id,                              # DONATION_ID
-          donation.designation_account_id,          # DESIGNATION
-          '',                                       # MOTIVATION
-          '',                                       # PAYMENT_METHOD
-          '',                                       # MEMO
-          donation.amount,                          # TENDERED_AMOUNT
-          donation.currency,                        # TENDERED_CURRENCY
-          '' # ADJUSTMENT_TYPE
-        ]
-      end
-    end
+  def as_csv
+    {
+      'PEOPLE_ID' => donor_account&.remote_id, 'ACCT_NAME' => donor_account&.name, 'DONATION_ID' => remote_id,
+      'DESIGNATION' => designation_account&.remote_id, 'DISPLAY_DATE' => created_at&.strftime('%m/%d/%Y'),
+      'AMOUNT' => amount, 'TENDERED_AMOUNT' => amount, 'TENDERED_CURRENCY' => currency, 'MOTIVATION' => '',
+      'PAYMENT_METHOD' => '', 'MEMO' => '', 'ADJUSTMENT_TYPE' => ''
+    }
   end
 
   protected

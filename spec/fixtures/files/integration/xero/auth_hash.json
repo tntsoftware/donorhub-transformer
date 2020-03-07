@@ -1,0 +1,45 @@
+{
+  "provider":"xero_oauth2",
+  "uid":"d609b4f7-74af-413b-852f-7fb04f1f33ce",
+  "info":{
+     "name":"Breanne Runolfsson",
+     "first_name":"Breanne",
+     "last_name":"Runolfsson",
+     "email":"josef_heel@yostkemmer.com"
+  },
+  "credentials":{
+     "token":"8f516a2ecb5071edeea1f9c1187fc2dc38938440c96a39f0d48d49aba2803c00",
+     "refresh_token":"7bff1468510623bc7f5e5ae2c706ebab90179da38334ad6d62b3c99200872367",
+     "expires_at":1583544506,
+     "expires":true
+  },
+  "extra":{
+     "id_token":"e8210cea75473f8e72cc4cfb063ae867046c162c4c378252a0fcb7d1f6486522",
+     "xero_tenants":[
+        {
+           "id":"8e261456-339a-4c46-8c10-aef97c403f56",
+           "tenantId":"94faa28f3-9f32-478d-8ed8-a9099124f977",
+           "tenantType":"ORGANISATION",
+           "createdDateUtc":"2020-03-05T03:50:41.1405030",
+           "updatedDateUtc":"2020-03-05T06:11:13.5022330"
+        }
+     ],
+     "raw_info":{
+        "nbf":1583542706,
+        "exp":1583543006,
+        "iss":"https://identity.xero.com",
+        "aud":"eb96d4ddf8a45b7fd49ac8f38490352021fb81d8ce3bfd9b06f2bc3551096e5c",
+        "iat":1583542706,
+        "at_hash":"e62afd4d83b813ff65adf491d7eb8cec016117bc45907bc70a29bfb2dd9b0588",
+        "sid":"101176968556205411eae238329c55ba3974fd4267438c05c96670dcf9159d56",
+        "sub":"a058ab23bc2e1ee382a099aa775d7134b8a066f0e07538f171ee4e72ba1ca5f3",
+        "auth_time":1583542693,
+        "xero_userid":"d609b4f7-74af-413b-852f-7fb04f1f33ce",
+        "global_session_id":"19e4b3c74fbd7f0c356437e28f32756ce4286008f46fb5dd5baf09f026db65e2",
+        "preferred_username":"josef_heel@yostkemmer.com",
+        "email":"josef_heel@yostkemmer.com",
+        "given_name":"Breanne",
+        "family_name":"Runolfsson"
+     }
+  }
+}

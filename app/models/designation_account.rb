@@ -14,6 +14,7 @@
 #
 
 class DesignationAccount < ApplicationRecord
+  include AsCsvConcern
   belongs_to :organization
   has_many :designation_profiles, dependent: :destroy
   has_many :donations, dependent: :destroy
@@ -21,48 +22,24 @@ class DesignationAccount < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
 
-  def self.as_csv
-    CSV.generate do |csv|
-      headers = %w[
-        DESIG_ID
-        DESIG_NAME
-        ORG_PATH
-      ]
-
-      csv << headers
-
-      all.each do |designation_account|
-        csv << [
-          designation_account.id,   # DESIG_ID
-          designation_account.name, # DESIG_NAME
-          ''                        # ORG_PATH
-        ]
-      end
-    end
+  def as_csv
+    {
+      'DESIG_ID' => remote_id,
+      'DESIG_NAME' => name,
+      'ORG_PATH' => ''
+    }
   end
 
   def self.balances_as_csv(designation_profile = nil)
     CSV.generate do |csv|
-      headers = %w[
-        EMPLID
-        ACCT_NAME
-        BALANCE
-        PROFILE_CODE
-        PROFILE_DESCRIPTION
-        FUND_ACCOUNT_REPORT_URL
-      ]
-
-      csv << headers
-
-      designation_accounts = all
-
+      csv << %w[EMPLID ACCT_NAME BALANCE PROFILE_CODE PROFILE_DESCRIPTION FUND_ACCOUNT_REPORT_URL]
       csv << [
-        designation_accounts.map(&:id).join(','),      # EMPLID
-        designation_accounts.map(&:name).join(','),    # ACCT_NAME
-        designation_accounts.map(&:balance).join(','), # BALANCE
-        designation_profile&.id || '',                 # PROFILE_CODE
-        designation_profile&.name || '',               # PROFILE_DESCRIPTION
-        ''                                             # FUND_ACCOUNT_REPORT_URL
+        all.map(&:remote_id).join(','),  # EMPLID
+        all.map(&:name).join(','),       # ACCT_NAME
+        all.map(&:balance).join(','),    # BALANCE
+        designation_profile&.remote_id || designation_profile&.id || '', # PROFILE_CODE
+        designation_profile&.name || '', # PROFILE_DESCRIPTION
+        ''                               # FUND_ACCOUNT_REPORT_URL
       ]
     end
   end

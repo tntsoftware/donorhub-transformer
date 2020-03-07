@@ -54,16 +54,31 @@ RSpec.describe Donation, type: :model do
   end
 
   describe '.as_csv' do
-    let!(:donor_account) { create(:donor_account, name: Faker::Name.name) }
-    let!(:donation) { create(:donation, donor_account: donor_account, amount: 10, currency: 'USD') }
+    let(:organization) { create(:organization) }
+    let!(:donor_account) do
+      create(:donor_account, name: Faker::Name.name, remote_id: SecureRandom.uuid, organization: organization)
+    end
+    let!(:designation_account) do
+      create(:designation_account, remote_id: SecureRandom.uuid, organization: organization)
+    end
+    let!(:donation) do
+      create(
+        :donation,
+        donor_account: donor_account,
+        designation_account: designation_account,
+        amount: 10,
+        currency: 'USD',
+        remote_id: SecureRandom.uuid
+      )
+    end
     let!(:donation_as_csv) do
       {
-        'PEOPLE_ID' => donor_account.id,
+        'PEOPLE_ID' => donor_account.remote_id,
         'ACCT_NAME' => donor_account.name,
         'DISPLAY_DATE' => Time.now.utc.to_date.strftime('%m/%d/%Y'),
         'AMOUNT' => '10.0',
-        'DONATION_ID' => donation.id,
-        'DESIGNATION' => donation.designation_account_id,
+        'DONATION_ID' => donation.remote_id,
+        'DESIGNATION' => designation_account.remote_id,
         'MOTIVATION' => '',
         'PAYMENT_METHOD' => '',
         'MEMO' => '',

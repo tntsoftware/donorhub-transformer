@@ -40,6 +40,7 @@ group :development do
   gem 'rb-inotify', require: false
   gem 'rubocop'
   gem 'rubocop-rspec'
+  gem 'spring-commands-rspec'
 end
 
 group :development, :test do
@@ -59,4 +60,5 @@ group :test do
   gem 'launchy'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
+  gem 'webmock'
 end

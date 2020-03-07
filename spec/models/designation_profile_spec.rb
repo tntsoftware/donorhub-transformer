@@ -49,6 +49,26 @@ RSpec.describe DesignationProfile, type: :model do
       rows = CSV.parse(described_class.as_csv, headers: true)
       expect(rows[0].to_h).to eq(designation_profile_as_csv)
     end
+
+    context 'when remote_id set' do
+      let(:designation_profile) do
+        create(
+          :designation_profile, designation_account: designation_account, member: member, remote_id: SecureRandom.uuid
+        )
+      end
+      let!(:designation_profile_as_csv) do
+        {
+          'PROFILE_CODE' => designation_profile.remote_id,
+          'PROFILE_DESCRIPTION' => "#{designation_account.name} | #{member.name}",
+          'PROFILE_ACCOUNT_REPORT_URL' => ''
+        }
+      end
+
+      it 'returns donations in CSV format' do
+        rows = CSV.parse(described_class.as_csv, headers: true)
+        expect(rows[0].to_h).to eq(designation_profile_as_csv)
+      end
+    end
   end
 
   describe '#name' do
@@ -62,6 +82,14 @@ RSpec.describe DesignationProfile, type: :model do
 
     it 'returns name of designation_account and member' do
       expect(designation_profile.name).to eq "#{designation_account.name} | #{member.name}"
+    end
+
+    context 'when designation_account and member are nil' do
+      subject(:designation_profile) { build(:designation_profile, designation_account: nil, member: nil) }
+
+      it 'returns bar' do
+        expect(designation_profile.name).to eq ' | '
+      end
     end
   end
 

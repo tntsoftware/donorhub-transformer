@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_103321) do
+ActiveRecord::Schema.define(version: 2020_03_07_032953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2020_03_05_103321) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "auth_hash"
     t.string "remote_id", null: false
+    t.boolean "valid_credentials", default: true
     t.index ["encrypted_access_token_iv"], name: "index_integrations_on_encrypted_access_token_iv", unique: true
     t.index ["encrypted_refresh_token_iv"], name: "index_integrations_on_encrypted_refresh_token_iv", unique: true
     t.index ["organization_id", "remote_id"], name: "index_integrations_on_organization_id_and_remote_id"
