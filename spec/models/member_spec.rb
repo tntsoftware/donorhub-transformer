@@ -37,8 +37,16 @@ RSpec.describe Member, type: :model do
   end
 
   describe '#send_inform_email' do
+    let(:message_delivery) { instance_double(ActionMailer::MessageDelivery) }
+
+    before do
+      allow(MemberMailer).to receive(:inform).and_return(message_delivery)
+      allow(message_delivery).to receive(:deliver_later)
+    end
+
     it 'sends an email' do
-      expect { create(:member) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      member = create(:member)
+      expect(MemberMailer).to have_received(:inform).with(member)
     end
   end
 end
