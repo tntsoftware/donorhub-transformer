@@ -23,6 +23,7 @@ class Member < ApplicationRecord
   has_many :donations, through: :designation_accounts
   has_many :donor_accounts, through: :donations
   validates :name, :email, :access_token, presence: true
+  validates :access_token, uniqueness: { scope: :email }
   before_validation :create_access_token, on: :create
   after_commit :send_inform_email, on: :create
 
@@ -33,6 +34,9 @@ class Member < ApplicationRecord
   protected
 
   def create_access_token
-    self.access_token = SecureRandom.base58(24)
+    self.access_token ||= loop do
+      # access_token = SecureRandom.base58(24)
+      # break access_token unless self.class.exists?(access_token: access_token)
+    end
   end
 end

@@ -13,8 +13,6 @@
 
 FactoryBot.define do
   factory :donor_account do
-    name { 'MyString' }
-    is_supplier { false }
-    is_customer { false }
+    name { Faker::Name.name }
   end
 end

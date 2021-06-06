@@ -27,11 +27,16 @@ class DesignationProfile < ApplicationRecord
   belongs_to :member
   has_many :donor_accounts, through: :designation_account
   has_many :donations, through: :designation_account
+  HEADERS = %w[
+    PROFILE_CODE
+    PROFILE_DESCRIPTION
+    PROFILE_ACCOUNT_REPORT_URL
+  ].freeze
 
   def self.as_csv
     CSV.generate do |csv|
-      csv << %w[PROFILE_CODE PROFILE_DESCRIPTION PROFILE_ACCOUNT_REPORT_URL]
-      all.find_each do |designation_profile|
+      csv << HEADERS
+      order(created_at: :desc).find_each do |designation_profile|
         csv << [designation_profile.id, designation_profile.name, '']
       end
     end

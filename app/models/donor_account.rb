@@ -18,20 +18,17 @@ class DonorAccount < ApplicationRecord
     date_to = Time.zone.now if date_to.blank?
     where(created_at: date_from..date_to)
   }
+  HEADERS = %w[
+    PEOPLE_ID
+    ACCT_NAME
+  ].freeze
 
   def self.as_csv
     CSV.generate do |csv|
-      headers = %w[
-        PEOPLE_ID
-        ACCT_NAME
-      ]
-
-      csv << headers
-
-      all.find_each do |donor_account|
+      csv << HEADERS
+      order(created_at: :desc).find_each do |donor_account|
         csv << [
-          donor_account.id, # PEOPLE_ID
-          donor_account.name # ACCT_NAME
+          donor_account.id, donor_account.name
         ]
       end
     end

@@ -21,17 +21,12 @@ gem 'xeroizer'
 group :development do
   gem 'annotate'
   gem 'better_errors'
-  gem 'foreman'
+  gem 'binding_of_caller'
   gem 'letter_opener'
-  gem 'listen'
-  gem 'rails_layout'
-  gem 'rb-fchange', require: false
-  gem 'rb-fsevent', require: false
-  gem 'rb-inotify', require: false
-  gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'listen', '>= 3.0.5', '< 3.6'
+  gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :development, :test do
@@ -41,13 +36,16 @@ group :development, :test do
   gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'pry-rescue'
   gem 'rspec-rails'
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner'
+  gem 'database_cleaner-active_record'
   gem 'launchy'
   gem 'shoulda-matchers'
+  gem 'ruby-debug-ide'
+  gem 'debase'
 end
