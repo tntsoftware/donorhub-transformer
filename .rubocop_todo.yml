@@ -10,25 +10,16 @@
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes, Max.
 Metrics/AbcSize:
   Exclude:
-    - 'app/services/xero/balance_sheet_service.rb'
-    - 'app/services/xero/donations_service.rb'
-
-# Offense count: 3
-# Configuration parameters: CountComments, Max, CountAsOne, ExcludedMethods, IgnoredMethods.
-# IgnoredMethods: refine
-Metrics/BlockLength:
-  Exclude:
-    - 'app/admin/member.rb'
-    - 'app/models/donation.rb'
-    - 'config/environments/production.rb'
+    - "app/services/xero/balance_sheet_service.rb"
+    - "app/services/xero/donations_service.rb"
 
 # Offense count: 9
 # Configuration parameters: CountComments, Max, CountAsOne, ExcludedMethods, IgnoredMethods.
 Metrics/MethodLength:
   Exclude:
-    - 'app/models/designation_account.rb'
-    - 'app/models/designation_profile.rb'
-    - 'app/models/donation.rb'
-    - 'app/models/donor_account.rb'
-    - 'app/services/xero/donations_service.rb'
-    - 'db/migrate/20171010033548_devise_create_users.rb'
+    - "app/models/designation_account.rb"
+    - "app/models/designation_profile.rb"
+    - "app/models/donation.rb"
+    - "app/models/donor_account.rb"
+    - "app/services/xero/donations_service.rb"
+    - "db/migrate/20171010033548_devise_create_users.rb"

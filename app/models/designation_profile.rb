@@ -28,27 +28,16 @@ class DesignationProfile < ApplicationRecord
   has_many :donor_accounts, through: :designation_account
   has_many :donations, through: :designation_account
 
-  def name
-    "#{designation_account.name} | #{member.name}"
-  end
-
   def self.as_csv
     CSV.generate do |csv|
-      headers = %w[
-        PROFILE_CODE
-        PROFILE_DESCRIPTION
-        PROFILE_ACCOUNT_REPORT_URL
-      ]
-
-      csv << headers
-
+      csv << %w[PROFILE_CODE PROFILE_DESCRIPTION PROFILE_ACCOUNT_REPORT_URL]
       all.find_each do |designation_profile|
-        csv << [
-          designation_profile.id,   # PROFILE_CODE
-          designation_profile.name, # PROFILE_DESCRIPTION
-          ''                       # PROFILE_ACCOUNT_REPORT_URL
-        ]
+        csv << [designation_profile.id, designation_profile.name, '']
       end
     end
+  end
+
+  def name
+    "#{designation_account.name} | #{member.name}"
   end
 end

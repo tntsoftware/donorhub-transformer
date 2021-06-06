@@ -24,6 +24,7 @@
 
 FactoryBot.define do
   factory :designation_profile do
-    description { 'MyString' }
+    designation_account
+    member
   end
 end
