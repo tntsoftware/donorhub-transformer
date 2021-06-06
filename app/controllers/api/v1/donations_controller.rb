@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # https://www.tntware.com/donorhub/groups/developers/wiki/how-can-my-fundraising-app-use-the-donorhub-api.aspx
 # DONATIONS QUERY
 
-require_dependency "api/v1_controller"
+require_dependency 'api/v1_controller'
 
 module Api
   module V1

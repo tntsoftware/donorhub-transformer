@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register User do
   actions :all, except: %i[new create]
   permit_params :name, :email, :admin
@@ -20,7 +22,7 @@ ActiveAdmin.register User do
   filter :created_at
 
   form do |f|
-    f.inputs "User Details" do
+    f.inputs 'User Details' do
       f.input :name
       f.input :email
       f.input :admin

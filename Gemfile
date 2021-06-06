@@ -1,91 +1,89 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-ruby "2.5.1"
+source 'https://rubygems.org'
 
-gem "rails", "~> 5.1.4"
+ruby '2.7.3'
+
+gem 'rails'
 
 # The administration framework for Ruby on Rails.
-gem "activeadmin", "~> 1.4.3"
+gem 'activeadmin'
 # Bootstrap 4 Ruby Gem for Rails / Sprockets and Compass.
-gem "bootstrap", "~> 4.3.1"
+gem 'bootstrap'
 # Flexible authentication solution for Rails with Warden
-gem "devise", "~> 4.7.1"
+gem 'devise'
 # The font-awesome font bundled as an asset for the rails asset pipeline
-gem "font-awesome-rails", "~> 4.7.0.2"
+gem 'font-awesome-rails'
 # This gem provides jQuery and the jQuery-ujs driver for your Rails 4+ application.
-gem "jquery-rails", "~> 4.3.1"
+gem 'jquery-rails'
 # Pg is the Ruby interface to the PostgreSQL RDBMS.
-gem "pg", "~> 0.21.0"
+gem 'pg'
 # A Ruby/Rack web server built for concurrency
-gem "puma", "~> 3.7"
+gem 'puma'
 # Minimal authorization through OO design and pure Ruby classes
-gem "pundit", "~> 1.1.0"
+gem 'pundit'
 # Error logging
-gem "rollbar"
+gem 'rollbar'
 # Ruby on Rails stylesheet engine for Sass
-gem "sass-rails", "~> 5.0"
+gem 'sass'
 # Turbolinks makes navigating your web application faster
-gem "turbolinks", "~> 5"
+gem 'turbolinks'
 # Ruby wrapper for UglifyJS JavaScript compressor.
-gem "uglifier", "~> 3.2.0"
+gem 'uglifier'
 # A plugin for versioning Rails based RESTful APIs.
-gem "versionist", "~> 1.5.0"
+gem 'versionist'
 # Xero accounting system API library
-gem "xeroizer", "~> 2.16.5"
+gem 'xeroizer'
 
 group :development do
   # Annotate Rails classes with schema and routes info
-  gem "annotate", "~> 2.7.3"
+  gem 'annotate'
   # Better error page for Rack apps
-  gem "better_errors", "~> 2.3.0"
+  gem 'better_errors'
   # Manage Procfile-based applications
-  gem "foreman", "~> 0.84.0"
-  # Guard::Bundler automatically install/update your gem bundle when needed
-  gem "guard-bundler", "~> 2.1.0"
-  # Guard-Rails is watching on your development servers as you wish!
-  gem "guard-rails", "~> 0.8.1"
-  # Guard::RSpec automatically run your specs (much like autotest)
-  gem "guard-rspec", "~> 4.7.3"
+  gem 'foreman'
   # Preview email in the default browser instead of sending it
-  gem "letter_opener", "~> 1.4.1"
+  gem 'letter_opener'
   # Generates Rails application layout files for various front-end frameworks.
-  gem "rails_layout", "~> 1.0.41"
+  gem 'rails_layout'
   # [deprecated] Gem which uses native windows methods for watching changes of file system
-  gem "rb-fchange", "~> 0.0.6", require: false
+  gem 'rb-fchange', require: false
   # FSEvents API with signals handled (without RubyCocoa)
-  gem "rb-fsevent", "~> 0.10.2", require: false
+  gem 'rb-fsevent', require: false
   # A thorough inotify wrapper for Ruby using FFI.
-  gem "rb-inotify", "~> 0.9.10", require: false
+  gem 'rb-inotify', require: false
   # A Ruby static code analyzer, based on the community Ruby style guide.
-  gem "rubocop", "~> 0.57.1", require: false
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
   # This gem implements the rspec command for Spring.
-  gem "spring-commands-rspec", "~> 1.0.4"
+  gem 'spring-commands-rspec'
 end
 
 group :development, :test do
   # Pretty print your Ruby objects with style -- in full color and with proper indentation
-  gem "awesome_print", "~> 1.8.0"
+  gem 'amazing_print'
   # A Ruby gem to load environment variables from `.env`.
-  gem "dotenv-rails", "~> 2.2.1"
+  gem 'dotenv-rails'
   # A library for setting up Ruby objects as test data. (Rails gem)
-  gem "factory_bot_rails", "~> 4.8.2"
+  gem 'factory_bot_rails'
   # A library for generating fake data such as names, addresses, and phone numbers.
-  gem "faker", "~> 1.8.4"
+  gem 'faker'
   # Step-by-step debugging and stack navigation in Pry
-  gem "pry-byebug", "~> 3.4.2"
+  gem 'pry-byebug'
   # Rails >= 3 pry initializer
-  gem "pry-rails", "~> 0.3.6 "
+  gem 'pry-rails'
   # Start a pry session whenever something goes wrong.
-  gem "pry-rescue", "~> 1.4.5"
+  gem 'pry-rescue'
   # RSpec for Rails-3+
-  gem "rspec-rails", "~> 3.6.1"
+  gem 'rspec-rails'
 end
 
 group :test do
   # Acceptance test framework for web applications
-  gem "capybara", "~> 3.2.0"
+  gem 'capybara'
   # Strategies for cleaning databases in Ruby. Can be used to ensure a clean state for testing.
-  gem "database_cleaner", "~> 1.6.1"
+  gem 'database_cleaner'
   # A helper for launching cross-platform applications in a fire and forget manner.
-  gem "launchy", "~> 2.4.2"
+  gem 'launchy'
 end

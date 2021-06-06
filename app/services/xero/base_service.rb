@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Xero
   class BaseService
     attr_accessor :modified_since, :all
@@ -13,10 +15,10 @@ module Xero
 
     def client
       @client ||= Xeroizer::PrivateApplication.new(
-        ENV["XERO_OAUTH_CONSUMER_KEY"],
-        ENV["XERO_OAUTH_CONSUMER_SECRET"],
+        ENV['XERO_OAUTH_CONSUMER_KEY'],
+        ENV['XERO_OAUTH_CONSUMER_SECRET'],
         nil,
-        private_key: ENV["XERO_PRIVATE_KEY"],
+        private_key: ENV['XERO_PRIVATE_KEY']
       )
     end
   end

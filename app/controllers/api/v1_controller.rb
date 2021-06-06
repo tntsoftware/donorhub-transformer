@@ -1,5 +1,7 @@
-require "csv"
-require_dependency "api_controller"
+# frozen_string_literal: true
+
+require 'csv'
+require_dependency 'api_controller'
 
 module Api
   class V1Controller < ApiController
@@ -16,26 +18,20 @@ module Api
     end
 
     def process_date_from
-      if params[:date_from].present?
-        params[:date_from] = Date.strptime(params[:date_from], "%m/%d/%Y")
-      end
+      params[:date_from] = Date.strptime(params[:date_from], '%m/%d/%Y') if params[:date_from].present?
     end
 
     def process_date_to
-      if params[:date_to].present?
-        params[:date_to] = Date.strptime(params[:date_to], "%m/%d/%Y")
-      end
+      params[:date_to] = Date.strptime(params[:date_to], '%m/%d/%Y') if params[:date_to].present?
     end
 
     def process_donor_account_ids
-      if params[:donor_account_ids].present?
-        params[:donor_account_ids] = params[:donor_ids].split(",")
-      end
+      params[:donor_account_ids] = params[:donor_ids].split(',') if params[:donor_account_ids].present?
     end
 
     def current_designation_profile
       @current_designation_profile ||= designation_profile_scope
-        .find_by(id: params[:designation_profile_id])
+                                       .find_by(id: params[:designation_profile_id])
     end
 
     def designation_profile_scope
@@ -49,7 +45,7 @@ module Api
     def current_member
       @current_member ||= Member.find_by!(email: params[:user_email], access_token: params[:user_token])
     rescue ActiveRecord::RecordNotFound
-      render plain: "authentication error", status: :unauthorized
+      render plain: 'authentication error', status: :unauthorized
     end
   end
 end

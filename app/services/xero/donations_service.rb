@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Xero
   class DonationsService < BaseService
     def load
@@ -16,18 +18,19 @@ module Xero
       if all
         Donation.where.not(id: donation_ids).delete_all
       else
-        Donation.where("updated_at >= ?", modified_since).where.not(id: donation_ids).delete_all
+        Donation.where('updated_at >= ?', modified_since).where.not(id: donation_ids).delete_all
       end
     end
 
     private
 
-    def bank_transaction_scope(page: 1, account_code:)
+    def bank_transaction_scope(account_code:, page: 1)
       Enumerator.new do |enumerable|
         loop do
           data = call_bank_transaction_api(page, account_code)
           data.each { |element| enumerable.yield element }
           break if data.empty?
+
           page += 1
         end
       end
@@ -37,13 +40,13 @@ module Xero
       if all
         client.BankTransaction.all(
           where: "Type==\"RECEIVE\" and Status==\"AUTHORISED\" and LineItems[0].AccountCode==\"#{account_code}\"",
-          page: page,
+          page: page
         )
       else
         client.BankTransaction.all(
           modified_since: modified_since,
           where: "Type==\"RECEIVE\" and Status==\"AUTHORISED\" and LineItems[0].AccountCode==\"#{account_code}\"",
-          page: page,
+          page: page
         )
       end
     rescue Xeroizer::OAuth::RateLimitExceeded
@@ -67,6 +70,7 @@ module Xero
 
     def designation_account_codes
       return @designation_account_codes if @designation_account_codes
+
       @designation_account_codes = {}
       DesignationAccount.where(active: true).each do |designation_account|
         @designation_account_codes[designation_account.remote_id] = designation_account.id

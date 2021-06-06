@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register DesignationProfile do
   permit_params :designation_account_id, :member_id
 
@@ -15,7 +17,7 @@ ActiveAdmin.register DesignationProfile do
   filter :created_at
 
   form do |f|
-    f.inputs "Designation Account Details" do
+    f.inputs 'Designation Account Details' do
       f.input :designation_account, collection: DesignationAccount.active
       f.input :member
     end

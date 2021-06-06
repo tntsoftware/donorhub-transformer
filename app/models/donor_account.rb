@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: donor_accounts
@@ -19,17 +21,17 @@ class DonorAccount < ApplicationRecord
 
   def self.as_csv
     CSV.generate do |csv|
-      headers = %w(
+      headers = %w[
         PEOPLE_ID
         ACCT_NAME
-      )
+      ]
 
       csv << headers
 
-      all.each do |donor_account|
+      all.find_each do |donor_account|
         csv << [
-          donor_account.id,   # PEOPLE_ID
-          donor_account.name, # ACCT_NAME
+          donor_account.id, # PEOPLE_ID
+          donor_account.name # ACCT_NAME
         ]
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: donor_accounts
@@ -11,8 +13,8 @@
 
 FactoryBot.define do
   factory :donor_account do
-    name "MyString"
-    is_supplier false
-    is_customer false
+    name { 'MyString' }
+    is_supplier { false }
+    is_customer { false }
   end
 end
