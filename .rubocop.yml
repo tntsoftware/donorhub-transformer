@@ -14,3 +14,5 @@ Rails/EnvironmentVariableAccess:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact

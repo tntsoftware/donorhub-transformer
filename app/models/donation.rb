@@ -50,7 +50,7 @@ class Donation < ApplicationRecord
   def self.as_csv
     CSV.generate do |csv|
       csv << HEADERS
-      order(created_at: :desc).find_each do |donation|
+      find_each do |donation|
         csv << [
           donation.donor_account_id, donation.donor_account.name, donation.created_at.strftime('%m/%d/%Y'),
           donation.amount, donation.id, donation.designation_account_id, '', '', '', donation.amount, donation.currency,

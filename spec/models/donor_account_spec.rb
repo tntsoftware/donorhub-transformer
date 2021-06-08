@@ -42,15 +42,16 @@ RSpec.describe DonorAccount, type: :model do
   describe '.as_csv' do
     let!(:donor_account1) { create(:donor_account, created_at: 2.years.ago) }
     let!(:donor_account2) { create(:donor_account) }
+    let(:data) do
+      [
+        %w[PEOPLE_ID ACCT_NAME],
+        [donor_account1.id, donor_account1.name],
+        [donor_account2.id, donor_account2.name]
+      ]
+    end
 
     it 'returns csv' do
-      expect(described_class.as_csv).to eq(
-        <<~CSV
-          PEOPLE_ID,ACCT_NAME
-          #{donor_account1.id},#{donor_account1.name}
-          #{donor_account2.id},#{donor_account2.name}
-        CSV
-      )
+      expect(CSV.parse(described_class.as_csv)).to match_array(data)
     end
   end
 end

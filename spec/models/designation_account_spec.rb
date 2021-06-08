@@ -45,15 +45,16 @@ RSpec.describe DesignationAccount, type: :model do
   describe '.as_csv' do
     let!(:designation_account1) { create(:designation_account, created_at: 2.years.ago) }
     let!(:designation_account2) { create(:designation_account) }
+    let(:data) do
+      [
+        %w[DESIG_ID DESIG_NAME ORG_PATH],
+        [designation_account1.id, designation_account1.name, ''],
+        [designation_account2.id, designation_account2.name, '']
+      ]
+    end
 
     it 'returns csv' do
-      expect(described_class.as_csv).to eq(
-        <<~CSV
-          DESIG_ID,DESIG_NAME,ORG_PATH
-          #{designation_account1.id},#{designation_account1.name},""
-          #{designation_account2.id},#{designation_account2.name},""
-        CSV
-      )
+      expect(CSV.parse(described_class.as_csv)).to match_array(data)
     end
   end
 
@@ -61,14 +62,16 @@ RSpec.describe DesignationAccount, type: :model do
     subject!(:designation_account) { create(:designation_account, balance: 4.5) }
 
     let!(:designation_profile) { create(:designation_profile, designation_account: designation_account) }
+    let(:data) do
+      [
+        %w[EMPLID ACCT_NAME BALANCE PROFILE_CODE PROFILE_DESCRIPTION FUND_ACCOUNT_REPORT_URL],
+        [designation_account.id, designation_account.name, designation_account.balance.to_s, designation_profile.id,
+         designation_profile.name, '']
+      ]
+    end
 
     it 'returns csv' do
-      expect(described_class.balances_as_csv(designation_profile)).to eq(
-        <<~CSV
-          EMPLID,ACCT_NAME,BALANCE,PROFILE_CODE,PROFILE_DESCRIPTION,FUND_ACCOUNT_REPORT_URL
-          #{designation_account.id},#{designation_account.name},4.5,#{designation_profile.id},#{designation_profile.name},""
-        CSV
-      )
+      expect(CSV.parse(described_class.balances_as_csv(designation_profile))).to match_array(data)
     end
   end
 end

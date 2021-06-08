@@ -35,15 +35,16 @@ RSpec.describe DesignationProfile, type: :model do
   describe '.as_csv' do
     let!(:designation_profile1) { create(:designation_profile, created_at: 2.years.ago) }
     let!(:designation_profile2) { create(:designation_profile) }
+    let(:data) do
+      [
+        %w[PROFILE_CODE PROFILE_DESCRIPTION PROFILE_ACCOUNT_REPORT_URL],
+        [designation_profile1.id, designation_profile1.name, ''],
+        [designation_profile2.id, designation_profile2.name, '']
+      ]
+    end
 
     it 'returns csv' do
-      expect(described_class.as_csv).to eq(
-        <<~CSV
-          PROFILE_CODE,PROFILE_DESCRIPTION,PROFILE_ACCOUNT_REPORT_URL
-          #{designation_profile1.id},#{designation_profile1.name},""
-          #{designation_profile2.id},#{designation_profile2.name},""
-        CSV
-      )
+      expect(CSV.parse(described_class.as_csv)).to match_array(data)
     end
   end
 

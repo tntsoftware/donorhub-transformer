@@ -26,7 +26,7 @@ class DonorAccount < ApplicationRecord
   def self.as_csv
     CSV.generate do |csv|
       csv << HEADERS
-      order(created_at: :desc).find_each do |donor_account|
+      find_each do |donor_account|
         csv << [
           donor_account.id, donor_account.name
         ]

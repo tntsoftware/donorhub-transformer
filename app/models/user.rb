@@ -29,12 +29,4 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  before_create :check_admin
-
-  protected
-
-  def check_admin
-    self.admin = true unless User.exists?
-  end
 end

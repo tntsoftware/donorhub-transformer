@@ -35,8 +35,8 @@ class Member < ApplicationRecord
 
   def create_access_token
     self.access_token ||= loop do
-      # access_token = SecureRandom.base58(24)
-      # break access_token unless self.class.exists?(access_token: access_token)
+      access_token = SecureRandom.base58(24)
+      break access_token unless self.class.exists?(access_token: access_token)
     end
   end
 end

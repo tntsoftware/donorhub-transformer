@@ -36,7 +36,7 @@ class DesignationProfile < ApplicationRecord
   def self.as_csv
     CSV.generate do |csv|
       csv << HEADERS
-      order(created_at: :desc).find_each do |designation_profile|
+      find_each do |designation_profile|
         csv << [designation_profile.id, designation_profile.name, '']
       end
     end
