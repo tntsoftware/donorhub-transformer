@@ -1,36 +1,23 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: designation_profiles
-#
-#  id                     :uuid             not null, primary key
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  designation_account_id :uuid             not null
-#  member_id              :uuid             not null
-#  remote_id              :string
-#
-# Indexes
-#
-#  index_designation_profiles_on_designation_account_id  (designation_account_id)
-#  index_designation_profiles_on_member_id               (member_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (designation_account_id => designation_accounts.id) ON DELETE => cascade
-#  fk_rails_...  (member_id => members.id) ON DELETE => cascade
-#
-
 class DesignationProfile < ApplicationRecord
   belongs_to :designation_account
   belongs_to :member
   has_many :donor_accounts, through: :designation_account
   has_many :donations, through: :designation_account
+  validates :designation_account_id, uniqueness: { scope: :member_id }
   HEADERS = %w[
     PROFILE_CODE
     PROFILE_DESCRIPTION
     PROFILE_ACCOUNT_REPORT_URL
+  ].freeze
+  BALANCE_HEADERS = %w[
+    EMPLID
+    ACCT_NAME
+    BALANCE
+    PROFILE_CODE
+    PROFILE_DESCRIPTION
+    FUND_ACCOUNT_REPORT_URL
   ].freeze
 
   def self.as_csv
@@ -38,6 +25,18 @@ class DesignationProfile < ApplicationRecord
       csv << HEADERS
       find_each do |designation_profile|
         csv << [designation_profile.id, designation_profile.name, '']
+      end
+    end
+  end
+
+  def self.balances_as_csv
+    CSV.generate do |csv|
+      csv << BALANCE_HEADERS
+      find_each do |designation_profile|
+        csv << [
+          designation_profile.designation_account.id, designation_profile.designation_account.name,
+          designation_profile.designation_account.balance, designation_profile.id, designation_profile.name, ''
+        ]
       end
     end
   end

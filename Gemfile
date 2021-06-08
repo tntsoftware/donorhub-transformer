@@ -19,7 +19,6 @@ gem 'versionist'
 gem 'xeroizer'
 
 group :development do
-  gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'letter_opener'
@@ -44,8 +43,8 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner-active_record'
-  gem 'launchy'
-  gem 'shoulda-matchers'
-  gem 'ruby-debug-ide'
   gem 'debase'
+  gem 'launchy'
+  gem 'ruby-debug-ide'
+  gem 'shoulda-matchers'
 end

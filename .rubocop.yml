@@ -16,3 +16,5 @@ Metrics/BlockLength:
     - spec/**/*
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+  Exclude:
+    - config/application

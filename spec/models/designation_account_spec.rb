@@ -1,18 +1,5 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: designation_accounts
-#
-#  id         :uuid             not null, primary key
-#  active     :boolean          default(FALSE)
-#  balance    :decimal(, )      default(0.0)
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  remote_id  :string
-#
-
 require 'rails_helper'
 
 RSpec.describe DesignationAccount, type: :model do
@@ -55,23 +42,6 @@ RSpec.describe DesignationAccount, type: :model do
 
     it 'returns csv' do
       expect(CSV.parse(described_class.as_csv)).to match_array(data)
-    end
-  end
-
-  describe '.balances_as_csv' do
-    subject!(:designation_account) { create(:designation_account, balance: 4.5) }
-
-    let!(:designation_profile) { create(:designation_profile, designation_account: designation_account) }
-    let(:data) do
-      [
-        %w[EMPLID ACCT_NAME BALANCE PROFILE_CODE PROFILE_DESCRIPTION FUND_ACCOUNT_REPORT_URL],
-        [designation_account.id, designation_account.name, designation_account.balance.to_s, designation_profile.id,
-         designation_profile.name, '']
-      ]
-    end
-
-    it 'returns csv' do
-      expect(CSV.parse(described_class.balances_as_csv(designation_profile))).to match_array(data)
     end
   end
 end

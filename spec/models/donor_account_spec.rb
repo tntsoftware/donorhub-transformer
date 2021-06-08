@@ -1,16 +1,5 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: donor_accounts
-#
-#  id         :uuid             not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  remote_id  :string
-#
-
 require 'rails_helper'
 
 RSpec.describe DonorAccount, type: :model do
@@ -19,7 +8,7 @@ RSpec.describe DonorAccount, type: :model do
   it { is_expected.to have_many(:donations).dependent(:destroy) }
 
   describe '.by_date_range' do
-    let!(:old_donor_account) { create(:donor_account, created_at: 2.years.ago) }
+    let!(:old_donor_account) { create(:donor_account, updated_at: 2.years.ago) }
     let!(:new_donor_account) { create(:donor_account) }
 
     it 'returns all donor_accounts' do

@@ -24,16 +24,21 @@ class Api::V1Controller < ApiController
   end
 
   def process_donor_account_ids
-    params[:donor_account_ids] = params[:donor_ids].split(',') if params[:donor_account_ids].present?
+    params[:donor_account_ids] = params[:donor_account_ids].split(',') if params[:donor_account_ids].present?
   end
 
   def current_designation_profile
     @current_designation_profile ||= designation_profile_scope
-                                      .find_by(id: params[:designation_profile_id])
+                                     .find_by(id: params[:designation_profile_id])
   end
 
   def designation_profile_scope
-    current_member.designation_profiles
+    return @designation_profile_scope if @designation_profile_scope
+
+    @designation_profile_scope = current_member.designation_profiles
+    return @designation_profile_scope unless params[:designation_profile_id]
+
+    @designation_profile_scope = @designation_profile_scope.where(id: params[:designation_profile_id])
   end
 
   def current_designation_profile_or_member

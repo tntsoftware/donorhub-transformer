@@ -5,21 +5,18 @@
 
 class Api::V1::DonorAccountsController < Api::V1Controller
   def create
-    load_donor_accounts
-    filter_donor_accounts
-    send_data @donor_accounts.as_csv
+    send_data donor_accounts.as_csv
   end
 
   protected
 
-  def load_donor_accounts
+  def donor_accounts
+    return @donor_accounts if @donor_accounts
+
     @donor_accounts = donor_account_scope.by_date_range(params[:date_from], params[:date_to])
-  end
+    return @donor_accounts unless params[:donor_account_ids]&.any?
 
-  def filter_donor_accounts
-    return unless params[:donor_account_ids] && params[:donor_account_ids].empty?
-
-    @donor_accounts = donor_accounts.where(donor_account_id: params[:donor_account_ids])
+    @donor_accounts = @donor_accounts.where(id: params[:donor_account_ids])
   end
 
   def donor_account_scope
