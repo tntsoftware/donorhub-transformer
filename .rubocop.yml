@@ -14,6 +14,11 @@ Rails/EnvironmentVariableAccess:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - app/admin/**/*
+    - config/**/*
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/*
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
   Exclude:
