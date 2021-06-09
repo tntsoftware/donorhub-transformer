@@ -18,6 +18,7 @@ gem 'turbolinks'
 gem 'uglifier'
 gem 'versionist'
 gem 'xeroizer'
+gem 'sassc-rails'
 
 group :development do
   gem 'better_errors'
