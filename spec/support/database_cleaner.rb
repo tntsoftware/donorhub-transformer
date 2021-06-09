@@ -13,6 +13,12 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation
   end
 
+  config.around do |each|
+    MultiTenant.with(respond_to?(:organization) ? organization : create(:organization)) do
+      each.run
+    end
+  end
+
   config.before do
     DatabaseCleaner.start
   end

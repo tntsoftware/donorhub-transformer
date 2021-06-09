@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DonorAccount < ApplicationRecord
+  multi_tenant :organization
   has_many :donations, dependent: :destroy
   scope :by_date_range, lambda { |date_from, date_to|
     date_from = Time.zone.at(0) if date_from.blank?

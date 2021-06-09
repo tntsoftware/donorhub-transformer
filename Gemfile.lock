@@ -56,6 +56,9 @@ GEM
     activerecord (6.1.3.2)
       activemodel (= 6.1.3.2)
       activesupport (= 6.1.3.2)
+    activerecord-multi-tenant (1.1.1)
+      rails (>= 4.2)
+      request_store (>= 1.0.5)
     activestorage (6.1.3.2)
       actionpack (= 6.1.3.2)
       activejob (= 6.1.3.2)
@@ -236,6 +239,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (2.1.1)
+    request_store (1.5.0)
+      rack (>= 1.4)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -335,6 +340,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  activerecord-multi-tenant
   amazing_print
   better_errors
   binding_of_caller

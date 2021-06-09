@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DesignationAccount < ApplicationRecord
+  multi_tenant :organization
   has_many :designation_profiles, dependent: :destroy
   has_many :donations, dependent: :destroy
   has_many :donor_accounts, through: :donations

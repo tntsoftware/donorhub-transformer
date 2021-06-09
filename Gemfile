@@ -7,6 +7,7 @@ ruby '2.7.3'
 gem 'rails'
 
 gem 'activeadmin'
+gem 'activerecord-multi-tenant'
 gem 'devise'
 gem 'pg'
 gem 'puma'

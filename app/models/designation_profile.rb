@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DesignationProfile < ApplicationRecord
+  multi_tenant :organization
   belongs_to :designation_account
   belongs_to :member
   has_many :donor_accounts, through: :designation_account

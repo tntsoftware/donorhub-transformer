@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Donation < ApplicationRecord
+  multi_tenant :organization
   belongs_to :designation_account
   belongs_to :donor_account
   scope :by_date_range, lambda { |date_from, date_to|
