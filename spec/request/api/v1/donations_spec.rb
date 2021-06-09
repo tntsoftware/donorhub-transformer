@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Donations', type: :request do
+  let(:organization) { create(:organization) }
   let(:member) { create(:member) }
+
+  before { host! "#{organization.subdomain}.example.com" }
 
   describe '#create' do
     let(:data) do

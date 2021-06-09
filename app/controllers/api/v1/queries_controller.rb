@@ -2,6 +2,7 @@
 
 class Api::V1::QueriesController < ApplicationController
   def show
-    send_data render_to_string('show', formats: [:text]), filename: 'query.ini'
+    stream = render_to_string('show', formats: [:text], locals: { current_organization: current_organization })
+    send_data stream, filename: 'query.ini'
   end
 end

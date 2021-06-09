@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::DesignationAccounts', type: :request do
+  let(:organization) { create(:organization) }
   let(:member) { create(:member) }
+
+  before { host! "#{organization.subdomain}.example.com" }
 
   describe '#create' do
     it 'returns authentication error' do
