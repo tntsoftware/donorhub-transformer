@@ -14,11 +14,11 @@ gem 'puma'
 gem 'pundit'
 gem 'rollbar'
 gem 'sass'
+gem 'sassc-rails'
 gem 'turbolinks'
 gem 'uglifier'
 gem 'versionist'
 gem 'xeroizer'
-gem 'sassc-rails'
 
 group :development do
   gem 'better_errors'
