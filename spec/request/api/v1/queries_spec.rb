@@ -6,11 +6,9 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
   let(:organization) { create(:organization) }
   let(:member) { create(:member) }
 
-  before { host! "#{organization.subdomain}.example.com" }
-
   describe '#show' do
     it 'returns binary file' do
-      get '/api/v1/query'
+      get "/#{organization.slug}/api/v1/query"
       expect(response.headers['Content-Transfer-Encoding']).to eq('binary')
     end
 
@@ -26,12 +24,12 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
           help_url: 'http://quigley.com/charley.wolff',
           help_description: 'Sartorial tattooed 3 wolf moon freegan keytar yolo shoreditch goth.',
           currency_code: 'ARS',
-          subdomain: 'tester'
+          slug: 'tester'
         )
       end
 
       it 'returns query.ini' do
-        get '/api/v1/query'
+        get '/tester/api/v1/query'
         expect(response.body).to eq file_fixture('api/v1/query.ini').read
       end
     end

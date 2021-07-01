@@ -2,9 +2,9 @@
 
 ActiveAdmin.register Donation do
   controller do
-    def scoped_collection
-      end_of_association_chain.joins(:designation_account).where(designation_accounts: { active: true })
-    end
+    # def scoped_collection
+    #   end_of_association_chain.joins(:designation_account).where(designation_accounts: { active: true })
+    # end
   end
 
   filter :designation_account, collection: -> { DesignationAccount.where(active: true) }

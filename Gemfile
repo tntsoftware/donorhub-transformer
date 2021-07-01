@@ -8,7 +8,11 @@ gem 'rails'
 
 gem 'activeadmin'
 gem 'activerecord-multi-tenant'
+gem 'bootsnap', require: false
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-xero-oauth2'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
@@ -18,7 +22,7 @@ gem 'sassc-rails'
 gem 'turbolinks'
 gem 'uglifier'
 gem 'versionist'
-gem 'xeroizer'
+gem 'xeroizer', git: 'https://github.com/waynerobinson/xeroizer.git'
 
 group :development do
   gem 'better_errors'

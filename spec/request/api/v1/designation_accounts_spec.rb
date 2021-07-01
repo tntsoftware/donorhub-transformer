@@ -6,16 +6,15 @@ RSpec.describe 'Api::V1::DesignationAccounts', type: :request do
   let(:organization) { create(:organization) }
   let(:member) { create(:member) }
 
-  before { host! "#{organization.subdomain}.example.com" }
-
   describe '#create' do
     it 'returns authentication error' do
-      post '/api/v1/designation_accounts'
+      post "/#{organization.slug}/api/v1/designation_accounts"
       expect(response.status).to eq(401)
     end
 
     it 'returns empty CSV' do
-      post '/api/v1/designation_accounts', params: { user_email: member.email, user_token: member.access_token }
+      post "/#{organization.slug}/api/v1/designation_accounts",
+           params: { user_email: member.email, user_token: member.access_token }
       expect(CSV.parse(response.body)).to eq([%w[DESIG_ID DESIG_NAME ORG_PATH]])
     end
 
@@ -36,7 +35,8 @@ RSpec.describe 'Api::V1::DesignationAccounts', type: :request do
       end
 
       it 'returns designation_accounts in CSV format' do
-        post '/api/v1/designation_accounts', params: { user_email: member.email, user_token: member.access_token }
+        post "/#{organization.slug}/api/v1/designation_accounts",
+             params: { user_email: member.email, user_token: member.access_token }
         expect(CSV.parse(response.body)).to match_array(data)
       end
     end
@@ -56,7 +56,7 @@ RSpec.describe 'Api::V1::DesignationAccounts', type: :request do
       before { create(:designation_profile, member: member) }
 
       it 'returns designation_account in CSV format' do
-        post '/api/v1/designation_accounts', params: {
+        post "/#{organization.slug}/api/v1/designation_accounts", params: {
           user_email: member.email, user_token: member.access_token, designation_profile_id: designation_profile.id
         }
         expect(CSV.parse(response.body)).to match_array(data)

@@ -2,8 +2,8 @@
 
 class ApplicationController < ActionController::Base
   include Pundit
-  after_action :verify_authorized, except: :index, unless: :indexable_controller?
-  after_action :verify_policy_scoped, only: :index, unless: :indexable_controller?
+  # after_action :verify_authorized, except: :index, unless: :indexable_controller?
+  # after_action :verify_policy_scoped, only: :index, unless: :indexable_controller?
   set_current_tenant_through_filter
   before_action :set_current_organization_as_tenant
   helper_method :current_organization
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    @current_organization ||= Organization.find_by(subdomain: request.subdomain)
+    @current_organization ||= Organization.find_by(slug: params[:slug])
   end
 
   def indexable_controller?

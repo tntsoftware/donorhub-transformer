@@ -6,8 +6,6 @@ RSpec.describe 'Api::V1::Donations', type: :request do
   let(:organization) { create(:organization) }
   let(:member) { create(:member) }
 
-  before { host! "#{organization.subdomain}.example.com" }
-
   describe '#create' do
     let(:data) do
       [
@@ -17,12 +15,13 @@ RSpec.describe 'Api::V1::Donations', type: :request do
     end
 
     it 'returns authentication error' do
-      post '/api/v1/donations'
+      post "/#{organization.slug}/api/v1/donations"
       expect(response.status).to eq(401)
     end
 
     it 'returns empty CSV' do
-      post '/api/v1/donations', params: { user_email: member.email, user_token: member.access_token }
+      post "/#{organization.slug}/api/v1/donations",
+           params: { user_email: member.email, user_token: member.access_token }
       expect(CSV.parse(response.body)).to eq(data)
     end
 
@@ -52,7 +51,8 @@ RSpec.describe 'Api::V1::Donations', type: :request do
       end
 
       it 'returns donations in CSV format' do
-        post '/api/v1/donations', params: { user_email: member.email, user_token: member.access_token }
+        post "/#{organization.slug}/api/v1/donations",
+             params: { user_email: member.email, user_token: member.access_token }
         expect(CSV.parse(response.body)).to match_array(data)
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe 'Api::V1::Donations', type: :request do
       end
 
       it 'returns donations in CSV format' do
-        post '/api/v1/donations', params: {
+        post "/#{organization.slug}/api/v1/donations", params: {
           user_email: member.email, user_token: member.access_token, designation_profile_id: designation_profile.id
         }
         expect(CSV.parse(response.body)).to match_array(data)
@@ -109,7 +109,7 @@ RSpec.describe 'Api::V1::Donations', type: :request do
     end
 
     it 'returns donations in CSV format' do
-      post '/api/v1/donations', params: {
+      post "/#{organization.slug}/api/v1/donations", params: {
         user_email: member.email, user_token: member.access_token,
         date_from: (2.years.ago - 1.day).strftime('%m/%d/%Y'), date_to: (2.years.ago + 1.day).strftime('%m/%d/%Y')
       }

@@ -11,7 +11,7 @@ class CreateOrganizations < ActiveRecord::Migration[6.1]
       t.string :help_url
       t.string :help_description
       t.string :currency_code
-      t.string :subdomain, null: false, unique: true
+      t.string :slug, null: false, unique: true
 
       t.timestamps
     end

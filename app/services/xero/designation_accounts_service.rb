@@ -2,30 +2,25 @@
 
 class Xero::DesignationAccountsService < Xero::BaseService
   def load
-    account_scope.each do |account|
-      attributes = designation_account_attributes(account)
-      record = DesignationAccount.find_or_initialize_by(id: attributes[:id])
-      record.attributes = attributes
-      record.save!
+    tracking_category_scope.each do |tracking_category|
+      tracking_category.options.each do |tracking_option|
+        attributes = designation_account_attributes(tracking_category, tracking_option)
+        record = DesignationAccount.find_or_initialize_by(remote_id: attributes[:remote_id])
+        record.attributes = attributes
+        record.save!
+      end
     end
   end
 
   private
 
-  def account_scope
-    all ? client.Account.all : client.Account.all(modified_since: modified_since)
-  rescue Xeroizer::OAuth::RateLimitExceeded
-    sleep 60
-    retry
+  def tracking_category_scope
+    all ? client.TrackingCategory.all : client.TrackingCategory.all(modified_since: modified_since)
   end
 
-  def designation_account_attributes(account, attributes = {})
-    attributes[:id] = account.id
-    attributes[:name] = account.name
-    attributes[:remote_id] = account.code
+  def designation_account_attributes(tracking_category, tracking_option, attributes = {})
+    attributes[:name] = "#{tracking_category.name}:#{tracking_option.name}"
+    attributes[:remote_id] = "#{tracking_category.id}:#{tracking_option.id}"
     attributes
-  rescue Xeroizer::OAuth::RateLimitExceeded
-    sleep 60
-    retry
   end
 end
