@@ -9,9 +9,9 @@ RSpec.describe Member, type: :model do
   it { is_expected.to have_many(:designation_accounts).through(:designation_profiles) }
   it { is_expected.to have_many(:donations).through(:designation_accounts) }
   it { is_expected.to have_many(:donor_accounts).through(:donations) }
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:email) }
-  it { is_expected.to validate_uniqueness_of(:access_token).scoped_to(:email) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to validate_uniqueness_of(:access_token) }
+  it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:organization_id).case_insensitive }
 
   describe '#send_inform_email' do
     subject(:member) { build(:member) }

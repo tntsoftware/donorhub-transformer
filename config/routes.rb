@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  devise_for :users
+  get 'auth/:provider/callback', to: 'sessions#create'
   scope '/:slug' do
-    get 'auth/:provider/callback', to: 'sessions#create'
-    devise_for :users, ActiveAdmin::Devise.config
     ActiveAdmin.routes(self)
     namespace :api do
       api_version(module: 'V1', path: { value: 'v1' }) do

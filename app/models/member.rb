@@ -6,8 +6,9 @@ class Member < ApplicationRecord
   has_many :designation_accounts, through: :designation_profiles
   has_many :donations, through: :designation_accounts
   has_many :donor_accounts, through: :donations
-  validates :name, :email, :access_token, presence: true
-  validates :access_token, uniqueness: { scope: :email }
+  belongs_to :user
+  validates :access_token, presence: true, uniqueness: true
+  validates :user_id, uniqueness: { scope: :organization_id }
   before_validation :create_access_token, on: :create
   after_commit :send_inform_email, on: :create
 

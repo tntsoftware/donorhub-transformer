@@ -43,6 +43,6 @@ class DesignationProfile < ApplicationRecord
   end
 
   def name
-    "#{designation_account.name} | #{member.name}"
+    "#{designation_account.name} | #{member.user.name}"
   end
 end

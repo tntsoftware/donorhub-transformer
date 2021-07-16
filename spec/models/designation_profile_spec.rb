@@ -50,7 +50,7 @@ RSpec.describe DesignationProfile, type: :model do
     end
 
     let(:designation_account) { create(:designation_account, name: 'designationAccount1') }
-    let(:member) { create(:member, name: 'member1') }
+    let(:member) { create(:member, user: create(:user, name: 'member1')) }
 
     it 'concatenates designation_account name and member name' do
       expect(designation_profile.name).to eq 'designationAccount1 | member1'

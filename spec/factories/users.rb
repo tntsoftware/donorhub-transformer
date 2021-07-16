@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :user do
     name { 'Test User' }
-    email { 'test@example.com' }
+    email { Faker::Internet.unique.email }
     password { 'please123' }
 
     trait :admin do
