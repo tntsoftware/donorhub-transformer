@@ -46,7 +46,8 @@ class Api::V1Controller < ApiController
   end
 
   def current_member
-    @current_member ||= Member.find_by!(email: params[:user_email], access_token: params[:user_token])
+    @current_member ||=
+      Member.joins(:user).find_by!(user: { email: params[:user_email] }, access_token: params[:user_token])
   rescue ActiveRecord::RecordNotFound
     render plain: 'authentication error', status: :unauthorized
   end

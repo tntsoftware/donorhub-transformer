@@ -11,7 +11,8 @@ class Member < ApplicationRecord
   validates :user_id, uniqueness: { scope: :organization_id }
   before_validation :create_access_token, on: :create
   after_commit :send_inform_email, on: :create
-
+  delegate :email, to: :user
+  
   def send_inform_email
     MemberMailer.inform(self).deliver_later
   end

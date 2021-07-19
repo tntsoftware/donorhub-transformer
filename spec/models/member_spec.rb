@@ -10,6 +10,7 @@ RSpec.describe Member, type: :model do
   it { is_expected.to have_many(:donations).through(:designation_accounts) }
   it { is_expected.to have_many(:donor_accounts).through(:donations) }
   it { is_expected.to belong_to(:user) }
+  it { is_expected.to delegate_method(:email).to(:user) }
   it { is_expected.to validate_uniqueness_of(:access_token) }
   it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:organization_id).case_insensitive }
 
