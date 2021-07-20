@@ -8,12 +8,12 @@ RSpec.describe 'Api::V1::Balances', type: :request do
 
   describe '#create' do
     it 'returns authentication error' do
-      post "/#{organization.slug}/api/v1/balances"
+      post "/organizations/#{organization.slug}/api/v1/balances"
       expect(response.status).to eq(401)
     end
 
     it 'returns empty CSV' do
-      post "/#{organization.slug}/api/v1/balances",
+      post "/organizations/#{organization.slug}/api/v1/balances",
            params: { user_email: member.email, user_token: member.access_token }
       expect(CSV.parse(response.body)).to eq(
         [%w[EMPLID ACCT_NAME BALANCE PROFILE_CODE PROFILE_DESCRIPTION FUND_ACCOUNT_REPORT_URL]]
@@ -36,7 +36,7 @@ RSpec.describe 'Api::V1::Balances', type: :request do
       end
 
       it 'returns designation_profiles balances in CSV format' do
-        post "/#{organization.slug}/api/v1/balances",
+        post "/organizations/#{organization.slug}/api/v1/balances",
              params: { user_email: member.email, user_token: member.access_token }
         expect(CSV.parse(response.body)).to match_array(data)
       end
@@ -56,7 +56,7 @@ RSpec.describe 'Api::V1::Balances', type: :request do
       end
 
       it 'returns designation_profile balances in CSV format' do
-        post "/#{organization.slug}/api/v1/balances", params: {
+        post "/organizations/#{organization.slug}/api/v1/balances", params: {
           user_email: member.email, user_token: member.access_token, designation_profile_id: designation_profile.id
         }
         expect(CSV.parse(response.body)).to match_array(data)

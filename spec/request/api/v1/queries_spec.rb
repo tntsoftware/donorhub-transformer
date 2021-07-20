@@ -8,7 +8,7 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
 
   describe '#show' do
     it 'returns binary file' do
-      get "/#{organization.slug}/api/v1/query"
+      get "/organizations/#{organization.slug}/api/v1/query"
       expect(response.headers['Content-Transfer-Encoding']).to eq('binary')
     end
 
@@ -16,7 +16,6 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
       let(:organization) do
         create(
           :organization,
-          code: '60-2994465',
           name: 'Stark, Legros and Conroy',
           abbreviation: 'Group',
           account_help_url: 'http://stroman.io/nicola',
@@ -29,7 +28,7 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
       end
 
       it 'returns query.ini' do
-        get '/tester/api/v1/query'
+        get '/organizations/tester/api/v1/query'
         expect(response.body).to eq file_fixture('api/v1/query.ini').read
       end
     end

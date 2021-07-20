@@ -8,12 +8,12 @@ RSpec.describe 'Api::V1::DesignationProfiles', type: :request do
 
   describe '#create' do
     it 'returns authentication error' do
-      post "/#{organization.slug}/api/v1/designation_profiles"
+      post "/organizations/#{organization.slug}/api/v1/designation_profiles"
       expect(response.status).to eq(401)
     end
 
     it 'returns empty CSV' do
-      post "/#{organization.slug}/api/v1/designation_profiles",
+      post "/organizations/#{organization.slug}/api/v1/designation_profiles",
            params: { user_email: member.email, user_token: member.access_token }
       expect(CSV.parse(response.body)).to eq([%w[PROFILE_CODE PROFILE_DESCRIPTION PROFILE_ACCOUNT_REPORT_URL]])
     end
@@ -30,7 +30,7 @@ RSpec.describe 'Api::V1::DesignationProfiles', type: :request do
       end
 
       it 'returns designation_profiles in CSV format' do
-        post "/#{organization.slug}/api/v1/designation_profiles",
+        post "/organizations/#{organization.slug}/api/v1/designation_profiles",
              params: { user_email: member.email, user_token: member.access_token }
         expect(CSV.parse(response.body)).to match_array(data)
       end

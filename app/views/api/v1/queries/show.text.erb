@@ -4,7 +4,7 @@ RecommendedVersion=3.2.5
 
 [ORGANIZATION]
 RedirectQueryIni=
-Code=<%= current_organization.code %>
+Code=<%= current_organization.slug %>
 Name=<%= current_organization.name %>
 Abbreviation=<%= current_organization.abbreviation %>
 AccountHelpUrl=<%= current_organization.account_help_url %>
@@ -17,25 +17,25 @@ DefaultCurrencyCode=<%= current_organization.currency_code %>
 GLAccountCategoriesToConsolidate=
 
 [PROFILES]
-Url=<%= api_v1_designation_profiles_url %>
+Url=<%= organization_api_v1_designation_profiles_url %>
 Post=user_email=$ACCOUNT$&user_token=$PASSWORD$
 
 [DESIGNATIONS]
-Url=<%= api_v1_designation_accounts_url %>
+Url=<%= organization_api_v1_designation_accounts_url %>
 Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$
 
 [DONATIONS]
-Url=<%= api_v1_donations_url %>
+Url=<%= organization_api_v1_donations_url %>
 Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&date_from=$DATEFROM$&date_to=$DATETO$
 
 [ADDRESSES]
-Url=<%= api_v1_donor_accounts_url %>
+Url=<%= organization_api_v1_donor_accounts_url %>
 Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&date_from=$DATEFROM$
 
 [ADDRESSES_BY_PERSONIDS]
-Url=<%= api_v1_donor_accounts_url %>
+Url=<%= organization_api_v1_donor_accounts_url %>
 Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$&donor_account_ids=$PERSONIDS$
 
 [ACCOUNT_BALANCE]
-Url=<%= api_v1_balances_url %>
+Url=<%= organization_api_v1_balances_url %>
 Post=user_email=$ACCOUNT$&user_token=$PASSWORD$&designation_profile_id=$PROFILE$

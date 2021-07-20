@@ -9,15 +9,15 @@ class ApplicationPolicy
   end
 
   def index?
-    true
+    false
   end
 
   def show?
-    true
+    false
   end
 
   def create?
-    true
+    false
   end
 
   def new?
@@ -25,7 +25,7 @@ class ApplicationPolicy
   end
 
   def update?
-    true
+    false
   end
 
   def edit?
@@ -33,7 +33,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    true
+    false
   end
 
   class Scope
@@ -45,7 +45,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      scope.all
+      user ? scope.all : scope.none
     end
   end
 end

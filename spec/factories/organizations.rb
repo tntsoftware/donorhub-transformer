@@ -3,7 +3,6 @@
 FactoryBot.define do
   factory :organization do
     slug { Faker::Internet.unique.domain_word }
-    code { Faker::Company.ein }
     name { Faker::Company.name }
     abbreviation { Faker::Company.suffix }
     account_help_url { Faker::Internet.url }

@@ -9,6 +9,6 @@ class ApiController < ActionController::API
   end
 
   def current_organization
-    @current_organization ||= Organization.find_by!(slug: params[:slug])
+    @current_organization ||= Organization.friendly.find(params[:organization_id])
   end
 end

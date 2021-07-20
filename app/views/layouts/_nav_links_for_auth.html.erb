@@ -1,5 +1,19 @@
 <% if user_signed_in? %>
-  <li class='nav-item'><%= link_to 'Sign Out', destroy_user_session_path, :method=>'delete', class: 'nav-link' %></li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <%= current_organization&.name || 'Workspaces' %>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <% current_user.organizations.each do |organization | %>
+      <li><%= link_to organization.name, organization_path(organization), class: "dropdown-item#{' active' if current_organization == organization}" %></li>
+      <% end %>
+      <% if current_user.organizations.present? %>
+        <li><hr class="dropdown-divider"></li>
+      <% end %>
+      <li><%= link_to 'New Workspace', new_organization_path, class: 'dropdown-item' %></li>
+    </ul>
+  </li>
+  <li class='nav-item'><%= link_to 'Sign Out', destroy_user_session_path, method: 'delete', class: 'nav-link' %></li>
 <% else %>
   <li class='nav-item'><%= link_to 'Sign In', new_user_session_path, class: 'nav-link' %></li>
 <% end %>
