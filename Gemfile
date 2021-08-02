@@ -19,6 +19,7 @@ gem 'omniauth-xero-oauth2'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
+gem "rolify"
 gem 'rollbar'
 gem 'sass'
 gem 'sassc-rails'

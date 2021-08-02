@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Organization < ApplicationRecord
+  resourcify
   extend FriendlyId
   friendly_id :name, use: :slugged
 

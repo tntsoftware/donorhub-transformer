@@ -4,10 +4,11 @@
       <%= current_organization&.name || 'Workspaces' %>
     </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <% current_user.organizations.each do |organization | %>
+      <% organizations = Pundit.policy_scope(current_user, Organization).order(:name) %>
+      <% organizations.each do |organization | %>
       <li><%= link_to organization.name, organization_path(organization), class: "dropdown-item#{' active' if current_organization == organization}" %></li>
       <% end %>
-      <% if current_user.organizations.present? %>
+      <% if organizations.present? %>
         <li><hr class="dropdown-divider"></li>
       <% end %>
       <li><%= link_to 'New Workspace', new_organization_path, class: 'dropdown-item' %></li>

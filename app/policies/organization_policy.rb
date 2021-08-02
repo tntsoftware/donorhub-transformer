@@ -6,7 +6,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def show?
-    user.organizations.exists?(id: record.id)
+    user.has_role? :user, record
   end
 
   def create?
@@ -18,7 +18,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def update?
-    false
+    user.has_role? :admin, record
   end
 
   def edit?
@@ -26,6 +26,21 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
+    user.has_role? :admin, record
+  end
+
+  class Scope
+    attr_reader :user, :scope
+
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
+    def resolve
+      return scope.none unless user
+
+      scope.with_roles(%i[admin user], user).distinct
+    end
   end
 end

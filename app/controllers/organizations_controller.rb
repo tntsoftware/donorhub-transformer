@@ -15,7 +15,6 @@ class OrganizationsController < ApplicationController
 
   def new
     build_organization
-
     authorize @organization
   end
 
@@ -26,11 +25,17 @@ class OrganizationsController < ApplicationController
     return render 'new', status: :unprocessable_entity unless save_organization
 
     flash[:notice] = 'Organization created successfully.'
-    @organization.members.create(user: current_user)
+    current_user.add_role :admin, @organization
+    current_user.add_role :user, @organization
     redirect_to organization_path(@organization)
   end
 
   def show
+    load_organization
+    authorize @organization
+  end
+
+  def edit
     load_organization
     authorize @organization
   end
@@ -57,7 +62,7 @@ class OrganizationsController < ApplicationController
   end
 
   def load_organization
-    @organization = current_user.organizations.friendly.find(params[:id])
+    @organization = organization_scope.friendly.find(params[:id])
   end
 
   def organization_params
@@ -67,10 +72,10 @@ class OrganizationsController < ApplicationController
   end
 
   def load_organizations
-    @organizations = organization_scope
+    @organizations = organization_scope.order(:name)
   end
 
   def organization_scope
-    policy_scope(current_user.organizations)
+    policy_scope(Organization)
   end
 end
