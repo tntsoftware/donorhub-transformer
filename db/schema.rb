@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 2021_08_02_084940) do
     t.string "access_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["access_token"], name: "index_members_on_access_token", unique: true
     t.index ["organization_id", "user_id"], name: "index_members_on_organization_id_and_user_id", unique: true
     t.index ["organization_id"], name: "index_members_on_organization_id"
     t.index ["user_id"], name: "index_members_on_user_id"
@@ -142,6 +143,8 @@ ActiveRecord::Schema.define(version: 2021_08_02_084940) do
   create_table "users_roles", id: false, force: :cascade do |t|
     t.uuid "user_id"
     t.uuid "role_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"

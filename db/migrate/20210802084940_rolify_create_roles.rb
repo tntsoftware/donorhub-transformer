@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RolifyCreateRoles < ActiveRecord::Migration[6.1]
   def change
     create_table(:roles, id: :uuid) do |t|
@@ -10,6 +12,8 @@ class RolifyCreateRoles < ActiveRecord::Migration[6.1]
     create_table(:users_roles, id: false) do |t|
       t.references :user, type: :uuid
       t.references :role, type: :uuid
+
+      t.timestamps
     end
 
     add_index(:roles, %i[name resource_type resource_id])

@@ -81,15 +81,6 @@ RSpec.describe OrganizationsController, type: :controller do
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
-
-    context 'when va' do
-      before { sign_in user }
-
-      it 'responds with unprocessable_entity' do
-        post :create
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-    end
   end
 
   # describe '#show' do

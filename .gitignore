@@ -85,3 +85,10 @@ privatekey.pem
 
 # tilde files are usually backup files from a text editor
 *~
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

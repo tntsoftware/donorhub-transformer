@@ -19,13 +19,11 @@ gem 'omniauth-xero-oauth2'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
-gem "rolify"
+gem 'rolify'
 gem 'rollbar'
-gem 'sass'
-gem 'sassc-rails'
-gem 'turbolinks'
 gem 'uglifier'
 gem 'versionist'
+gem 'webpacker'
 gem 'xeroizer', git: 'https://github.com/waynerobinson/xeroizer.git'
 
 group :development do
@@ -55,7 +53,7 @@ group :test do
   gem 'database_cleaner-active_record'
   gem 'debase'
   gem 'launchy'
+  gem 'pundit-matchers'
   gem 'ruby-debug-ide'
   gem 'shoulda-matchers'
-  gem 'pundit-matchers'
 end
