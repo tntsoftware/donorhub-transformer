@@ -9,11 +9,9 @@ class RolifyCreateRoles < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    create_table(:users_roles, id: false) do |t|
+    create_table(:users_roles, id: false) do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.references :user, type: :uuid
       t.references :role, type: :uuid
-
-      t.timestamps
     end
 
     add_index(:roles, %i[name resource_type resource_id])
