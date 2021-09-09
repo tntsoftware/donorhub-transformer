@@ -5,10 +5,7 @@ module ApplicationHelper
     return '' if resource.errors.empty?
 
     html = <<-HTML
-    <div class="alert alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="alert alert-danger" role="alert">
       <h4 class="alert-heading">#{sentence(resource)}</h4><ul class="mb-0">#{message(resource)}</ul>
     </div>
     HTML

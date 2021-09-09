@@ -15,8 +15,8 @@
 // const imagePath = (name) => images(name, true)
 
 import Rails from "@rails/ujs";
-import ActiveStorage from "@rails/activestorage";
 import Turbolinks from "turbolinks";
+import * as ActiveStorage from "@rails/activestorage";
 import "./modules/bootstrap";
 import "./modules/sidebar";
 import "./modules/theme";
