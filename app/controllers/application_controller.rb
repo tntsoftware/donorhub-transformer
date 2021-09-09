@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    @current_organization ||= Organization.friendly.find(params[:organization_id] || params[:id])
+    @current_organization ||= Organization.friendly.find(params[:organization_id] || params[:id] || request.env['omniauth.origin'])
   rescue ActiveRecord::RecordNotFound
     nil
   end

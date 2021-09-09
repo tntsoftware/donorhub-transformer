@@ -8,12 +8,12 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
 
   describe '#create' do
     it 'returns authentication error' do
-      post "/organizations/#{organization.slug}/api/v1/donor_accounts"
+      post "/o/#{organization.slug}/api/v1/donor_accounts"
       expect(response.status).to eq(401)
     end
 
     it 'returns empty CSV' do
-      post "/organizations/#{organization.slug}/api/v1/donor_accounts",
+      post "/o/#{organization.slug}/api/v1/donor_accounts",
            params: { user_email: member.email, user_token: member.access_token }
       expect(CSV.parse(response.body)).to eq([%w[PEOPLE_ID ACCT_NAME]])
     end
@@ -38,7 +38,7 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
       end
 
       it 'returns donor_accounts in CSV format' do
-        post "/organizations/#{organization.slug}/api/v1/donor_accounts",
+        post "/o/#{organization.slug}/api/v1/donor_accounts",
              params: { user_email: member.email, user_token: member.access_token }
         expect(CSV.parse(response.body)).to match_array(data)
       end
@@ -62,7 +62,7 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
       end
 
       it 'returns donor_accounts in CSV format' do
-        post "/organizations/#{organization.slug}/api/v1/donor_accounts", params: {
+        post "/o/#{organization.slug}/api/v1/donor_accounts", params: {
           user_email: member.email, user_token: member.access_token, designation_profile_id: designation_profile.id
         }
         expect(CSV.parse(response.body)).to match_array(data)
@@ -88,7 +88,7 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
     end
 
     it 'returns donor_accounts in CSV format' do
-      post "/organizations/#{organization.slug}/api/v1/donor_accounts", params: {
+      post "/o/#{organization.slug}/api/v1/donor_accounts", params: {
         user_email: member.email, user_token: member.access_token,
         date_from: (2.years.ago - 1.day).strftime('%m/%d/%Y'), date_to: (2.years.ago + 1.day).strftime('%m/%d/%Y')
       }
@@ -114,7 +114,7 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
     end
 
     it 'returns donor_accounts in CSV format' do
-      post "/organizations/#{organization.slug}/api/v1/donor_accounts", params: {
+      post "/o/#{organization.slug}/api/v1/donor_accounts", params: {
         user_email: member.email, user_token: member.access_token,
         donor_account_ids: "#{donor_account.id},#{SecureRandom.uuid}"
       }

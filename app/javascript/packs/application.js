@@ -14,17 +14,18 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-require("@rails/ujs").start();
-require("turbolinks").start();
-require("@rails/activestorage").start();
-require("stylesheets/application.scss");
-window.bootstrap = require("bootstrap");
+import Rails from "@rails/ujs";
+import ActiveStorage from "@rails/activestorage";
+import Turbolinks from "turbolinks";
+import "./modules/bootstrap";
+import "./modules/sidebar";
+import "./modules/theme";
+import "./modules/feather";
+import "./modules/chartjs";
+import "./modules/flatpickr";
+import "./modules/vector-maps";
+import "stylesheets/application.scss";
 
-document.addEventListener("turbolinks:load", () => {
-  var tooltipTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  );
-  tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-});
+Rails.start();
+Turbolinks.start();
+ActiveStorage.start();

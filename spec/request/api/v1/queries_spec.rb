@@ -8,7 +8,7 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
 
   describe '#show' do
     it 'returns binary file' do
-      get "/organizations/#{organization.slug}/api/v1/query"
+      get "/o/#{organization.slug}/api/v1/query"
       expect(response.headers['Content-Transfer-Encoding']).to eq('binary')
     end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Api::V1::DonorAccounts', type: :request do
       end
 
       it 'returns query.ini' do
-        get '/organizations/tester/api/v1/query'
+        get '/o/tester/api/v1/query'
         expect(response.body).to eq file_fixture('api/v1/query.ini').read
       end
     end

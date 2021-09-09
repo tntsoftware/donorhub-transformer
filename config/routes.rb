@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   devise_for :users
   get 'auth/:provider/callback', to: 'sessions#create'
-  resources :organizations, except: :index do
+  resources :organizations, except: :index, path: 'o' do
     ActiveAdmin.routes(self)
     namespace :api do
       api_version(module: 'V1', path: { value: 'v1' }) do
