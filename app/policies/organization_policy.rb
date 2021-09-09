@@ -2,15 +2,15 @@
 
 class OrganizationPolicy < ApplicationPolicy
   def index?
-    true
+    user.present?
   end
 
   def show?
-    user.has_role? :user, record
+    user&.has_role?(:member, record) || user&.has_role?(:admin, record)
   end
 
   def create?
-    true
+    user.present?
   end
 
   def new?
@@ -18,7 +18,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def update?
-    user.has_role? :admin, record
+    user&.has_role?(:admin, record)
   end
 
   def edit?
@@ -26,7 +26,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.has_role? :admin, record
+    user&.has_role?(:admin, record)
   end
 
   class Scope
@@ -40,7 +40,7 @@ class OrganizationPolicy < ApplicationPolicy
     def resolve
       return scope.none unless user
 
-      scope.with_roles(%i[admin user], user).distinct
+      scope.with_roles(%i[admin member], user).distinct
     end
   end
 end

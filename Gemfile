@@ -57,4 +57,5 @@ group :test do
   gem 'launchy'
   gem 'ruby-debug-ide'
   gem 'shoulda-matchers'
+  gem 'pundit-matchers'
 end

@@ -26,7 +26,7 @@ class OrganizationsController < ApplicationController
 
     flash[:notice] = 'Organization created successfully.'
     current_user.add_role :admin, @organization
-    current_user.add_role :user, @organization
+    current_user.add_role :member, @organization
     redirect_to organization_path(@organization)
   end
 
