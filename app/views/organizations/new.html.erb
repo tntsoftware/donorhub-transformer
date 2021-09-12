@@ -1,12 +1,14 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-4 offset-md-4">
-      <%= bootstrap_form_for(@organization) do |f| %>
-        <div class="mb-3">
-          <%= f.text_field :name, label: 'Workspace Name' %>
-        </div>
-        <%= f.submit "Create", class: 'btn btn-primary' %>
-      <% end %>
-    </div>
+
+<div class="mb-3">
+  <h1 class="h3 d-inline align-middle">Add Workspace</h1>
+</div>
+<div class="card">
+  <div class="card-body">
+    <%= bootstrap_form_for(@organization) do |f| %>
+      <div class="mb-3">
+        <%= f.text_field :name %>
+      </div>
+      <%= f.submit "Create", class: 'btn btn-primary' %>
+    <% end %>
   </div>
 </div>

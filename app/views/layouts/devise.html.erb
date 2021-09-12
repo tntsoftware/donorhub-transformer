@@ -15,18 +15,6 @@
   <%= csp_meta_tag %>
   </head>
   <body>
-	  <div class="wrapper">
-      <%= render 'layouts/sidebar' %>
-      <div class="main">
-        <%= render 'layouts/topbar' %>
-        <main class="content">
-          <div class="container-fluid p-0">
-            <%= render 'layouts/messages' %>
-            <%= yield %>
-          </div>
-        </main>
-        <%= render 'layouts/footer' %>
-      </div>
-		</div>
+    <%= yield %>
   </body>
 </html>

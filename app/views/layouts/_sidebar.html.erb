@@ -1,0 +1,36 @@
+<nav id="sidebar" class="sidebar js-sidebar">
+  <div class="sidebar-content js-simplebar">
+    <a class="sidebar-brand" href="/">
+      <span class="align-middle">Donation Core</span>
+    </a>
+    <ul class="sidebar-nav">
+      <% if current_organization %>
+        <li class="sidebar-header">
+          My Donations
+        </li>
+        <li class="sidebar-item<%= ' active' if current_page?(organization_path(current_organization)) %>">
+          <a class="sidebar-link" href="<%= organization_path(current_organization) %>">
+            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+          </a>
+        </li>
+        <% if current_organization && current_user.has_role?(:admin, current_organization) %>
+          <li class="sidebar-header">
+            Administration
+          </li>
+          <li class='sidebar-item'>
+            <%= link_to 'Connect Xero', "/auth/xero_oauth2?origin=#{organization.slug}", class: 'sidebar-link', method: :post %>
+          </li>
+        <% end %>
+      <% else %>
+          <li class="sidebar-header">
+            Workspaces
+          </li>
+          <li class="sidebar-item<%= ' active' if current_page?(new_organization_path) %>">
+            <a class="sidebar-link" href="<%= new_organization_path %>">
+              <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Add Workspace</span>
+            </a>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

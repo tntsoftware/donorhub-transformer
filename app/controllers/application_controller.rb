@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_organization_as_tenant
   helper_method :current_organization
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  layout :layout
 
   protected
 
@@ -27,5 +28,14 @@ class ApplicationController < ActionController::Base
 
   def indexable_controller?
     is_a?(ActiveAdmin::BaseController) || devise_controller?
+  end
+
+  def layout
+    if params[:controller] == 'devise/registrations' && params[:action] == 'new' ||
+       params[:controller] == 'devise/sessions' && params[:action] == 'new'
+      'devise'
+    else
+      'application'
+    end
   end
 end

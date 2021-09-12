@@ -1,0 +1,25 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="workspacesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <%= current_organization&.name || 'Workspaces' %>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="workspacesDropdown">
+    <% organizations = Pundit.policy_scope(current_user, Organization).order(:name) %>
+    <% organizations.each do |organization | %>
+    <li><%= link_to organization.name, organization_path(organization), class: "dropdown-item#{' active' if current_organization == organization}" %></li>
+    <% end %>
+    <% if organizations.present? %>
+      <li><hr class="dropdown-divider"></li>
+    <% end %>
+    <li><%= link_to 'Add Workspace', new_organization_path, class: 'dropdown-item' %></li>
+  </ul>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-icon pe-md-0 dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <img src="<%= avatar_url_from_email(current_user.email) %>" class="avatar img-fluid rounded me-1" />
+  </a>
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+    <a class='dropdown-item' href="<%= edit_user_registration_path %>"><i class="align-middle  me-1" data-feather="user"></i> Settings</a>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Log out', destroy_user_session_path, method: 'delete', class: 'dropdown-item' %>
+  </div>
+</li>

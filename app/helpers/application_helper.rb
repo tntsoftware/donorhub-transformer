@@ -13,6 +13,10 @@ module ApplicationHelper
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
+  def avatar_url_from_email(email)
+    "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.strip.downcase)}"
+  end
+
   protected
 
   def message(resource)

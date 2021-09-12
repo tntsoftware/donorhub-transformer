@@ -13,6 +13,7 @@
 							<div class="card-body">
 								<div class="m-sm-4">
                   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          					<%= render 'devise/shared/messages' %>
                     <div class="mb-3">
                       <%= f.label :email, class: 'form-label' %>
                       <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control form-control-lg' %>
