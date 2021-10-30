@@ -6,7 +6,7 @@ class DesignationProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    user.has_role?(:admin, record.organization)
+    user.has_role?(:admin, record.organization) || record.member.user == user
   end
 
   def create?
@@ -41,7 +41,9 @@ class DesignationProfilePolicy < ApplicationPolicy
       if user.has_role?(:admin, organization)
         scope.all
       else
-        scope.where(users: [user])
+        scope.joins(member: :user)
+             .where(users: { id: user.id })
+             .distinct
       end
     end
 

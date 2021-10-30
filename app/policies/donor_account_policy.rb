@@ -6,7 +6,10 @@ class DonorAccountPolicy < ApplicationPolicy
   end
 
   def show?
-    user.has_role?(:admin, record.organization) || user.donor_accounts.include?(record)
+    user.has_role?(:admin, record.organization) ||
+      record.donations
+            .joins(designation_account: { designation_profiles: { member: :user } })
+            .exists?(users: { id: user.id })
   end
 
   def create?
@@ -41,7 +44,9 @@ class DonorAccountPolicy < ApplicationPolicy
       if user.has_role?(:admin, organization)
         scope.all
       else
-        scope.where(users: [user])
+        scope.joins(donations: { designation_account: { designation_profiles: { member: :user } } })
+             .where(users: { id: user.id })
+             .distinct
       end
     end
 

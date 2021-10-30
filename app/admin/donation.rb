@@ -3,8 +3,12 @@
 ActiveAdmin.register Donation do
   belongs_to :organization, finder: :find_by_slug!
   navigation_menu :organization
-  filter :designation_account, collection: -> { DesignationAccount.where(active: true) }
-  filter :donor_account
+  filter :designation_account,
+         collection: -> { policy_scope(current_organization.designation_accounts.where(active: true)) }
+  filter :donor_account,
+         collection: -> { policy_scope(current_organization.donor_accounts) }
+
+  filter :created_at
   permit_params :designation_account_id, :donor_account_id, :amount, :currency, :created_at
 
   index do

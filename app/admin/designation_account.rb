@@ -10,7 +10,6 @@ ActiveAdmin.register DesignationAccount do
   scope :all
 
   index do
-    selectable_column
     id_column
     column :name
     column :active
