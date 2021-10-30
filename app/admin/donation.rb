@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Donation do
-  controller do
-    # def scoped_collection
-    #   end_of_association_chain.joins(:designation_account).where(designation_accounts: { active: true })
-    # end
-  end
-
+  belongs_to :organization, finder: :find_by_slug!
+  navigation_menu :organization
   filter :designation_account, collection: -> { DesignationAccount.where(active: true) }
   filter :donor_account
 

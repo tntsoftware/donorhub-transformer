@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Member do
+  belongs_to :organization, finder: :find_by_slug!
+  navigation_menu :organization
   permit_params :name, :email
 
   index do

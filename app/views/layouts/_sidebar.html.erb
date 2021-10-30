@@ -13,14 +13,6 @@
             <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
           </a>
         </li>
-        <% if current_organization && current_user.has_role?(:admin, current_organization) %>
-          <li class="sidebar-header">
-            Administration
-          </li>
-          <li class='sidebar-item'>
-            <%= link_to 'Connect Xero', "/auth/xero_oauth2?origin=#{organization.slug}", class: 'sidebar-link', method: :post %>
-          </li>
-        <% end %>
       <% else %>
           <li class="sidebar-header">
             Workspaces

@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     redirect_to edit_admin_integration_path(integration)
   end
 
-  def indexable_controller?
-    true
+  def verify_authorized?
+    false
   end
 end

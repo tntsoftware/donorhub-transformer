@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register DesignationAccount do
+  belongs_to :organization, finder: :find_by_slug!
+  navigation_menu :organization
   actions :index, :show, :edit, :update
   permit_params :active
 

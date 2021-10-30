@@ -11,11 +11,16 @@
       <li><hr class="dropdown-divider"></li>
     <% end %>
     <li><%= link_to 'Add Workspace', new_organization_path, class: 'dropdown-item' %></li>
+    <% if current_organization && current_user.has_role?(:admin, current_organization) %>
+      <li>
+        <%= link_to 'Workspace Administration', admin_root_path(current_organization), class: 'dropdown-item' %>
+      </li>
+    <% end %>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <a class="nav-icon pe-md-0 dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <img src="<%= avatar_url_from_email(current_user.email) %>" class="avatar img-fluid rounded me-1" />
+    <img src="<%= avatar_url_from_email(current_user&.email) %>" class="avatar img-fluid rounded me-1" />
   </a>
   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
     <a class='dropdown-item' href="<%= edit_user_registration_path %>"><i class="align-middle  me-1" data-feather="user"></i> Settings</a>
