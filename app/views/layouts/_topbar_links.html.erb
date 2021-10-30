@@ -1,8 +1,8 @@
 <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="workspacesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <%= current_organization&.name || 'Workspaces' %>
+  <a class="nav-link dropdown-toggle" href="#" id="OrganizationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <%= current_organization&.name || 'Organizations' %>
   </a>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="workspacesDropdown">
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="OrganizationsDropdown">
     <% organizations = Pundit.policy_scope(current_user, Organization).order(:name) %>
     <% organizations.each do |organization | %>
     <li><%= link_to organization.name, organization_path(organization), class: "dropdown-item#{' active' if current_organization == organization}" %></li>
@@ -10,10 +10,10 @@
     <% if organizations.present? %>
       <li><hr class="dropdown-divider"></li>
     <% end %>
-    <li><%= link_to 'Add Workspace', new_organization_path, class: 'dropdown-item' %></li>
+    <li><%= link_to 'Add Organization', new_organization_path, class: 'dropdown-item' %></li>
     <% if current_organization && current_user.has_role?(:admin, current_organization) %>
       <li>
-        <%= link_to 'Workspace Administration', admin_root_path(current_organization), class: 'dropdown-item' %>
+        <%= link_to 'Organization Administration', admin_organization_path(current_organization), class: 'dropdown-item' %>
       </li>
     <% end %>
   </ul>

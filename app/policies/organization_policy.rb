@@ -2,7 +2,7 @@
 
 class OrganizationPolicy < ApplicationPolicy
   def index?
-    user.present?
+    true
   end
 
   def show?
@@ -10,7 +10,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def create?
-    user.present?
+    true
   end
 
   def new?

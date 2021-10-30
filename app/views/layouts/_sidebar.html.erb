@@ -15,11 +15,11 @@
         </li>
       <% else %>
           <li class="sidebar-header">
-            Workspaces
+            Organizations
           </li>
           <li class="sidebar-item<%= ' active' if current_page?(new_organization_path) %>">
             <a class="sidebar-link" href="<%= new_organization_path %>">
-              <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Add Workspace</span>
+              <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Add Organization</span>
             </a>
           </li>
       <% end %>
