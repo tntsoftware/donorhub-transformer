@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Organization do
-  actions :all, except: %i[new create destroy]
+  actions :all, except: %i[destroy]
+
+  permit_params :name, :abbreviation, :account_help_url, :request_profile_url, :help_url, :help_description,
+                :currency_code
 
   sidebar 'Resources', only: %i[show] do
     ul do
@@ -22,5 +25,15 @@ ActiveAdmin.register Organization do
     column :created_at
     column :updated_at
     actions
+  end
+
+  controller do
+    def create
+      create! do
+        current_user.add_role(:admin, resource)
+        current_user.add_role(:member, resource)
+        resource_path
+      end
+    end
   end
 end

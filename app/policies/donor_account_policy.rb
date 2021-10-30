@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-class IntegrationPolicy < ApplicationPolicy
+class DonorAccountPolicy < ApplicationPolicy
   def index?
-    user.has_role?(:admin, record.organization)
+    true
   end
 
   def show?
-    user.has_role?(:admin, record.organization)
+    user.has_role?(:admin, record.organization) || user.donor_accounts.include?(record)
   end
 
   def create?
-    false
+    user.has_role?(:admin, record.organization)
   end
 
   def new?
@@ -18,7 +18,7 @@ class IntegrationPolicy < ApplicationPolicy
   end
 
   def update?
-    false
+    user.has_role?(:admin, record.organization)
   end
 
   def edit?
@@ -41,7 +41,7 @@ class IntegrationPolicy < ApplicationPolicy
       if user.has_role?(:admin, organization)
         scope.all
       else
-        scope.none
+        scope.where(users: [user])
       end
     end
 

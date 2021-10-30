@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class IntegrationPolicy < ApplicationPolicy
+class MemberPolicy < ApplicationPolicy
   def index?
     user.has_role?(:admin, record.organization)
   end

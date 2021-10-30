@@ -32,6 +32,7 @@ ActiveAdmin.register Member do
   end
 
   action_item :send_email, only: :show do
-    link_to 'Send Email to Member', send_email_admin_member_path(member), method: :put
+    link_to 'Send Email to Member', send_email_admin_organization_member_path(current_organization, member),
+            method: :put
   end
 end

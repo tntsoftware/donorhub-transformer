@@ -38,8 +38,6 @@ class OrganizationPolicy < ApplicationPolicy
     end
 
     def resolve
-      return scope.none unless user
-
       scope.with_roles(%i[admin member], user).distinct
     end
   end

@@ -38,12 +38,10 @@ class DesignationProfilePolicy < ApplicationPolicy
     end
 
     def resolve
-      return scope.none unless user
-
       if user.has_role?(:admin, organization)
         scope.all
       else
-        scope.none
+        scope.where(users: [user])
       end
     end
 

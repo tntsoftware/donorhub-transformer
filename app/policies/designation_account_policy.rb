@@ -6,7 +6,7 @@ class DesignationAccountPolicy < ApplicationPolicy
   end
 
   def show?
-    user.has_role?(:admin, record.organization)
+    user.has_role?(:admin, record.organization) || user.designation_accounts.include?(record)
   end
 
   def create?
@@ -38,12 +38,10 @@ class DesignationAccountPolicy < ApplicationPolicy
     end
 
     def resolve
-      return scope.none unless user
-
       if user.has_role?(:admin, organization)
         scope.all
       else
-        scope.none
+        scope.where(users: [user])
       end
     end
 

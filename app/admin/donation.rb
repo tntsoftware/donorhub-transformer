@@ -5,6 +5,7 @@ ActiveAdmin.register Donation do
   navigation_menu :organization
   filter :designation_account, collection: -> { DesignationAccount.where(active: true) }
   filter :donor_account
+  permit_params :designation_account_id, :donor_account_id, :amount, :currency, :created_at
 
   index do
     id_column
@@ -13,5 +14,16 @@ ActiveAdmin.register Donation do
     column(:amount) { |donation| number_to_currency(donation.amount, unit: "#{donation.currency} ") }
     column :created_at
     actions
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :designation_account
+      f.input :donor_account
+      f.input :amount
+      f.input :currency
+      f.input :created_at, as: :datepicker
+    end
+    f.actions
   end
 end

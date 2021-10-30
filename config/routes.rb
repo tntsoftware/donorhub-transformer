@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, ActiveAdmin::Devise.config
   get 'auth/:provider/callback', to: 'sessions#create'
   ActiveAdmin.routes(self)
   resources :organizations, except: :index, path: 'o' do
@@ -16,5 +16,5 @@ Rails.application.routes.draw do
       end
     end
   end
-  root to: 'organizations#index'
+  root to: "admin/organizations#index"
 end
