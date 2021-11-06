@@ -17,14 +17,6 @@ ActiveAdmin.register Member do
   filter :email
   filter :created_at
 
-  form do |f|
-    f.inputs 'Member Details' do
-      f.input :name
-      f.input :email
-    end
-    f.actions
-  end
-
   member_action :send_email, method: :put do
     resource.send_inform_email
     redirect_to admin_member_path(resource), notice: 'Email sent successfully!'
@@ -33,5 +25,27 @@ ActiveAdmin.register Member do
   action_item :send_email, only: :show do
     link_to 'Send Email to Member', send_email_admin_organization_member_path(current_organization, member),
             method: :put
+  end
+
+  action_item :invite_member, only: :index do
+    link_to 'Invite Member', new_invitation_admin_organization_members_path(current_organization)
+  end
+
+  collection_action :new_invitation do
+    @user = User.new
+  end
+
+  collection_action :send_invitation, method: :post do
+    @user = User.find_by(email: params[:user][:email])
+    @user ||= User.invite!(params.require(:user).permit(:name, :email), current_user)
+    if @user.errors.empty?
+      @user.add_role(:member, current_organization)
+      flash[:notice] = 'User has been successfully invited.'
+      redirect_to admin_organization_members_path(current_organization)
+    else
+      messages = @user.errors.full_messages.map { |msg| msg }.join
+      flash[:error] = "Error: #{messages}"
+      redirect_to new_invitation_admin_organization_members_path(current_organization)
+    end
   end
 end

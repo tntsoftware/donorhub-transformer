@@ -8,9 +8,11 @@ gem 'rails'
 
 gem 'activeadmin'
 gem 'activerecord-multi-tenant'
+gem 'admin_invitable'
 gem 'bootsnap', require: false
 gem 'bootstrap_form', '~> 4.0'
 gem 'devise'
+gem 'devise_invitable'
 gem 'draper'
 gem 'friendly_id', '~> 5.4.0'
 gem 'omniauth'

@@ -11,13 +11,18 @@ class Member < ApplicationRecord
   validates :user_id, uniqueness: { scope: :organization_id }
   before_validation :create_access_token, on: :create
   after_commit :send_inform_email, on: :create
-  delegate :email, to: :user
+  delegate :email, :name, to: :user, allow_nil: true
+  after_destroy :remove_role
 
   def send_inform_email
     MemberMailer.inform(self).deliver_later
   end
 
   protected
+
+  def remove_role
+    user.remove_role(:member, organization)
+  end
 
   def create_access_token
     self.access_token ||= loop do

@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   rolify after_add: :after_add_role, after_remove: :after_remove_role
-  devise :database_authenticatable,
+  devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :registerable
   has_many :members, dependent: :destroy
   has_many :organizations, through: :members

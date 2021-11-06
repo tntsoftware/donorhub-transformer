@@ -3,14 +3,21 @@
 require 'rails_helper'
 
 RSpec.describe Member, type: :model do
-  subject(:member) { create(:member) }
+  subject(:member) do
+    user.add_role(:member, organization)
+    organization.members.find_by(user: user)
+  end
+
+  let(:user) { create(:user) }
+  let(:organization) { create(:organization) }
 
   it { is_expected.to have_many(:designation_profiles).dependent(:destroy) }
   it { is_expected.to have_many(:designation_accounts).through(:designation_profiles) }
   it { is_expected.to have_many(:donations).through(:designation_accounts) }
   it { is_expected.to have_many(:donor_accounts).through(:donations) }
   it { is_expected.to belong_to(:user) }
-  it { is_expected.to delegate_method(:email).to(:user) }
+  it { is_expected.to delegate_method(:email).to(:user).allow_nil }
+  it { is_expected.to delegate_method(:name).to(:user).allow_nil }
   it { is_expected.to validate_uniqueness_of(:access_token) }
   it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:organization_id).case_insensitive }
 
@@ -21,6 +28,13 @@ RSpec.describe Member, type: :model do
       allow(MemberMailer).to receive(:inform).and_call_original
       member.save
       expect(MemberMailer).to have_received(:inform).with(member)
+    end
+  end
+
+  describe '#remove_role' do
+    it 'removes role on destroy' do
+      member.destroy
+      expect(user.has_role?(:member, organization)).to be false
     end
   end
 

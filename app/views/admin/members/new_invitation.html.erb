@@ -1,0 +1,7 @@
+<%= semantic_form_for [:admin, @user], builder: ActiveAdmin::FormBuilder, url: send_invitation_admin_organization_members_path(current_organization) do |f| %>
+  <%= f.inputs do %>
+		<%= f.input :name %>
+		<%= f.input :email %>
+	<% end %>
+  <%= f.actions %>
+<% end %>
