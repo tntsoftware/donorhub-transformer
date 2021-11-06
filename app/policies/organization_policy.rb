@@ -6,7 +6,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def show?
-    user&.has_role?(:member, record) || user&.has_role?(:admin, record)
+    user.has_role?(:member, record) || user.has_role?(:admin, record)
   end
 
   def create?
@@ -26,7 +26,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user&.has_role?(:admin, record)
+    user.has_role?(:admin, record)
   end
 
   class Scope

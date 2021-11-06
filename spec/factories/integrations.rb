@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :integration do
-    payload { '' }
-    type { '' }
+    type { 'Integration::Xero' }
+    remote_id { SecureRandom.uuid }
   end
 end
