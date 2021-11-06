@@ -41,7 +41,7 @@ class MemberPolicy < ApplicationPolicy
       if user.has_role?(:admin, organization)
         scope.all
       else
-        scope.none
+        scope.where(user: user)
       end
     end
 

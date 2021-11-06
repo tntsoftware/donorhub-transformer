@@ -8,11 +8,22 @@ ActiveAdmin.register Organization do
 
   sidebar 'Resources', only: %i[show] do
     ul do
-      li link_to 'Designation Accounts', admin_organization_designation_accounts_path(resource)
-      li link_to 'Designation Profiles', admin_organization_designation_profiles_path(resource)
-      li link_to 'Donations', admin_organization_donations_path(resource)
-      li link_to 'Integrations', admin_organization_integrations_path(resource)
-      li link_to 'Members', admin_organization_members_path(resource)
+      if Pundit.policy(current_user, DesignationAccount.new).index?
+        li link_to 'Designation Accounts', admin_organization_designation_accounts_path(resource)
+      end
+      if Pundit.policy(current_user, DesignationProfile.new).index?
+        li link_to 'Designation Profiles', admin_organization_designation_profiles_path(resource)
+      end
+      if Pundit.policy(current_user, DonorAccount.new).index?
+        li link_to 'Donor Accounts', admin_organization_designation_profiles_path(resource)
+      end
+      if Pundit.policy(current_user, Donation.new).index?
+        li link_to 'Donations', admin_organization_donations_path(resource)
+      end
+      if Pundit.policy(current_user, Integration.new).index?
+        li link_to 'Integrations', admin_organization_integrations_path(resource)
+      end
+      li link_to 'Members', admin_organization_members_path(resource) if Pundit.policy(current_user, Member.new).index?
     end
   end
 

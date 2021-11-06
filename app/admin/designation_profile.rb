@@ -13,8 +13,12 @@ ActiveAdmin.register DesignationProfile do
     actions
   end
 
-  filter :designation_account
-  filter :member
+  filter :designation_account,
+         collection: lambda {
+                       Pundit.policy_scope(current_user, current_organization.designation_accounts.where(active: true))
+                     }
+  filter :member,
+         collection: -> { Pundit.policy_scope(current_user, current_organization.members) }
   filter :created_at
 
   form do |f|
