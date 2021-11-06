@@ -47,4 +47,19 @@ RSpec.describe Donation, type: :model do
       expect(CSV.parse(described_class.as_csv)).to match_array(data)
     end
   end
+
+  describe '#name' do
+    subject(:donation) do
+      create(
+        :donation,
+        amount: 50.5,
+        designation_account: create(:designation_account, name: 'designation_account_name'),
+        donor_account: create(:donor_account, name: 'donor_account_name')
+      )
+    end
+
+    it 'returns amount, donor account name and designation account name' do
+      expect(donation.name).to eq('50.50 from donor_account_name to designation_account_name')
+    end
+  end
 end

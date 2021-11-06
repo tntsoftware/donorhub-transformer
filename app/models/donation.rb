@@ -36,4 +36,9 @@ class Donation < ApplicationRecord
       end
     end
   end
+
+  def name
+    currency_amount = ActionController::Base.helpers.number_to_currency(amount, unit: '')
+    "#{currency_amount} from #{donor_account.name} to #{designation_account.name}"
+  end
 end
