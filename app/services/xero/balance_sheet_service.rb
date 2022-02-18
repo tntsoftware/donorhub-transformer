@@ -19,6 +19,9 @@ class Xero::BalanceSheetService < Xero::BaseService
 
   def balance_sheet
     @balance_sheet ||= client.BalanceSheet.get(date: Time.zone.now)
+  rescue Xeroizer::OAuth::TokenExpired
+    integration.refresh_access_token
+    retry
   rescue Xeroizer::OAuth::RateLimitExceeded
     sleep 60
     retry

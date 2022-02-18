@@ -13,7 +13,15 @@ class Xero::DonorAccountsService < Xero::BaseService
   private
 
   def contact_scope
-    all ? client.Contact.all : client.Contact.all(modified_since: modified_since)
+    return client.Contact.all if all
+
+    client.Contact.all(modified_since: modified_since)
+  rescue Xeroizer::OAuth::TokenExpired
+    integration.refresh_access_token
+    retry
+  rescue Xeroizer::OAuth::RateLimitExceeded
+    sleep 60
+    retry
   end
 
   def donor_account_attributes(contact, attributes = {})

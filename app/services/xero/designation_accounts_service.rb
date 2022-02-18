@@ -15,7 +15,15 @@ class Xero::DesignationAccountsService < Xero::BaseService
   private
 
   def tracking_category_scope
-    all ? client.TrackingCategory.all : client.TrackingCategory.all(modified_since: modified_since)
+    return client.TrackingCategory.all if all
+
+    client.TrackingCategory.all(modified_since: modified_since)
+  rescue Xeroizer::OAuth::TokenExpired
+    integration.refresh_access_token
+    retry
+  rescue Xeroizer::OAuth::RateLimitExceeded
+    sleep 60
+    retry
   end
 
   def designation_account_attributes(tracking_category, tracking_option, attributes = {})

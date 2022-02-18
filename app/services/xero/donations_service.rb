@@ -36,13 +36,16 @@ class Xero::DonationsService < Xero::BaseService
   end
 
   def bank_transactions(page)
-    if all
-      client.BankTransaction.all(where: 'Type=="RECEIVE" and Status=="AUTHORISED"', page: page)
-    else
-      client.BankTransaction.all(
-        modified_since: modified_since, where: 'Type=="RECEIVE" and Status=="AUTHORISED"', page: page
-      )
-    end
+    return client.BankTransaction.all(where: 'Type=="RECEIVE" and Status=="AUTHORISED"', page: page) if all
+    client.BankTransaction.all(
+      modified_since: modified_since, where: 'Type=="RECEIVE" and Status=="AUTHORISED"', page: page
+    )
+  rescue Xeroizer::OAuth::TokenExpired
+    integration.refresh_access_token
+    retry
+  rescue Xeroizer::OAuth::RateLimitExceeded
+    sleep 60
+    retry
   end
 
   def donation_attributes(tracking, line_item, bank_transaction, _attributes = {})

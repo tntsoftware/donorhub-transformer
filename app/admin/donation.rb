@@ -5,7 +5,7 @@ ActiveAdmin.register Donation do
   navigation_menu :organization
   filter :designation_account,
          collection: lambda {
-                       Pundit.policy_scope(current_user, current_organization.designation_accounts.where(active: true))
+                       Pundit.policy_scope(current_user, current_organization.designation_accounts)
                      }
   filter :donor_account,
          collection: -> { Pundit.policy_scope(current_user, current_organization.donor_accounts) }

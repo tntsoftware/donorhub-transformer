@@ -3,7 +3,7 @@
 class Xero::BaseService
   attr_accessor :integration, :modified_since, :all
 
-  def self.load(integration, modified_since = Time.zone.now.beginning_of_month - 2.months, all:)
+  def self.load(integration, modified_since, all:)
     service = new
     service.integration = integration
     service.modified_since = modified_since
