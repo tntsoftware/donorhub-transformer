@@ -6,7 +6,7 @@ class DesignationProfile < ApplicationRecord
   belongs_to :member
   has_many :donor_accounts, through: :designation_account
   has_many :donations, through: :designation_account
-  validates :designation_account_id, uniqueness: { scope: :member_id }
+  validates :designation_account_id, uniqueness: {scope: :member_id}
   HEADERS = %w[
     PROFILE_CODE
     PROFILE_DESCRIPTION
@@ -25,7 +25,7 @@ class DesignationProfile < ApplicationRecord
     CSV.generate do |csv|
       csv << HEADERS
       find_each do |designation_profile|
-        csv << [designation_profile.id, designation_profile.name, '']
+        csv << [designation_profile.id, designation_profile.name, ""]
       end
     end
   end
@@ -36,7 +36,7 @@ class DesignationProfile < ApplicationRecord
       find_each do |designation_profile|
         csv << [
           designation_profile.designation_account.id, designation_profile.designation_account.name,
-          designation_profile.designation_account.balance, designation_profile.id, designation_profile.name, ''
+          designation_profile.designation_account.balance, designation_profile.id, designation_profile.name, ""
         ]
       end
     end

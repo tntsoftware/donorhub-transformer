@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   multi_tenant :organization
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, request_keys: [:subdomain]
+    :recoverable, :rememberable, :trackable, :validatable, request_keys: [:subdomain]
 
   def self.find_for_authentication(warden_conditions)
     where(

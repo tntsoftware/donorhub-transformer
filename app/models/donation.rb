@@ -29,9 +29,9 @@ class Donation < ApplicationRecord
       csv << HEADERS
       find_each do |donation|
         csv << [
-          donation.donor_account_id, donation.donor_account.name, donation.created_at.strftime('%m/%d/%Y'),
-          donation.amount, donation.id, donation.designation_account_id, '', '', '', donation.amount, donation.currency,
-          ''
+          donation.donor_account_id, donation.donor_account.name, donation.created_at.strftime("%m/%d/%Y"),
+          donation.amount, donation.id, donation.designation_account_id, "", "", "", donation.amount, donation.currency,
+          ""
         ]
       end
     end
