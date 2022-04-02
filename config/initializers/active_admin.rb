@@ -6,7 +6,7 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = 'Donation Core'
+  config.site_title = "Donation Core"
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -69,7 +69,7 @@ ActiveAdmin.setup do |config|
   # In case you prefer Pundit over other solutions you can here pass
   # the name of default policy class. This policy will be used in every
   # case when Pundit is unable to find suitable policy.
-  config.pundit_default_policy = 'ApplicationPolicy'
+  config.pundit_default_policy = "ApplicationPolicy"
 
   # You can customize your CanCan Ability class name here.
   # config.cancan_ability_class = "Ability"

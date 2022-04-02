@@ -10,14 +10,15 @@ class Xero::BaseService
     service.load
   end
 
-  def load; end
+  def load
+  end
 
   def client
     @client ||= Xeroizer::PrivateApplication.new(
-      ENV['XERO_OAUTH_CONSUMER_KEY'],
-      ENV['XERO_OAUTH_CONSUMER_SECRET'],
+      ENV["XERO_OAUTH_CONSUMER_KEY"],
+      ENV["XERO_OAUTH_CONSUMER_SECRET"],
       nil,
-      private_key: ENV['XERO_PRIVATE_KEY']
+      private_key: ENV["XERO_PRIVATE_KEY"]
     )
   end
 end

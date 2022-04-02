@@ -17,7 +17,7 @@ class Xero::DonationsService < Xero::BaseService
     if all
       Donation.where.not(id: donation_ids).delete_all
     else
-      Donation.where('updated_at >= ?', modified_since).where.not(id: donation_ids).delete_all
+      Donation.where("updated_at >= ?", modified_since).where.not(id: donation_ids).delete_all
     end
   end
 

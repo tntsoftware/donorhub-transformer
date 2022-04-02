@@ -17,7 +17,7 @@ class DesignationAccount < ApplicationRecord
     CSV.generate do |csv|
       csv << HEADERS
       find_each do |designation_account|
-        csv << [designation_account.id, designation_account.name, '']
+        csv << [designation_account.id, designation_account.name, ""]
       end
     end
   end
